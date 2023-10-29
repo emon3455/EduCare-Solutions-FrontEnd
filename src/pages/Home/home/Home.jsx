@@ -1,15 +1,13 @@
-import Banner from "../banner/Banner";
-import Contact from "./Contact";
-import Information from "./Information";
-import PopularCourse from "./PopularCourse";
 
+// import Contact from "./Contact";
+import Banner from "../banner/Banner";
+import Information from "./Information";
 const Home = () => {
     return (
         <div>
             <Banner/>
             <Information/>
-            <PopularCourse/>
-            <Contact/>
+            {/* <Contact/> */}
         </div>
     );
 };

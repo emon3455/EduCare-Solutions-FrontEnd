@@ -1,21 +1,22 @@
 
 const Banner = () => {
     return (
-        <div className="bg-primary">
-            <div className="px-5 md:px-48  flex flex-col-reverse md:flex-row md:gap-48 justify-center text-white py-4 md:py-24">
-                <div>
-                    <h2 className="text-2xl lg:text-5xl py-1 md:py-2">Best EDUCATIONAL Consultation<br/> CENTER FROM BANGLADESH</h2>
-                    <p className="mt-3 text-md">
-                        Lorem Ipsum is simply dummy text they are printing typesetting <br /> has been the industry standard.
-                    </p>
-                    <button className="text-sm font-bold px-7 py-4 rounded-xl bg-secondary text-white my-3">All Service</button>
-                </div>
-                <div className="flex justify-center items-center">
-                    <img className="w-[100%] " src="https://i.ibb.co/3173Vgy/image-1.png" />
+        <section className="bg-primary p-2 lg:p-6 text-white">
+            <div className="container mx-auto">
+                <div className="flex flex-col-reverse lg:flex-row lg:justify-between items-center lg:gap-x-20">
+                    <div className="w-full lg:w-1/2">
+                        <h2 className="text-2xl lg:text-5xl text-justify font-semibold ">Edu-Care Solution, Your Best Learning Partner. Our Service your solution</h2>
+                        <p className="my-3 text-sm">
+                            Innovative Educational Solutions Tailored for Success. Transformative Learning Experiences That Inspire. Partnering for Academic Excellence and Personal Growth. Your Bridge to a Brighter Tomorrow. Unlocking Potential, One Student at a Time.
+                        </p>
+                        <button className="btn-primary">All Service</button>
+                    </div>
+                    <div className="w-full lg:w-1/2">
+                        <img className="w-full rounded" src="https://i.ibb.co/3173Vgy/image-1.png" />
+                    </div>
                 </div>
             </div>
-
-        </div>
+        </section>
     );
 };
 
