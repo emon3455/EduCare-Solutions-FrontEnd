@@ -4,7 +4,7 @@ import { SlCallOut } from 'react-icons/Sl';
 
 const Information = () => {
     return (
-        <div className="container mx-auto flex justify-between gap-8 text-white">
+        <div className="container mx-auto flex flex-col lg:flex-row lg:justify-between gap-8 text-white my-10">
             <div className='bg-[#811A64] flex gap-5 w-[364px] h-[202px] p-12 rounded-xl'>
                 <FaRegClock className='text-5xl' />
                 <div>

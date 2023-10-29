@@ -1,20 +1,21 @@
+import Banner from "../pages/Home/banner/Banner";
 import Footer from "../shared/Footer";
 import NavBar from "../shared/NavBar";
 import { Outlet } from "react-router-dom";
 
 const Main = () => {
     return (
-        <div className="main-container">
+        <main className="">
 
             <NavBar />
-
-            <div className="">
+            <Banner/>
+            <section className="container mx-auto">
                 <Outlet />
-            </div>
+            </section>
 
             <Footer />
 
-        </div>
+        </main>
     );
 };
 

@@ -1,22 +1,22 @@
 
 const Banner = () => {
     return (
-        <div className="">
-            <div className="mt-20 flex justify-between gap-44">
-                <div>
-                    <h2 className="text-5xl text-justify py-2">Best EDUCATIONAL</h2>
-                    <h2 className="text-5xl text-justify py-2">Consultation CENTER </h2>
-                    <h2 className="text-5xl text-justify py-2">FROM BANGLADESH</h2>
-                    <p className="mt-3 text-sm">
-                        Lorem Ipsum is simply dummy text they are printing typesetting <br /> has been the industry standard.
-                    </p>
-                </div>
-                <div>
-                    <img className="w-[500px] " src="https://i.ibb.co/3173Vgy/image-1.png"/>
+        <section className="bg-primary p-2 lg:p-6 text-white">
+            <div className="container mx-auto">
+                <div className="flex flex-col-reverse lg:flex-row lg:justify-between items-center lg:gap-x-20">
+                    <div className="w-full lg:w-1/2">
+                        <h2 className="text-2xl lg:text-5xl text-justify font-semibold ">Edu-Care Solution, Your Best Learning Partner. Our Service your solution</h2>
+                        <p className="my-3 text-sm">
+                            Innovative Educational Solutions Tailored for Success. Transformative Learning Experiences That Inspire. Partnering for Academic Excellence and Personal Growth. Your Bridge to a Brighter Tomorrow. Unlocking Potential, One Student at a Time.
+                        </p>
+                        <button className="btn-primary">All Service</button>
+                    </div>
+                    <div className="w-full lg:w-1/2">
+                        <img className="w-full rounded" src="https://i.ibb.co/3173Vgy/image-1.png" />
+                    </div>
                 </div>
             </div>
-            <button className="btn btn-sm">All Service</button>
-        </div>
+        </section>
     );
 };
 
