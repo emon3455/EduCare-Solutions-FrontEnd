@@ -15,7 +15,7 @@ const Information = () => {
             <div className='bg-[#F1946D] flex gap-5 w-full lg:w-[364px] h-full lg:h-[202px] p-12 rounded-xl'>
                 <SlLocationPin className='text-5xl' />
                 <div>
-                    <h3 className='text-2xl font-bold'>Our Locations</h3>
+                    <h3 className='text-2xl font-bold'>Our Locations </h3>
                     <p className='text-md mt-4'>24/7 We Can Provide service To All Over The World</p>
                 </div>
             </div>
