@@ -1,5 +1,6 @@
 
 import { Link } from "react-router-dom";
+import CContainer from "../components/CContainer";
 
 const Navbar = () => {
 
@@ -14,7 +15,7 @@ const Navbar = () => {
 
     return (
         <header className="bg-primary text-white border-b border-b-gray-400">
-            <navbar className="navbar container mx-auto">
+            <CContainer className="navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -31,7 +32,7 @@ const Navbar = () => {
                         {navMenu}
                     </ul>
                 </div>
-            </navbar>
+            </CContainer>
         </header>
     );
 };
