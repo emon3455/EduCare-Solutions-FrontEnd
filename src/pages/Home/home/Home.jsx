@@ -1,3 +1,4 @@
+import Banner from "../banner/Banner";
 import Contact from "./Contact";
 import Information from "./Information";
 import PopularCourse from "./PopularCourse";
@@ -5,10 +6,10 @@ import PopularCourse from "./PopularCourse";
 const Home = () => {
     return (
         <div>
+            <Banner/>
             <Information/>
             <PopularCourse/>
             <Contact/>
-            home page
         </div>
     );
 };

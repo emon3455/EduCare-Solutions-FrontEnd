@@ -1,20 +1,37 @@
-import { Link } from "react-router-dom"
 
-const NavBar = () => {
+import { Link } from "react-router-dom";
+
+const Navbar = () => {
+
+
+    const navMenu = <>
+        <li><Link className="hover:text-secondary" to="/">Home</Link></li>
+        <li><Link className="hover:text-secondary" to="/courses">Courses</Link></li>
+        <li><Link className="hover:text-secondary" to="/blogs">Blogs</Link></li>
+        <li><Link className="hover:text-secondary" to="/sessions">Sessions</Link></li>
+        <li><Link className="hover:text-secondary" to="/login">Login</Link></li>
+    </>
+
     return (
-        <div className="text-white flex justify-between">
-            <div>
-                <h3 className="text-2xl font-bold"><span className="text-[#F7A582]">Edu-Care</span> Solutions</h3>
+        <div className="navbar bg-primary text-white">
+            <div className="navbar-start">
+                <div className="dropdown">
+                    <label tabIndex={0} className="btn btn-ghost lg:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                    </label>
+                    <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-primary rounded-box w-52 ">
+                        {navMenu}
+                    </ul>
+                </div>
+                <Link to="/" className="btn btn-ghost normal-case text-xl"> <span className="text-secondary">Edu-Care</span> Solutions</Link>
             </div>
-            <div className="flex font-medium gap-8">
-                <Link to="/">Home</Link>
-                <Link to="/courses">Courses</Link>
-                <Link to="/blogs">Blogs</Link>
-                <Link to="/sessions">Sessions</Link>
-                <Link to="/login">Login</Link>
+            <div className="navbar-end hidden lg:flex">
+                <ul className="menu menu-horizontal px-1">
+                    {navMenu}
+                </ul>
             </div>
         </div>
     );
 };
 
-export default NavBar;
+export default Navbar;
