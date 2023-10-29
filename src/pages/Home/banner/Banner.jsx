@@ -2,9 +2,9 @@
 const Banner = () => {
     return (
         <div className="bg-primary">
-            <div className="px-5 md:px-48  flex flex-col-reverse md:flex-row md:gap-10 justify-center text-white py-4 md:py-24">
+            <div className="px-5 md:px-48  flex flex-col-reverse md:flex-row md:gap-48 justify-center text-white py-4 md:py-24">
                 <div>
-                    <h2 className="text-2xl lg:text-5xl py-1 md:py-2">Best EDUCATIONAL Consultation CENTER FROM BANGLADESH</h2>
+                    <h2 className="text-2xl lg:text-5xl py-1 md:py-2">Best EDUCATIONAL Consultation<br/> CENTER FROM BANGLADESH</h2>
                     <p className="mt-3 text-md">
                         Lorem Ipsum is simply dummy text they are printing typesetting <br /> has been the industry standard.
                     </p>
