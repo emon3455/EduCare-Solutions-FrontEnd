@@ -1,4 +1,4 @@
-import CContainer from "../../../components/CContainer";
+import CContainer from "../../../components/customComponent/CContainer";
 import ComponentTitle from "../../../shared/ComponentTitle";
 
 const PopularCourse = () => {

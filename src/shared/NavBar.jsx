@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import CContainer from "../components/CContainer";
+import CContainer from "../components/customComponent/CContainer";
 
 const Navbar = () => {
 

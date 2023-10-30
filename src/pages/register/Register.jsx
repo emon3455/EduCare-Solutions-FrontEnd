@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { FaEyeSlash, FaHome, FaTimes } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { genders } from "../../constant/genders";
-import CSelect from "../../components/CSelect";
+import CSelect from "../../components/customComponent/CSelect";
 import { roles } from "../../constant/role";
-import CFileInput from "../../components/CFileInput";
+import CFileInput from "../../components/customComponent/CFileInput";
 import { skills } from "../../constant/skills";
-import CTextArea from "../../components/CTextArea";
+import CTextArea from "../../components/customComponent/CTextArea";
 
 const Register = () => {
 
