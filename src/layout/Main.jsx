@@ -1,17 +1,24 @@
-
 import Footer from "../shared/Footer";
 import NavBar from "../shared/NavBar";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 
 const Main = () => {
+
+    const arr = [
+        "/login",
+        "/register",
+        "/admin",
+    ];
+    const location = useLocation();
+    const { pathname } = location;
     return (
         <main className="">
 
-            <NavBar />
+            {arr.includes(pathname) ? null : <NavBar />}
 
             <Outlet />
 
-            <Footer />
+            {arr.includes(pathname) ? null : <Footer />}
 
         </main>
     );

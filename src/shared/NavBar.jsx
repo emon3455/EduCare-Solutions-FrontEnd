@@ -14,7 +14,7 @@ const Navbar = () => {
     </>
 
     return (
-        <header className="bg-primary text-white border-b border-b-gray-400">
+        <header className="bg-primary text-white">
             <CContainer className="navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
