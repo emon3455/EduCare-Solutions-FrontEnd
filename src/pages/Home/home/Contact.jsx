@@ -3,7 +3,7 @@ import { SlCallOut } from 'react-icons/Sl';
 
 const Contact = () => {
     return (
-        <div className="bg-[#07332F] text-white p-3 lg:p-48 flex flex-col lg:flex-row gap-5 rounded-xl mt-12">
+        <div className="bg-[#07332F] text-white p-3 lg:p-48 flex flex-col lg:flex-row gap-5 mt-12">
             <div className='w-full lg:w-[45%]'>
                 <h2 className='text-5xl font-bold'>Contact With Us</h2>
                 <p className='my-10'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inve ntore veritatis et quasi.</p>
