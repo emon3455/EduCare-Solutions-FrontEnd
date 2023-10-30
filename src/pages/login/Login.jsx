@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import { useState } from "react";
 import login from "../../../public/login.jpg"
 import { useForm } from "react-hook-form";
@@ -66,7 +65,7 @@ const Login = () => {
                                 {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
                                 {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
                                 {errors.password?.type === 'pattern' && (
-                                    <span className="text-red-600 text-sm">Password must have one Uppercase, one lowercase, one number, and one special character.</span>
+                                    <span className="text-red-600 text-xs">Password must contain Uppercase, lowercase, number and special character.</span>
                                 )}
                             </div>
 
@@ -76,7 +75,7 @@ const Login = () => {
 
                         </form>
                         <p className="text-center my-2 text-sm">
-                            Don't Have an Account ? <Link to="/register" className="text-secondary">Register</Link>
+                            Don&apos;t Have an Account ? <Link to="/register" className="text-secondary">Register</Link>
                         </p>
                     </div>
                 </div>

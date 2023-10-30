@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 .btn-primary{
-    @apply rounded bg-secondary text-white border-none px-2 py-1 hover:bg-[#f59369] transition-all duration-500
+    @apply rounded cursor-pointer bg-secondary text-white border-none px-2 py-1 hover:bg-[#f59369] transition-all duration-500
 }
