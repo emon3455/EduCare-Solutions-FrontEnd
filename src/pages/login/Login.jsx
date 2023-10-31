@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 
 import { useContext, useState } from "react";
-import login from "../../../public/login.jpg"
 import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import CInput from "../../components/customComponent/CInput";
@@ -63,7 +62,7 @@ const Login = () => {
 
                 <div className="hidden lg:flex bg-primary min-h-screen w-full lg:w-1/2  justify-center items-center relative">
                     <div className="w-full lg:w-3/5">
-                        <img src={login} alt="login image" className="w-full rounded" />
+                        <img src="https://i.ibb.co/NY52zhV/login.jpg" alt="login image" className="w-full rounded" />
                     </div>
                 </div>
 
