@@ -1,16 +1,39 @@
 
 import { Link } from "react-router-dom";
 import CContainer from "../components/customComponent/CContainer";
+import { AuthContext } from "../providers/AuthProvider";
+import { useContext } from "react";
+import Swal from "sweetalert2";
 
 const Navbar = () => {
 
+    const { user, logOut } = useContext(AuthContext);
+
+    const handleLogout = () => {
+        logOut()
+            .then(() => {
+                Swal.fire(
+                    'Successfully Loged out!',
+                    'Success!',
+                    'success'
+                )
+            })
+            .catch(er => console.log(er))
+    }
 
     const navMenu = <>
         <li><Link className="hover:text-secondary" to="/">Home</Link></li>
         <li><Link className="hover:text-secondary" to="/courses">Courses</Link></li>
         <li><Link className="hover:text-secondary" to="/blogs">Blogs</Link></li>
         <li><Link className="hover:text-secondary" to="/sessions">Sessions</Link></li>
-        <li><Link className="hover:text-secondary" to="/login">Login</Link></li>
+        {
+            user
+                ?
+                <li><button onClick={handleLogout} className="btn-primary my-auto">Logout</button></li>
+                :
+                <li><Link className="hover:text-secondary" to="/login">Login</Link></li>
+
+        }
     </>
 
     return (
@@ -31,6 +54,15 @@ const Navbar = () => {
                     <ul className="menu menu-horizontal px-1">
                         {navMenu}
                     </ul>
+                    {
+                        user
+                        &&
+                        <label className="btn btn-ghost btn-circle avatar btn-sm md:btn-md">
+                            <div className=" w-6 md:w-10 rounded-full">
+                                <img src={user && user?.photoURL} />
+                            </div>
+                        </label>
+                    }
                 </div>
             </CContainer>
         </header>
