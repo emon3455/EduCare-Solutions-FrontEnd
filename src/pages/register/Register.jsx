@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useContext, useState } from "react";
-import register from " /src/register.jpg"
 import { FaEye, FaEyeSlash, FaHome, FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { genders } from "../../constant/genders";
@@ -168,7 +167,7 @@ const Register = () => {
 
                 <div className="hidden lg:flex bg-primary min-h-screen w-full lg:w-1/3  justify-center items-center relative">
                     <div className="w-full lg:w-3/5">
-                        <img src={register} alt="login image" className="w-full rounded" />
+                        <img src="https://i.ibb.co/wRrNZSw/register.jpg" alt="login image" className="w-full rounded" />
                     </div>
                 </div>
 
