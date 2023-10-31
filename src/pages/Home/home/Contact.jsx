@@ -1,9 +1,10 @@
 import { SlLocationPin } from 'react-icons/Sl';
 import { SlCallOut } from 'react-icons/Sl';
+import CContainer from '../../../components/CContainer';
 
 const Contact = () => {
     return (
-        <div className="bg-primary text-white p-3 lg:p-48 flex flex-col lg:flex-row gap-5 mt-12">
+        <CContainer className="bg-primary text-white p-3 lg:p-48 flex flex-col lg:flex-row gap-5 mt-12 rounded-xl">
             <div className='w-full lg:w-[45%]'>
                 <h2 className='text-5xl font-bold'>Contact With Us</h2>
                 <p className='my-10'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inve ntore veritatis et quasi.</p>
@@ -20,10 +21,10 @@ const Contact = () => {
                     </div>
 
                     <textarea placeholder='Your message' className='w-full h-[150px] mt-6 p-5 bg-[#FFFFFF0D] text-white rounded-xl' />
-                    <button type='submit' className='w-full h-full mt-6 p-5 bg-[#F7A582] text-white rounded-xl'>Send</button>
+                    <button type='submit' className='w-full h-full mt-6 p-5 bg-[#F7A582] text-white rounded-xl font-bold'>Send</button>
                 </form>
             </div>
-        </div>
+        </CContainer>
     );
 };
 
