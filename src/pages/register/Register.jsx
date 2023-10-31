@@ -1,8 +1,8 @@
-import { useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useContext, useState } from "react";
 import registers from "../../../public/register.jpg"
-// import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaHome, FaTimes } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { genders } from "../../constant/genders";
 import CSelect from "../../components/customComponent/CSelect";
 import { roles } from "../../constant/role";
@@ -10,10 +10,14 @@ import CFileInput from "../../components/customComponent/CFileInput";
 import { skills } from "../../constant/skills";
 import CTextArea from "../../components/customComponent/CTextArea";
 import CInput from "../../components/customComponent/CInput";
+import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
+import { updateProfile } from "firebase/auth";
 const imageHostingToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
 const Register = () => {
 
+    const [isLoading, setIsLoading] = useState(false)
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -42,15 +46,13 @@ const Register = () => {
         address: "",
     })
 
+    const { createUser, logOut } = useContext(AuthContext);
+    const navigate = useNavigate();
+
     const [previewImage, setPreviewImage] = useState(null);
     const [hide, setHide] = useState(true);
     const imageHostingURL = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
 
-    // const { register, handleSubmit, formState: { errors } } = useForm();
-
-    // const onSubmit = data => {
-    //     console.log(data);
-    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -69,10 +71,72 @@ const Register = () => {
                 if (imgResponse.success) {
 
                     const imgURL = imgResponse.data.display_url;
-                    alert("USER ADDED SUCCESSFULLY",imgURL)
-                    console.log(imgURL);
+                    
+                    createUser(data.email, data.password)
+                        .then(res => {
+                            const createdUser = res.user;
+                            if (createdUser) {
 
+                                updateProfile(createdUser, {
+                                    displayName: data.name, photoURL: imgURL
+                                }).then(() => {
 
+                                    // we have to store this user information into DB
+                                    const savedUser = { 
+                                        name: data.name,
+                                        email: data.email,
+                                        role: data.role, 
+                                        image: imgURL,
+                                        number: data.number,
+                                        password: data.password,
+                                        gender: data.gender,
+                                        roles: data.role,
+                                        interst: data.interst,
+                                        skills: data.skills,
+                                        educationalQualifications: data.educationalQualifications,
+                                        address: data.address,
+                                    }
+                                    console.log(savedUser);
+
+                                    Swal.fire(
+                                        'User created Successfully!',
+                                        'Success!',
+                                        'success'
+                                    )
+                                    logOut()
+                                    .then(() => {
+                                        navigate("/login", { replace: true });
+                                    })
+                                    .catch(er => console.log(er))
+                                    e.target.reset();
+                            
+                                }).catch((error) => {
+                                    console.log(error.message);
+                                    return;
+                                });
+
+                            }
+                            else {
+                                return;
+                            }
+                        })
+                        .catch(er => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!',
+                            })
+                            return;
+                        })
+
+                }
+                else{
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Image Not Uploaded...!',
+                    })
+                    return;
                 }
             })
             .catch(er => console.log(er.message))
@@ -139,10 +203,6 @@ const Register = () => {
 
                             <section className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-2">
 
-                                {/* <div className="form-control ">
-                                    <input type="text" placeholder="Name*" name="name" {...register("name", { required: true })} className="input input-bordered rounded" />
-                                    {errors.name && <span className="text-red-600 text-xs">Name is required</span>}
-                                </div> */}
                                 <div className="">
                                     <CInput
                                         onChange={(e) => {
@@ -161,15 +221,6 @@ const Register = () => {
                                     />
                                 </div>
 
-                                {/* <div className="form-control">
-                                    <input
-                                        type="email"
-                                        placeholder="Email*"
-                                        {...register('email', { required: true })}
-                                        className="input input-bordered rounded w-full"
-                                    />
-                                    {errors.email && <span className="text-red-600 text-xs">Email is required</span>}
-                                </div> */}
                                 <div className="">
                                     <CInput
                                         onChange={(e) => {
@@ -188,15 +239,6 @@ const Register = () => {
                                     />
                                 </div>
 
-                                {/* <div className="form-control">
-                                    <input
-                                        type="number"
-                                        placeholder="Number*"
-                                        {...register('number', { required: true })}
-                                        className="input input-bordered rounded w-full"
-                                    />
-                                    {errors.number && <span className="text-red-600 text-xs">Number is required</span>}
-                                </div> */}
                                 <div className="">
                                     <CInput
                                         onChange={(e) => {
@@ -215,34 +257,7 @@ const Register = () => {
                                     />
                                 </div>
 
-                                {/* <div className="form-control">
 
-                                    <div className="relative">
-                                        <input
-                                            type={`${hide ? 'password' : 'text'}`}
-                                            {...register('password', {
-                                                required: true,
-                                                minLength: 6,
-                                                maxLength: 20,
-                                                pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
-                                            })}
-                                            placeholder="Password*"
-                                            className="input input-bordered rounded w-full"
-                                        />
-                                        <span
-                                            onClick={() => setHide(!hide)}
-                                            className="btn btn-ghost border border-l-0 border-collapse absolute right-0"
-                                        >
-                                            <FaEyeSlash />
-                                        </span>
-                                    </div>
-                                    {errors.password?.type === 'required' && <p className="text-red-600 text-xs">Password is required</p>}
-                                    {errors.password?.type === 'minLength' && <p className="text-red-600 text-xs">Password must be 6 characters</p>}
-                                    {errors.password?.type === 'maxLength' && <p className="text-red-600 text-xs">Password must be less than 20 characters</p>}
-                                    {errors.password?.type === 'pattern' && (
-                                        <span className="text-red-600 text-xs">Password must contain Uppercase, lowercase, number and special character.</span>
-                                    )}
-                                </div> */}
                                 <div className="">
                                     <CInput
                                         onChange={(e) => {
@@ -393,18 +408,6 @@ const Register = () => {
 
                             </section>
 
-                            {/* <div className="">
-                                <CInput
-                                    onChange={(e) => {
-                                        setData({ ...data, designation: e.target.value });
-                                    }}
-                                    id="designation"
-                                    type="text"
-                                    label="Designation*"
-                                    placeholder="Designation*"
-                                    className="normal-input"
-                                />
-                            </div> */}
 
                             <div className="">
                                 <input type="submit" value="Register" className="btn-primary" />

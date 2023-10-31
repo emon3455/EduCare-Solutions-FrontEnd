@@ -1,6 +1,5 @@
 import { useState } from "react";
 import login from "../../../public/login.jpg"
-// import { useForm } from "react-hook-form";
 import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import CInput from "../../components/customComponent/CInput";
@@ -16,12 +15,6 @@ const Login = () => {
         email: "",
         password: ""
     })
-
-    // const { register, handleSubmit, formState: { errors } } = useForm();
-
-    // const onSubmit = data => {
-    //     console.log(data);
-    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -46,13 +39,7 @@ const Login = () => {
                         <form onSubmit={handleSubmit} className="card-body ">
                             <h2 className="text-xl lg:text-xl font-bold text-center">Welcome To <span className="text-secondary">Edu-Care</span> Solution</h2>
 
-                            {/* <div className="form-control ">
-                                <label className="label">
-                                    <span className="label-text">Email</span>
-                                </label>
-                                <input type="email" placeholder="email" name="email" {...register("email", { required: true })} className="input input-bordered  rounded" />
-                                {errors.email && <span className="text-red-600 ">email is required</span>}
-                            </div> */}
+                        
                             <div className="">
                                 <CInput
                                     onChange={(e) => {
