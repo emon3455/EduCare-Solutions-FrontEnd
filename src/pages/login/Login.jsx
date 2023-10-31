@@ -1,12 +1,22 @@
-import { useState } from "react";
+/* eslint-disable no-unused-vars */
+
+import { useContext, useState } from "react";
 import login from "../../../public/login.jpg"
 import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import CInput from "../../components/customComponent/CInput";
+import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Login = () => {
 
     const [hide, setHide] = useState(true);
+    const { signInUser } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -19,6 +29,29 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(data);
+        signInUser(data.email, data.password)
+            .then(res => {
+                const logedUser = res.user;
+                if (logedUser) {
+                    Swal.fire(
+                        'Successfully Loged In!',
+                        'Success!',
+                        'success'
+                    )
+                    e.target.reset();
+                    navigate(from, { replace: true });
+                }
+                else {
+                    return;
+                }
+            })
+            .catch(er => {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Something went wrong!',
+                })
+            })
     }
 
     return (
@@ -39,7 +72,7 @@ const Login = () => {
                         <form onSubmit={handleSubmit} className="card-body ">
                             <h2 className="text-xl lg:text-xl font-bold text-center">Welcome To <span className="text-secondary">Edu-Care</span> Solution</h2>
 
-                        
+
                             <div className="">
                                 <CInput
                                     onChange={(e) => {
