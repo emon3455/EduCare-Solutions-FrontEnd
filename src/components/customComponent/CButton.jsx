@@ -54,7 +54,7 @@ const CButton = ({
             ${
               variant === "text"
                 ? `bg-transparent ${
-                    color ? color : "text-secondary"
+                    color ? color : "text-primary"
                   } `
                 : ""
             }
