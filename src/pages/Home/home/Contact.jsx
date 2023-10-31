@@ -1,6 +1,6 @@
 import { SlLocationPin } from 'react-icons/Sl';
 import { SlCallOut } from 'react-icons/Sl';
-import CContainer from '../../../components/CContainer';
+import CContainer from '../../../components/customComponent/CContainer';
 
 const Contact = () => {
     return (
