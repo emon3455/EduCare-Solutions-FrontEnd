@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 import { useContext, useState } from "react";
-import login from "../../../public/login.jpg"
+import login from "../../../src/login.jpg"
 import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import CInput from "../../components/customComponent/CInput";
