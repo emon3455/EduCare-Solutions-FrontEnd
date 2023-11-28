@@ -1,82 +1,168 @@
-/* eslint-disable react/no-unescaped-entities */
-import { useState } from "react";
-import login from "../../../public/login.jpg"
-import { useForm } from "react-hook-form";
-import { FaEyeSlash, FaHome } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import CInput from "../../utils/CInput/CInput";
+import { AuthContext } from "../../providers/AuthProvider";
+import Swal from "sweetalert2";
+import CButton from "../../utils/CButton/CButton";
 
 const Login = () => {
 
+    const [isLoading, setIsLoading] = useState(false)
     const [hide, setHide] = useState(true);
+    const { signInUser } = useContext(AuthContext);
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
-    const onSubmit = data => {
+    const [data, setData] = useState({
+        email: "",
+        password: ""
+    })
+    const [error, setError] = useState("")
+
+    const handleSubmit = (e) => {
+        setIsLoading(true);
+        setError("");
+        e.preventDefault();
         console.log(data);
-    };
+        
+        if (!data.email) {
+            setError("Email Is Required")
+            setIsLoading(false);
+            return;
+        }
+        if(data.email){
+            const regXEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!regXEmail.test(data.email)){
+                setError("Please Enter Valid Email")
+                setIsLoading(false);
+                return;
+            }
+        }
+
+        if (!data.password) {
+            setError("Password Is Required")
+            setIsLoading(false);
+            return;
+        }
+        if (data.password) {
+            if (data.password.length < 6) {
+                setError("Password must contain at least 6 characters");
+                setIsLoading(false);
+                return
+            }
+            const regXPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{6,}$/;
+            if (!regXPass.test(data.password)) {
+                setError("Password Must Contain: Capital Latter, Small Latter, Number and Special Character");
+                setIsLoading(false);
+                return;
+            }
+        }
+        signInUser(data.email, data.password)
+            .then(res => {
+                const logedUser = res.user;
+                if (logedUser) {
+                    setIsLoading(false);
+                    Swal.fire(
+                        'Successfully Loged In!',
+                        'Success!',
+                        'success'
+                    )
+                    e.target.reset();
+                    navigate(from, { replace: true });
+                }
+                else {
+                    setIsLoading(false);
+                    return;
+                }
+            })
+            .catch(er => {
+                setIsLoading(false);
+                if (er.message == "Firebase: Error (auth/invalid-login-credentials).") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Invalid User Credentials`,
+                    })
+                }
+            })
+    }
 
     return (
         <>
             <div className="absolute top-5 left-5 text-white z-20">
-                <Link to="/" className="text-secondary text-2xl"><FaHome/></Link>
+                <Link to="/" className="text-secondary text-2xl"><FaHome /></Link>
             </div>
             <section className="flex flex-col lg:flex-row min-h-screen">
 
                 <div className="hidden lg:flex bg-primary min-h-screen w-full lg:w-1/2  justify-center items-center relative">
                     <div className="w-full lg:w-3/5">
-                        <img src={login} alt="login image" className="w-full rounded" />
+                        <img src="https://i.ibb.co/NY52zhV/login.jpg" alt="login image" className="w-full rounded" />
                     </div>
                 </div>
 
-                <div className="bg-white min-h-screen w-full lg:w-1/3 mx-auto grid grid-cols-1 items-center p-2">
+                <div className="bg-white min-h-screen w-full lg:w-2/5 mx-auto grid grid-cols-1 items-center p-2">
                     <div className="border rounded">
-                        <form onSubmit={handleSubmit(onSubmit)} className="card-body ">
+                        <form onSubmit={handleSubmit} className="card-body ">
                             <h2 className="text-xl lg:text-xl font-bold text-center">Welcome To <span className="text-secondary">Edu-Care</span> Solution</h2>
-                            <div className="form-control ">
-                                <label className="label">
-                                    <span className="label-text">Email</span>
-                                </label>
-                                <input type="email" placeholder="email" name="email" {...register("email", { required: true })} className="input input-bordered  rounded" />
-                                {errors.email && <span className="text-red-600 ">email is required</span>}
-                            </div>
-                            <div className="form-control">
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
-                                <div className="relative">
-                                    <input
-                                        type={`${hide ? 'password' : 'text'}`}
-                                        {...register('password', {
-                                            required: true,
-                                            minLength: 6,
-                                            maxLength: 20,
-                                            pattern: /(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z])/,
-                                        })}
-                                        placeholder="password"
-                                        className="input input-bordered w-full rounded"
-                                    />
-                                    <span
-                                        onClick={() => setHide(!hide)}
-                                        className="btn btn-ghost border border-l-0 border-collapse absolute right-0"
-                                    >
-                                        <FaEyeSlash />
-                                    </span>
-                                </div>
-                                {errors.password?.type === 'required' && <p className="text-red-600">Password is required</p>}
-                                {errors.password?.type === 'minLength' && <p className="text-red-600">Password must be 6 characters</p>}
-                                {errors.password?.type === 'maxLength' && <p className="text-red-600">Password must be less than 20 characters</p>}
-                                {errors.password?.type === 'pattern' && (
-                                    <span className="text-red-600 text-sm">Password must have one Uppercase, one lowercase, one number, and one special character.</span>
-                                )}
+
+                            <p className="text-xs text-red-600 text-center">
+                                {error}
+                            </p>
+
+                            <div className="">
+                                <CInput
+                                    onChange={(e) => {
+                                        if (e.target.value) {
+                                            setError("")
+                                        }
+                                        setData({ ...data, email: e.target.value });
+                                    }}
+                                    id="email"
+                                    type="email"
+                                    label="Email*"
+                                    placeholder="Email"
+                                />
                             </div>
 
                             <div className="">
-                                <input type="submit" value="Login" className="btn-primary" />
+                                <CInput
+                                    onChange={(e) => {
+                                        if (e.target.value) {
+                                            setError("");
+                                        }
+
+                                        setData({
+                                            ...data,
+                                            password: e.target.value,
+                                        });
+
+                                    }}
+
+                                    id="password"
+                                    type={`${hide ? "password" : "text"}`}
+                                    label="Password*"
+                                    placeholder="Password*"
+                                    className={`${error.password ? "error-input" : "normal-input"}`}
+                                    endIcon={
+                                        <span onClick={() => setHide(!hide)}>
+                                            {" "}
+                                            {hide ? <FaEye /> : <FaEyeSlash />}{" "}
+                                        </span>
+                                    }
+                                />
+
+                            </div>
+
+                            <div className="">
+                                <CButton variant={"solid"} type={"submit"} loading={isLoading}>Login</CButton>
                             </div>
 
                         </form>
                         <p className="text-center my-2 text-sm">
-                            Don't Have an Account ? <Link to="/register" className="text-secondary">Register</Link>
+                            Don&apos;t Have an Account ? <Link to="/register" className="text-secondary">Register</Link>
                         </p>
                     </div>
                 </div>
