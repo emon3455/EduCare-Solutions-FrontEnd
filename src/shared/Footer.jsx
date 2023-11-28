@@ -52,7 +52,6 @@ const Footer = () => {
                     <p>Copyright &copy; 2023 - All rights reserved by EduCare Solution Ltd.</p>
                 </div>
             </CContainer>
-
         </footer>
     );
 };
