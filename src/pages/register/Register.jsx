@@ -12,6 +12,7 @@ import CInput from "../../components/customComponent/CInput";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { updateProfile } from "firebase/auth";
+import CButton from "../../components/customComponent/CButton";
 const imageHostingToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
 const Register = () => {
@@ -31,19 +32,7 @@ const Register = () => {
         address: "",
     })
 
-    const [error, setError] = useState({
-        name: "",
-        email: "",
-        number: "",
-        password: "",
-        gender: "",
-        role: "",
-        image: "",
-        interst: "",
-        skills: "",
-        educationalQualifications: "",
-        address: "",
-    })
+    const [error, setError] = useState("")
 
     const { createUser, logOut } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -55,9 +44,58 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(data);
-        console.log(data.image[0]);
-        console.log(error);
+        setIsLoading(true);
+        if(!data.name){
+            setError("Name is required");
+            setIsLoading(false);
+            return;
+        }
+
+        if (!data.email) {
+            setError("Email Is Required")
+            setIsLoading(false);
+            return;
+        }
+        if(data.email){
+            const regXEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!regXEmail.test(data.email)){
+                setError("Please Enter Valid Email")
+                setIsLoading(false);
+                return;
+            }
+        }
+
+        if (!data.number) {
+            setError("Number Is Required")
+            setIsLoading(false);
+            return;
+        }
+
+        if (!data.password) {
+            setError("Password Is Required")
+            setIsLoading(false);
+            return;
+        }
+        if (data.password) {
+            if (data.password.length < 6) {
+                setError("Password must contain at least 6 characters");
+                setIsLoading(false);
+                return
+            }
+            const regXPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{6,}$/;
+            if (!regXPass.test(data.password)) {
+                setError("Password Must Contain: Capital Latter, Small Latter, Number and Special Character");
+                setIsLoading(false);
+                return;
+            }
+        }
+
+        if (!data.image) {
+            setError("Profile Image Is Required")
+            setIsLoading(false);
+            return;
+        }
+
         const formData = new FormData();
         formData.append('image', data.image);
 
@@ -70,7 +108,7 @@ const Register = () => {
                 if (imgResponse.success) {
 
                     const imgURL = imgResponse.data.display_url;
-                    
+
                     createUser(data.email, data.password)
                         .then(res => {
                             const createdUser = res.user;
@@ -81,10 +119,10 @@ const Register = () => {
                                 }).then(() => {
 
                                     // we have to store this user information into DB
-                                    const savedUser = { 
+                                    const savedUser = {
                                         name: data.name,
                                         email: data.email,
-                                        role: data.role, 
+                                        role: data.role,
                                         image: imgURL,
                                         number: data.number,
                                         password: data.password,
@@ -103,19 +141,22 @@ const Register = () => {
                                         'success'
                                     )
                                     logOut()
-                                    .then(() => {
-                                        navigate("/login", { replace: true });
-                                    })
-                                    .catch(er => console.log(er))
+                                        .then(() => {
+                                            navigate("/login", { replace: true });
+                                        })
+                                        .catch(er => console.log(er))
                                     e.target.reset();
-                            
+                                    setIsLoading(false);
+
                                 }).catch((error) => {
                                     console.log(error.message);
+                                    setIsLoading(false);
                                     return;
                                 });
 
                             }
                             else {
+                                setIsLoading(false);
                                 return;
                             }
                         })
@@ -125,20 +166,22 @@ const Register = () => {
                                 title: 'Oops...',
                                 text: 'Something went wrong!',
                             })
+                            setIsLoading(false);
                             return;
                         })
 
                 }
-                else{
+                else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
                         text: 'Image Not Uploaded...!',
                     })
+                    setIsLoading(false);
                     return;
                 }
             })
-            .catch(er => console.log(er.message))
+            .catch(er => {console.log(er.message); setIsLoading(false);})
     }
 
     const handleImageChange = (e) => {
@@ -146,11 +189,11 @@ const Register = () => {
         if (selectedImageFile) {
             const maxSize = 2 * 1024 * 1024; // 2MB in bytes
             if (selectedImageFile.size > maxSize) {
-
                 alert("Image size should be less than 2MB")
                 setPreviewImage(null);
                 setData({ ...data, image: "" });
             } else {
+                setError("");
                 const selectedImage = URL.createObjectURL(selectedImageFile);
                 setPreviewImage(selectedImage);
                 setData({ ...data, image: e.target.files[0] });
@@ -200,16 +243,17 @@ const Register = () => {
                                 </div>
                             )}
 
+                            <p className="text-xs text-red-600 text-center">
+                                {error}
+                            </p>
+
                             <section className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-2">
 
                                 <div className="">
                                     <CInput
                                         onChange={(e) => {
                                             if (e.target.value) {
-                                                setError({
-                                                    ...error,
-                                                    name: ""
-                                                })
+                                                setError("")
                                             }
                                             setData({ ...data, name: e.target.value });
                                         }}
@@ -224,10 +268,7 @@ const Register = () => {
                                     <CInput
                                         onChange={(e) => {
                                             if (e.target.value) {
-                                                setError({
-                                                    ...error,
-                                                    email: ""
-                                                })
+                                                setError("")
                                             }
                                             setData({ ...data, email: e.target.value });
                                         }}
@@ -242,10 +283,7 @@ const Register = () => {
                                     <CInput
                                         onChange={(e) => {
                                             if (e.target.value) {
-                                                setError({
-                                                    ...error,
-                                                    number: ""
-                                                })
+                                                setError("")
                                             }
                                             setData({ ...data, number: e.target.value });
                                         }}
@@ -261,19 +299,8 @@ const Register = () => {
                                     <CInput
                                         onChange={(e) => {
                                             if (e.target.value) {
-                                                setError({
-                                                    ...error,
-                                                    password: "",
-                                                });
+                                                setError("")
                                             }
-
-                                            const regX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{6,}$/;
-                                            if (!regX.test(e.target.value))
-                                                return setError({
-                                                    ...error,
-                                                    password: "Password must contain at least 6 characters, uppercase, lowercase and number",
-                                                });
-
                                             setData({
                                                 ...data,
                                                 password: e.target.value,
@@ -378,7 +405,7 @@ const Register = () => {
 
                                 <div className="lg:col-span-2">
                                     <CFileInput
-                                        label="Profile Photo"
+                                        label="Profile Photo*"
                                         onChange={handleImageChange}
                                         accept="image/*"
                                         files={data?.image}
@@ -409,7 +436,7 @@ const Register = () => {
 
 
                             <div className="">
-                                <input type="submit" value="Register" className="btn-primary" />
+                                <CButton variant={"solid"} type={"submit"} loading={isLoading}>Register</CButton>
                             </div>
 
                         </form>

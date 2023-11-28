@@ -79,7 +79,7 @@ const CButton = ({
 
             ${
               variant === "solid"
-                ? `${color ? color : "bg-secondary text-black"}
+                ? `${color ? color : "bg-secondary text-white"}
                   hover:opacity-90
                   transition-all
                   duration-500

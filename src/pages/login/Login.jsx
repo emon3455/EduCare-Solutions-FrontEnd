@@ -4,9 +4,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import CInput from "../../components/customComponent/CInput";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import CButton from "../../components/customComponent/CButton";
 
 const Login = () => {
 
+    const [isLoading, setIsLoading] = useState(false)
     const [hide, setHide] = useState(true);
     const { signInUser } = useContext(AuthContext);
 
@@ -21,26 +23,40 @@ const Login = () => {
     const [error, setError] = useState("")
 
     const handleSubmit = (e) => {
+        setIsLoading(true);
         setError("");
         e.preventDefault();
         console.log(data);
+        
         if (!data.email) {
             setError("Email Is Required")
+            setIsLoading(false);
             return;
+        }
+        if(data.email){
+            const regXEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!regXEmail.test(data.email)){
+                setError("Please Enter Valid Email")
+                setIsLoading(false);
+                return;
+            }
         }
 
         if (!data.password) {
             setError("Password Is Required")
+            setIsLoading(false);
             return;
         }
         if (data.password) {
             if (data.password.length < 6) {
                 setError("Password must contain at least 6 characters");
+                setIsLoading(false);
                 return
             }
             const regXPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}[\]:;<>,.?~\\/-]).{6,}$/;
             if (!regXPass.test(data.password)) {
                 setError("Password Must Contain: Capital Latter, Small Latter, Number and Special Character");
+                setIsLoading(false);
                 return;
             }
         }
@@ -48,6 +64,7 @@ const Login = () => {
             .then(res => {
                 const logedUser = res.user;
                 if (logedUser) {
+                    setIsLoading(false);
                     Swal.fire(
                         'Successfully Loged In!',
                         'Success!',
@@ -57,10 +74,12 @@ const Login = () => {
                     navigate(from, { replace: true });
                 }
                 else {
+                    setIsLoading(false);
                     return;
                 }
             })
             .catch(er => {
+                setIsLoading(false);
                 if (er.message == "Firebase: Error (auth/invalid-login-credentials).") {
                     Swal.fire({
                         icon: 'error',
@@ -68,7 +87,6 @@ const Login = () => {
                         text: `Invalid User Credentials`,
                     })
                 }
-                console.log(er);
             })
     }
 
@@ -139,7 +157,7 @@ const Login = () => {
                             </div>
 
                             <div className="">
-                                <input type="submit" value="Login" className="btn-primary" />
+                                <CButton variant={"solid"} type={"submit"} loading={isLoading}>Login</CButton>
                             </div>
 
                         </form>
