@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import CInput from "../../components/customComponent/CInput";
+import CInput from "../../utils/CInput/CInput";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
-import CButton from "../../components/customComponent/CButton";
+import CButton from "../../utils/CButton/CButton";
 
 const Login = () => {
 

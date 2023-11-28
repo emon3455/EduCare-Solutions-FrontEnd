@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import CContainer from "../components/customComponent/CContainer";
+import CContainer from "../utils/CContainer/CContainer";
 
 const Footer = () => {
     return (

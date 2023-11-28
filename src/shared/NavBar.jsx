@@ -1,8 +1,8 @@
-import CContainer from "../components/customComponent/CContainer";
 import { AuthContext } from "../providers/AuthProvider";
 import { useContext } from "react";
 import Swal from "sweetalert2";
 import ActiveLink from "../components/ActiveLink";
+import CContainer from "../utils/CContainer/CContainer";
 
 const Navbar = () => {
 

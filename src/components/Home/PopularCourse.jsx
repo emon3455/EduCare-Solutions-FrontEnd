@@ -1,5 +1,5 @@
-import CContainer from "../customComponent/CContainer";
 import ComponentTitle from "../../shared/ComponentTitle";
+import CContainer from "../../utils/CContainer/CContainer";
 
 const PopularCourse = () => {
     return (

@@ -3,16 +3,16 @@ import { useContext, useState } from "react";
 import { FaEye, FaEyeSlash, FaHome, FaTimes } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import { genders } from "../../constant/genders";
-import CSelect from "../../components/customComponent/CSelect";
 import { roles } from "../../constant/role";
-import CFileInput from "../../components/customComponent/CFileInput";
 import { skills } from "../../constant/skills";
-import CTextArea from "../../components/customComponent/CTextArea";
-import CInput from "../../components/customComponent/CInput";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { updateProfile } from "firebase/auth";
-import CButton from "../../components/customComponent/CButton";
+import CSelect from "../../utils/CSelect/CSelect";
+import CInput from "../../utils/CInput/CInput";
+import CFileInput from "../../utils/CFileInput/CFileInput";
+import CTextArea from "../../utils/CTextArea/CTextArea";
+import CButton from "../../utils/CButton/CButton";
 const imageHostingToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
 const Register = () => {
