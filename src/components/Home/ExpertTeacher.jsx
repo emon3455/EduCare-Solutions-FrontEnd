@@ -1,7 +1,7 @@
-import ComponentTitle from "../../../shared/ComponentTitle";
+import ComponentTitle from "../../shared/ComponentTitle";
 import { SlLocationPin } from 'react-icons/Sl';
 import { BsCalendar4 } from 'react-icons/Bs';
-import CContainer from "../../../components/customComponent/CContainer";
+import CContainer from "../customComponent/CContainer";
 
 const ExpertTeacher = () => {
     return (
