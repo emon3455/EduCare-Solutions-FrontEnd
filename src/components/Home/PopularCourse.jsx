@@ -12,7 +12,7 @@ const PopularCourse = ({ popularCourses }) => {
                 {
                     popularCourses.map(course => <div
                         key={course._id}
-                        className="border border-[#E6E6E6] rounded-lg shadow-lg hover:shadow-2xl"
+                        className="border border-[#E6E6E6] rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500"
                     >
                         <img className="w-full md:h-52" src={course.bannerURL} alt="" />
                         <div className="p-5">

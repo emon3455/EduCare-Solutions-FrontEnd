@@ -13,7 +13,7 @@ export const popularCourses = [
         price: 49.99,
         completedstu: 500
     },
-    {   
+    {
         _id: "2",
         CID: 2,
         title: "Machine Learning",
@@ -40,5 +40,56 @@ export const popularCourses = [
         totalstu: 1200,
         price: 59.99,
         completedstu: 700
+    }
+];
+
+export const popularTeacher = [
+    {
+        _id: "1",
+        name: "John Doe",
+        speciality: "Web Developer",
+        email: "john.doe@example.com",
+        phone: "1234567890",
+        nid: "123456789",
+        gender: "Male",
+        age: 30,
+        nationality: "USA",
+        imageURL: "https://i.ibb.co/Vqf98wZ/i1.jpg",
+        interests: ["Coding", "Web Development", "JavaScript"],
+        skills: ["JavaScript", "React", "Node.js"],
+        education: "Bachelor's in Computer Science",
+        address: "123 Main Street, Cityville, USA"
+    },
+    {
+        _id: "2",
+        name: "Ariyan Emon",
+        email: "emon.mhk69@gmail.com",
+        speciality: "AI Engineer",
+        phone: "9876543210",
+        nid: "987654321",
+        gender: "Male",
+        age: 28,
+        nationality: "Canada",
+        imageURL: "https://i.ibb.co/jw2Z9R8/emon11.png",
+        interests: ["Data Science", "Machine Learning", "Python"],
+        skills: ["Python", "Machine Learning", "Data Analysis"],
+        education: "Master's in Data Science",
+        address: "456 Oak Avenue, Townsville, Canada"
+    },
+    {
+        _id: "3",
+        name: "Alex Johnson",
+        email: "alex.johnson@example.com",
+        phone: "1122334455",
+        speciality: "UI/UX Designer",
+        nid: "567890123",
+        gender: "Male",
+        age: 25,
+        nationality: "UK",
+        imageURL: "https://i.ibb.co/D7NXY1h/i3.jpg",
+        interests: ["Graphic Design", "UI/UX", "Adobe Creative Suite"],
+        skills: ["UI/UX Design", "Adobe Illustrator", "Photoshop"],
+        education: "Bachelor's in Graphic Design",
+        address: "789 Pine Street, London, UK"
     }
 ];
