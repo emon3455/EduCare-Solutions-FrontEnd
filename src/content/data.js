@@ -139,6 +139,7 @@ export const blogsData = [
 
 export const sessionsData = [
     {
+        _id: "1",
         "title": "Web Development Fundamentals",
         "TID": 301,
         "sessionBanner": "https://i.ibb.co/2ZYP4T4/web-dev-session-banner.jpg",
@@ -148,6 +149,7 @@ export const sessionsData = [
         "sessionTime": "2 PM"
     },
     {
+        _id: "2",
         "title": "Machine Learning Workshop",
         "TID": 302,
         "sessionBanner": "https://i.ibb.co/cyYpHP3/ml-workshop-banner.jpg",
@@ -157,6 +159,7 @@ export const sessionsData = [
         "sessionTime": "10:30 AM"
     },
     {
+        _id: "3",
         "title": "Cybersecurity Essentials",
         "TID": 303,
         "sessionBanner": "https://i.ibb.co/8XJ8J6T/cybersecurity-session-banner.jpg",
