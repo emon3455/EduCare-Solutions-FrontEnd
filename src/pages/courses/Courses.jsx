@@ -20,7 +20,7 @@ const Courses = () => {
                                 <img className="mt-2" src="https://i.ibb.co/NYdVqZt/Group-24.png" alt="" />
                                 <p className="mt-2">{course.rating}</p>
                             </div>
-                            <Link to={`courses/${course._id}`}>
+                            <Link to={`${course._id}`}>
                                 <CButton variant={"outline"} fullWidth={true}>View Details</CButton>
                             </Link>
 
