@@ -14,15 +14,11 @@ const Blogs = () => {
                         className="border border-[#E6E6E6] rounded-lg hover:shadow-xl transition-all duration-500">
                         <img className="w-full md:h-52 overflow-hidden" src={blog.blogBanner} alt="" />
                         <div className="p-5">
-                            <h3 className="mt-3 font-bold text-xl">{blog.title}</h3>
+                            <h3 className="mt-3 font-bold text-lg h-20">{blog.title}</h3>
                             {/* <p className="text-[#6C6B6B]">Writer: {blog.TName}</p> */}
-                            <p className="text-[#6C6B6B]">{blog.description}</p>
-                            <div className="flex items-center gap-2 mb-4">
-                                <img className="mt-2" src="https://i.ibb.co/NYdVqZt/Group-24.png" alt="" />
-                                <p className="mt-2">{blog.rating}</p>
-                            </div>
+                            <p className="text-[#6C6B6B]">{blog.description.slice(0,120)+"..."}</p>
                             <Link to={`courses/${blog._id}`}>
-                                <CButton className="mt-5 bottom-0" variant={"outline"} fullWidth={true}>View Details</CButton>
+                                <CButton className="mt-5 bottom-0" variant={"outline"} fullWidth={true}>Read More</CButton>
                             </Link>
 
                         </div>
