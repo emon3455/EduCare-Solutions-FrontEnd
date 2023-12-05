@@ -6,14 +6,14 @@ const Sessions = () => {
     return (
         <div>
             <CPageBanner title={`Sessions`}/>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-7 p-2 mx-5 h-auto rounded">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7 p-2 mx-5 h-auto rounded">
                 {
                     sessionsData.map(session => <div
                         key={session._id}
                         className="border border-[#E6E6E6] rounded-lg hover:shadow-xl transition-all duration-500">
-                        <img className="w-full md:w-4/5 lg:w-3/5 mx-auto md:h-56 p-4" src={session?.sessionBanner} alt="" />
+                        <img className="w-full md:w-4/5 mx-auto md:h-56 p-4" src={session?.sessionBanner} alt="" />
                         <div className="p-5">
-                            <h3 className="mt-3 font-bold text-xl">{session?.title}</h3>
+                            <h3 className="font-bold text-lg h-20">{session?.title}</h3>
                             <div className="flex items-center justify-between  mb-4 text-[#6C6B6B]">
                                 <p className="mt-2">Date : {session?.sessionDate}</p>
                                 <p className="mt-2">Time : {session?.sessionTime}</p>

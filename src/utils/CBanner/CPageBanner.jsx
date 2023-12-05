@@ -5,10 +5,8 @@ import CContainer from "../CContainer/CContainer";
 import CSelect from "../CSelect/CSelect";
 
 const CPageBanner = ({ title }) => {
-    const [data, setData] = useState({
-        skills: [skills[0]],
-    })
-
+    const [skill, setSkill] = useState(skills[0])
+    
     return (
         <header className="bg-primary text-white">
             <CContainer className="navbar flex-col gap-5 lg:flex-row justify-between py-20 px-8">
@@ -17,18 +15,15 @@ const CPageBanner = ({ title }) => {
                 </div>
                 <div className="">
                     <CSelect label="Select a category"
-                        name="skills"
-                        options={skills?.map((subject) => ({
-                            value: subject,
-                            label: subject,
+                        defaultValue={skill}
+                        options={skills?.map((skill) => ({
+                            value: skill,
+                            label: skill,
                         }))}
                         className="text-black w-[100%] md:w-[250px]"
                         classNamePrefix="select"
                         onChange={(selectedOptions) => {
-                            setData({
-                                ...data,
-                                skills: selectedOptions.map((option) => option.value),
-                            });
+                            setSkill(selectedOptions.value);
                         }} />
                 </div>
 
