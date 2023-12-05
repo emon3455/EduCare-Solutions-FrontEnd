@@ -9,7 +9,6 @@ const Footer = () => {
                     <div className="w-full md:w-[100%] px-4 ">
                         <h3 className="text-2xl font-bold"><span className="text-[#F7A582]">Edu-Care</span> Solutions</h3>
                         <p className='text-sm mt-2 text-[#6C6B6B]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. has been since the printer took.</p>
-                        <button className="bg-transparent hover:bg-[#F7A582] text-[#F7A582] hover:text-white border border-orange-300 hover:border-transparent py-3 px-6 rounded-md mt-4 transition duration-300 ease-in-out font-bold">Message</button>
                     </div>
                     <div className="w-full md:w-1/2 px-4">
                         <h3 className="text-xl font-bold mb-2">Quick Links</h3>
