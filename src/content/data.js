@@ -169,5 +169,3 @@ export const sessionsData = [
         "sessionTime": "3:45 PM"
     }
 ]
-
-
