@@ -1,3 +1,4 @@
+import CButton from "../../utils/CButton/CButton";
 
 const Banner = () => {
     return (
@@ -9,7 +10,7 @@ const Banner = () => {
                         <p className="my-3 text-md">
                             Innovative Educational Solutions Tailored for Success. Transformative Learning Experiences That Inspire. Partnering for Academic Excellence and Personal Growth. Your Bridge to a Brighter Tomorrow. Unlocking Potential, One Student at a Time.
                         </p>
-                        <button className="btn-primary">All Service</button>
+                        <CButton variant={`solid`} >All Service </CButton>
                     </div>
                     <div className="w-full lg:w-1/2">
                         <img className="w-full rounded" src="https://i.ibb.co/3173Vgy/image-1.png" />
