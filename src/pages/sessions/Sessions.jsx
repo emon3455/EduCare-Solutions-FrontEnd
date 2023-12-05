@@ -5,7 +5,7 @@ import CPageBanner from "../../utils/CBanner/CPageBanner";
 const Sessions = () => {
     return (
         <div>
-            <CPageBanner title={`Sessions`}/>
+            <CPageBanner title={`Sessions`} date={true}/>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7 p-2 mx-5 h-auto rounded">
                 {
                     sessionsData.map(session => <div

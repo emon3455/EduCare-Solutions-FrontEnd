@@ -102,7 +102,7 @@ export const blogsData = [
         "TName": "Elena Rodriguez",
         "TEmail": "elena.rodriguez@example.com",
         "blogBanner": "https://images.unsplash.com/photo-1591453089816-0fbb971b454c?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-        "description": "Explore the advancements and possibilities in the field of machine learning. From deep learning to AI applications, discover how ML is shaping the future.",
+        "description": "Explore the advancements and possibilities in the field of machine learning. From deep learning to AI applications, discover how ML is shaping the future. Machine Learning (ML) is a transformative force that is reshaping the way we live, work, and interact with technology. As we delve into the intricate world of algorithms and data, the possibilities seem boundless. In this blog, we will embark on a journey to explore the foundations, applications, and future potential of machine learning.",
         "NoOfLike": 1200
     },
     {

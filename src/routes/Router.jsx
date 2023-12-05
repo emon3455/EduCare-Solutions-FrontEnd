@@ -11,6 +11,7 @@ import Sessions from "../pages/sessions/Sessions";
 import Home from "../pages/Home/Home";
 import SingleCourse from "../components/courses/singleCourse/SingleCourse";
 import SingleTeacher from "../components/teachers/singleTeacher/SingleTeacher";
+import SingleBlog from "../components/blogs/singleBlog/SingleBlog";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
         {
             path: "/blogs",
             element: <Blogs/>
+        },
+        {
+            path: "/blogs/:id",
+            element: <SingleBlog/>
         },
         {
             path: "/sessions",
