@@ -10,21 +10,18 @@ const Footer = () => {
                         <h3 className="text-2xl font-bold"><span className="text-[#F7A582]">Edu-Care</span> Solutions</h3>
                         <p className='text-sm mt-2 text-[#6C6B6B]'>Lorem Ipsum is simply dummy text of the printing and typesetting industry. has been since the printer took.</p>
                     </div>
-                    <div className="w-full md:w-1/2 px-4">
+                    <div className="w-full  px-4">
                         <h3 className="text-xl font-bold mb-2">Quick Links</h3>
                         <div className="text-[#6C6B6B] font-semibold">
                         <ul className=" pt-2 pb-2 text-sm">
                             <li className="py-2"><Link to="#">About Us</Link></li>
                             <li className="py-2"><Link to="#">Sevice</Link></li>
-                            <li className="py-2"><Link to="#">Professors</Link></li>
-                            <li className="py-2"><Link to="#">Departments</Link></li>
-                            <li className="py-2"><Link to="#">Online Payment</Link></li>
                             <li className="py-2"><Link to="#">Contact Us</Link></li>
                             <li className="py-2"><Link to="#">My Account</Link></li>
                         </ul>
                         </div>
                     </div>
-                    <div className="w-full md:w-1/2 px-4">
+                    <div className="w-full px-4">
                         <h3 className="text-xl font-bold mb-2">Services</h3>
                         <div className="text-[#6C6B6B] font-semibold">
                         <ul className="  pt-2 pb-2 text-sm">
@@ -35,19 +32,20 @@ const Footer = () => {
                         </ul>
                         </div>
                     </div>
-                    <div className="w-full md:w-1/2 px-4 pt-2 pb-2 text-sm ">
+                    <div className="w-full px-4 pt-2 pb-2 text-sm ">
                         <h3 className="text-xl font-bold mb-2">Service Hours</h3>
                         <div className="text-[#6C6B6B] font-semibold">
                             <p className="py-2">Monday 10AM to 7PM</p>
-                            <p className="py-2">Monday 10AM to 7PM</p>
-                            <p className="py-2">Monday 10AM to 7PM</p>
+                            <p className="py-2">Tuesday 10AM to 1PM</p>
+                            <p className="py-2">Wednessday 10AM to 7PM</p>
+                            <p className="py-2">Thursday 10AM to 7PM</p>
                         </div>
                     </div>
                 </div>
-                <div className="w-full px-4 mt-6">
+                <div className="w-full px-4 mt-2">
                     <hr className="border-t-2 border-gray-300" />
                 </div>
-                <div className="w-full px-4 text-center mt-6 text-sm text-[#6C6B6B]">
+                <div className="w-full px-4 text-center mt-4 text-sm text-[#6C6B6B]">
                     <p>Copyright &copy; 2023 - All rights reserved by EduCare Solution Ltd.</p>
                 </div>
             </CContainer>

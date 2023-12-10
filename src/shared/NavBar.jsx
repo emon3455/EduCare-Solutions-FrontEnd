@@ -28,7 +28,15 @@ const Navbar = () => {
         {
             user
                 ?
-                <button onClick={handleLogout} className="btn-primary my-auto lg:-mt-1">Logout</button>
+                <>
+                    <p className="items-center">
+                        <ActiveLink className="text-secondary hover:text-white" to="/dashboard">
+                            Dashboard
+                        </ActiveLink>
+                    </p>
+
+                    <button onClick={handleLogout} className="btn-primary my-auto lg:-mt-1">Logout</button>
+                </>
                 :
                 <p className=""><ActiveLink className="text-secondary hover:text-white" to="/login">Login</ActiveLink></p>
 

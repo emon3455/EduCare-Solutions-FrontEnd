@@ -12,6 +12,8 @@ import Home from "../pages/Home/Home";
 import SingleCourse from "../components/courses/singleCourse/SingleCourse";
 import SingleTeacher from "../components/teachers/singleTeacher/SingleTeacher";
 import SingleBlog from "../components/blogs/singleBlog/SingleBlog";
+import Dashboard from "../layout/Dashboard";
+import DashboardHome from "../pages/dashboard/DashboardHome";
 
 const router = createBrowserRouter([
     {
@@ -54,6 +56,16 @@ const router = createBrowserRouter([
             path: "/register",
             element: <Register/>
         }
+      ]
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard/>,
+      children:[
+        {
+            path: "home",
+            element: <DashboardHome/>
+        },
       ]
     },
 ]);
