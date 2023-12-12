@@ -40,8 +40,8 @@ const SingleTeacher = () => {
                             <div className="">
                                 <img
                                     src={
-                                        user?.imageURL
-                                            ? user?.imageURL
+                                        user?.image
+                                            ? user?.image
                                             : "https://i.ibb.co/5nPD3Qg/user.jpg"
                                     }
                                     alt="teacher image"
@@ -59,8 +59,6 @@ const SingleTeacher = () => {
                                 <SingleInfo data={`${user?.gender}`} title={"GENDER"} />
 
                                 <SingleInfo data={`${user?.age}`} title={"AGE"} />
-
-                                <SingleInfo data={`${user?.nationality}`} title={"NATIONALITY"} />
 
                                 <SingleInfo data={`${user?.nid}`} title={"NID NUMBER"} />
 
@@ -94,11 +92,11 @@ const SingleTeacher = () => {
 
                         <div className={`${customStyle}`}>
                             {
-                                user?.education
+                                user?.educationalQualifications
                                     ?
                                     <>
                                         <span className="text-base font-medium">
-                                            {user?.education ? user?.education : "N/A"}
+                                            {user?.educationalQualifications && user?.educationalQualifications}
                                         </span>
                                         <br />
                                     </>

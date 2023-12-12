@@ -13,6 +13,7 @@ import CInput from "../../utils/CInput/CInput";
 import CFileInput from "../../utils/CFileInput/CFileInput";
 import CTextArea from "../../utils/CTextArea/CTextArea";
 import CButton from "../../utils/CButton/CButton";
+import { useAddUserMutation } from "../../redux/features/user/userSlice";
 const imageHostingToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
 const Register = () => {
@@ -41,11 +42,16 @@ const Register = () => {
     const [hide, setHide] = useState(true);
     const imageHostingURL = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
 
+    //register mutation
+    const [
+        addUser,
+        { isLoading: registerIsLoading, isSuccess: registerIsSuccess, data: RegisterData, isError: registerIsError, error: registerError },
+    ] = useAddUserMutation();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setIsLoading(true);
-        if(!data.name){
+        if (!data.name) {
             setError("Name is required");
             setIsLoading(false);
             return;
@@ -56,9 +62,9 @@ const Register = () => {
             setIsLoading(false);
             return;
         }
-        if(data.email){
+        if (data.email) {
             const regXEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if(!regXEmail.test(data.email)){
+            if (!regXEmail.test(data.email)) {
                 setError("Please Enter Valid Email")
                 setIsLoading(false);
                 return;
@@ -116,7 +122,7 @@ const Register = () => {
 
                                 updateProfile(createdUser, {
                                     displayName: data.name, photoURL: imgURL
-                                }).then(() => {
+                                }).then(async() => {
 
                                     // we have to store this user information into DB
                                     const savedUser = {
@@ -135,27 +141,50 @@ const Register = () => {
                                     }
                                     console.log(savedUser);
 
-                                    Swal.fire(
-                                        'User created Successfully!',
-                                        'Success!',
-                                        'success'
-                                    )
-                                    logOut()
-                                        .then(() => {
-                                            navigate("/login", { replace: true });
+                                    const res = await addUser(savedUser)?.unwrap();
+                                    if (res.insertedId) {
+                                        Swal.fire(
+                                            'User created Successfully!',
+                                            'Success!',
+                                            'success'
+                                        )
+                                        logOut()
+                                            .then(() => {
+                                                navigate("/login", { replace: true });
+                                            })
+                                            .catch(er => console.log(er))
+                                        e.target.reset();
+                                        setIsLoading(false);
+                                    }
+                                    else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Oops...',
+                                            text: 'Something went wrong!',
                                         })
-                                        .catch(er => console.log(er))
-                                    e.target.reset();
-                                    setIsLoading(false);
+                                        setIsLoading(false);
+                                        return;
+                                    }
+
 
                                 }).catch((error) => {
                                     console.log(error.message);
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Oops...',
+                                        text: 'Something went wrong!',
+                                    })
                                     setIsLoading(false);
                                     return;
                                 });
 
                             }
                             else {
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Oops...',
+                                    text: 'Something went wrong!',
+                                })
                                 setIsLoading(false);
                                 return;
                             }
@@ -181,7 +210,7 @@ const Register = () => {
                     return;
                 }
             })
-            .catch(er => {console.log(er.message); setIsLoading(false);})
+            .catch(er => { console.log(er.message); setIsLoading(false); })
     }
 
     const handleImageChange = (e) => {

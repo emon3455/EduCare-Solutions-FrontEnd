@@ -15,10 +15,20 @@ export const userSlice = apiSlice.injectEndpoints({
 
         getUserById: builder.query({
             query: (id) => {
-              return {
-                url: `/users/${id}`,
-                method: 'GET',
-              };
+                return {
+                    url: `/users/${id}`,
+                    method: 'GET',
+                };
+            },
+        }),
+
+        addUser: builder.mutation({
+            query: (data) => {
+                return {
+                    url: '/users',
+                    method: 'POST',
+                    body: data,
+                };
             },
         }),
 
@@ -28,4 +38,5 @@ export const userSlice = apiSlice.injectEndpoints({
 export const {
     useGetAllUserQuery,
     useGetUserByIdQuery,
+    useAddUserMutation
 } = userSlice;

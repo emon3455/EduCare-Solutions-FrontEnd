@@ -20,16 +20,15 @@ const ExpertTeacher = ({popularTeacher}) => {
                         key={teacher?._id}
                         className="border border-[#E6E6E6] rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500"
                     >
-                        <img className="mx-auto h-40 object-contain p-2" src={teacher?.imageURL} alt="" />
+                        <img className="mx-auto h-40 object-contain p-2" src={teacher?.image} alt="" />
                         <div className="p-4">
                             <h3 className="mt-3 font-bold text-xl">{teacher?.name}</h3>
-                            <p className="text-[#6C6B6B]">{teacher?.speciality}</p>
                             <img className="mt-2" src="https://i.ibb.co/NYdVqZt/Group-24.png" alt="" />
                         </div>
                         <div className="p-4">
                             <div className="text-[#6C6B6B]  pb-4 flex gap-3">
                                 <SlLocationPin className='mt-1 text-xl' />
-                                <p>From: {teacher?.nationality}</p>
+                                <p>From: {teacher?.address}</p>
                             </div>
                             <div className="text-[#6C6B6B]  pb-4 flex gap-3">
                                 <BsCalendar4 className='mt-1 text-xl' />
