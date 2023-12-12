@@ -9,18 +9,18 @@ import { useGetAllUserQuery } from "../../redux/features/user/userSlice";
 
 const Home = () => {
 
-    const { isLoading:coursesIsLoading, data:courses, } = useGetAllCourseQuery();
-    const { isLoading:usersIsLoading, data:users, } = useGetAllUserQuery();
+    const { isLoading: coursesIsLoading, data: courses, } = useGetAllCourseQuery();
+    const { isLoading: usersIsLoading, data: users, } = useGetAllUserQuery();
 
     return (
         <div>
             <Banner />
             <Information />
             {
-                !coursesIsLoading &&  <PopularCourse popularCourses={courses.slice(0,3)} />
+                <PopularCourse popularCourses={courses} coursesIsLoading={coursesIsLoading} />
             }
             {
-                !usersIsLoading &&  <ExpertTeacher popularTeacher={users.slice(0,3)} />
+                <ExpertTeacher popularTeacher={users} usersIsLoading={usersIsLoading} />
             }
             <Contact />
         </div>

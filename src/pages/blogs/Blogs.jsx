@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import CButton from "../../utils/CButton/CButton";
 import { useGetAllBlogQuery } from "../../redux/features/blogs/blogSlice";
+import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 
 const Blogs = () => {
 
@@ -14,8 +15,15 @@ const Blogs = () => {
         <div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 mt-7 p-2 mx-5 h-auto rounded">
                 {
-                    !isLoading 
-                    &&
+                    isLoading
+                    ?
+                    <>
+                        <CSkeleton />
+                        <CSkeleton />
+                        <CSkeleton />
+                        <CSkeleton />
+                    </>
+                    :
                     blogs.map(blog => <div
                         key={blog?._id}
                         className="border border-[#E6E6E6] rounded-lg hover:shadow-xl transition-all duration-500">

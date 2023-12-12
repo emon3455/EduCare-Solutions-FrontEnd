@@ -5,8 +5,9 @@ import { BsCalendar4 } from 'react-icons/Bs';
 import CContainer from "../../utils/CContainer/CContainer";
 import { Link } from "react-router-dom";
 import CButton from "../../utils/CButton/CButton";
+import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 
-const ExpertTeacher = ({popularTeacher}) => {
+const ExpertTeacher = ({ popularTeacher, usersIsLoading }) => {
     return (
         <CContainer className="mt-12">
             <ComponentTitle title={`Our Expert Teachers`} />
@@ -15,8 +16,15 @@ const ExpertTeacher = ({popularTeacher}) => {
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7 p-2">
-                {
-                    popularTeacher.map(teacher => <div
+                {usersIsLoading
+                    ?
+                    <>
+                        <CSkeleton />
+                        <CSkeleton />
+                        <CSkeleton />
+                    </>
+                    :
+                    popularTeacher.slice(0, 3).map(teacher => <div
                         key={teacher?._id}
                         className="border border-[#E6E6E6] rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500"
                     >

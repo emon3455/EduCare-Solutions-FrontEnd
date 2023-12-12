@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import CButton from "../../utils/CButton/CButton";
 import { useGetAllCourseQuery } from "../../redux/features/courses/courseSlice";
+import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 
 const Courses = () => {
 
@@ -10,8 +11,14 @@ const Courses = () => {
         <div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7 p-2 mx-5">
                 {
-                    !isLoading
-                    &&
+                     isLoading
+                     ?
+                     <>
+                         <CSkeleton />
+                         <CSkeleton />
+                         <CSkeleton />
+                     </>
+                     :
                     courses.map(course => <div
                         key={course?._id}
                         className="border border-[#E6E6E6] rounded-lg hover:shadow-xl transition-all duration-500">
