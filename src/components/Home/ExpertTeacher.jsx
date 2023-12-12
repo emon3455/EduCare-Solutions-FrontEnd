@@ -1,12 +1,12 @@
+/* eslint-disable react/prop-types */
 import ComponentTitle from "../../shared/ComponentTitle";
 import { SlLocationPin } from 'react-icons/Sl';
 import { BsCalendar4 } from 'react-icons/Bs';
 import CContainer from "../../utils/CContainer/CContainer";
-import { popularTeacher } from "../../content/data";
 import { Link } from "react-router-dom";
 import CButton from "../../utils/CButton/CButton";
 
-const ExpertTeacher = () => {
+const ExpertTeacher = ({popularTeacher}) => {
     return (
         <CContainer className="mt-12">
             <ComponentTitle title={`Our Expert Teachers`} />

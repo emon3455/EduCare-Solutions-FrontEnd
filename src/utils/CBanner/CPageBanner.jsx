@@ -9,7 +9,7 @@ const CPageBanner = ({ title, date }) => {
 
     return (
         <header className="bg-primary text-white">
-            <CContainer className="navbar flex-col gap-5 lg:flex-row justify-between py-20 px-8">
+            <CContainer className="navbar flex-col gap-5 lg:flex-row justify-between lg:py-20 lg:px-8">
                 <div className="text-3xl font-extrabold">
                     {title}
                 </div>
