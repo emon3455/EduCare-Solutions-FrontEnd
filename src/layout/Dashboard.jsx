@@ -6,8 +6,13 @@ import { FaHome } from "react-icons/fa";
 import { SiSessionize } from "react-icons/si";
 import { MdLibraryBooks } from "react-icons/md";
 import { LuVideotape } from "react-icons/lu";
+import useRole from "../hooks/useRole";
+import CSkeleton from "../utils/CSkeleton/CSkeleton";
 
 const Dashboard = () => {
+
+    const [isLoading, role] = useRole();
+
     return (
         <main>
             <div className="drawer lg:drawer-open">
@@ -37,10 +42,33 @@ const Dashboard = () => {
                             <hr style={{ color: "white" }} />
                         </Link>
 
-                        <NavBarItem title={<> <FaHome /> Home </>} path={'/dashboard/home'} />
-                        <NavBarItem title={<> <LuVideotape /> Courses </>} path={'/dashboard/courses'} />
-                        <NavBarItem title={<> <SiSessionize /> Sessions </>} path={'/dashboard/sessions'} />
-                        <NavBarItem title={<> <MdLibraryBooks /> Blogs </>} path={'/dashboard/blogs'} />
+                        {
+                            isLoading
+                                ?
+                                <CSkeleton />
+                                :
+                                (
+                                    <>
+                                        <NavBarItem title={<> <FaHome /> Home </>} path={'/dashboard/home'} />
+                                        {
+                                            role === "Admin" &&
+                                            <>
+                                                <NavBarItem title={<> <LuVideotape /> Courses </>} path={'/dashboard/courses'} />
+                                            </>
+                                        }
+
+                                        {
+                                            role === "Teacher" &&
+                                            <>
+                                                <NavBarItem title={<> <MdLibraryBooks /> Blogs </>} path={'/dashboard/blogs'} />
+                                            </>
+                                        }
+
+                                        <NavBarItem title={<> <SiSessionize /> Sessions </>} path={'/dashboard/sessions'} />
+
+                                    </>
+                                )
+                        }
 
                     </ul>
                 </div>

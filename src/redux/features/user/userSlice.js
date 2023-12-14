@@ -22,6 +22,15 @@ export const userSlice = apiSlice.injectEndpoints({
             },
         }),
 
+        getUserRoleByEmail: builder.query({
+            query: (email) => {
+                return {
+                    url: `/users/role/${email}`,
+                    method: 'GET',
+                };
+            },
+        }),
+
         addUser: builder.mutation({
             query: (data) => {
                 return {
@@ -38,5 +47,6 @@ export const userSlice = apiSlice.injectEndpoints({
 export const {
     useGetAllUserQuery,
     useGetUserByIdQuery,
-    useAddUserMutation
+    useAddUserMutation,
+    useGetUserRoleByEmailQuery,
 } = userSlice;

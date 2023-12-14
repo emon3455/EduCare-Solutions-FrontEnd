@@ -19,6 +19,8 @@ import AdminBlogs from "../pages/dashboard/admin/blogs/AdminBlogs";
 import AdminSessions from "../pages/dashboard/admin/sessions/AdminSessions";
 import PrivateRoutes from "../privateRoutes/PrivateRoutes";
 import Error from "../shared/Error";
+import AdminRoutes from "../privateRoutes/AdminRoutes";
+import TeacherRoutes from "../privateRoutes/TeacherRoutes";
 
 const router = createBrowserRouter([
     {
@@ -75,11 +77,11 @@ const router = createBrowserRouter([
         },
         {
             path: "courses",
-            element: <AdminCourse/>
+            element: <AdminRoutes><AdminCourse/></AdminRoutes>
         },
         {
             path: "blogs",
-            element: <AdminBlogs/>
+            element: <TeacherRoutes><AdminBlogs/></TeacherRoutes>
         },
         {
             path: "sessions",

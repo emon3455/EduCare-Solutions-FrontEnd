@@ -1,10 +1,12 @@
-import { useContext, useState } from "react";
+/* eslint-disable no-unused-vars */
+import { useContext, useEffect, useState } from "react";
 import { FaEye, FaEyeSlash, FaHome } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import CInput from "../../utils/CInput/CInput";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import CButton from "../../utils/CButton/CButton";
+import { useAddJWTMutation } from "../../redux/features/auth/authSlice";
 
 const Login = () => {
 
@@ -16,6 +18,11 @@ const Login = () => {
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
 
+    const [
+        addJWT,
+        response,
+    ] = useAddJWTMutation();
+
     const [data, setData] = useState({
         email: "",
         password: ""
@@ -26,16 +33,15 @@ const Login = () => {
         setIsLoading(true);
         setError("");
         e.preventDefault();
-        console.log(data);
-        
+
         if (!data.email) {
             setError("Email Is Required")
             setIsLoading(false);
             return;
         }
-        if(data.email){
+        if (data.email) {
             const regXEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if(!regXEmail.test(data.email)){
+            if (!regXEmail.test(data.email)) {
                 setError("Please Enter Valid Email")
                 setIsLoading(false);
                 return;
@@ -61,20 +67,43 @@ const Login = () => {
             }
         }
         signInUser(data.email, data.password)
-            .then(res => {
+            .then(async (res) => {
                 const logedUser = res.user;
                 if (logedUser) {
-                    setIsLoading(false);
-                    Swal.fire(
-                        'Successfully Loged In!',
-                        'Success!',
-                        'success'
-                    )
-                    e.target.reset();
-                    navigate(from, { replace: true });
+
+                    const userInfo = { email: logedUser?.email };
+
+                    const res = await addJWT(userInfo)?.unwrap();
+                    if (res) {
+                        localStorage.setItem('edu-care-access-token', res?.token);
+                        setIsLoading(false);
+                        Swal.fire(
+                            'Successfully Loged In!',
+                            'Success!',
+                            'success'
+                        )
+                        e.target.reset();
+                        navigate(from, { replace: true });
+                    }
+                    else {
+                        setIsLoading(false);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: `Something Went Wrong Try Again..!!`,
+                        })
+                        return;
+                    }
+
+
                 }
                 else {
                     setIsLoading(false);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: `Something Went Wrong Try Again..!!`,
+                    })
                     return;
                 }
             })
