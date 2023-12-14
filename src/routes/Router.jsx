@@ -14,11 +14,17 @@ import SingleTeacher from "../components/teachers/singleTeacher/SingleTeacher";
 import SingleBlog from "../components/blogs/singleBlog/SingleBlog";
 import Dashboard from "../layout/Dashboard";
 import DashboardHome from "../pages/dashboard/DashboardHome";
+import AdminCourse from "../pages/dashboard/admin/courses/AdminCourse";
+import AdminBlogs from "../pages/dashboard/admin/blogs/AdminBlogs";
+import AdminSessions from "../pages/dashboard/admin/sessions/AdminSessions";
+import PrivateRoutes from "../privateRoutes/PrivateRoutes";
+import Error from "../shared/Error";
 
 const router = createBrowserRouter([
     {
       path: "/",
       element: <Main/>,
+      errorElement: <Error/>,
       children:[
         {
             path: "/",
@@ -60,11 +66,24 @@ const router = createBrowserRouter([
     },
     {
       path: "/dashboard",
-      element: <Dashboard/>,
+      element:<PrivateRoutes><Dashboard></Dashboard></PrivateRoutes>,
+      errorElement: <Error/>,
       children:[
         {
             path: "home",
             element: <DashboardHome/>
+        },
+        {
+            path: "courses",
+            element: <AdminCourse/>
+        },
+        {
+            path: "blogs",
+            element: <AdminBlogs/>
+        },
+        {
+            path: "sessions",
+            element: <AdminSessions/>
         },
       ]
     },

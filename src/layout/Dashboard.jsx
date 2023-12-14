@@ -38,7 +38,7 @@ const Dashboard = () => {
                         </Link>
 
                         <NavBarItem title={<> <FaHome /> Home </>} path={'/dashboard/home'} />
-                        <NavBarItem title={<> <LuVideotape /> Courses </>} path={'/dashboard/sessions'} />
+                        <NavBarItem title={<> <LuVideotape /> Courses </>} path={'/dashboard/courses'} />
                         <NavBarItem title={<> <SiSessionize /> Sessions </>} path={'/dashboard/sessions'} />
                         <NavBarItem title={<> <MdLibraryBooks /> Blogs </>} path={'/dashboard/blogs'} />
 
