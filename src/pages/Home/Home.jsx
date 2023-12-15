@@ -17,10 +17,10 @@ const Home = () => {
             <Banner />
             <Information />
             {
-                <PopularCourse popularCourses={courses} coursesIsLoading={coursesIsLoading} />
+               <PopularCourse popularCourses={courses || []} coursesIsLoading={coursesIsLoading} />
             }
             {
-                <ExpertTeacher popularTeacher={users} usersIsLoading={usersIsLoading} />
+               <ExpertTeacher popularTeacher={users || []} usersIsLoading={usersIsLoading} />
             }
             <Contact />
         </div>

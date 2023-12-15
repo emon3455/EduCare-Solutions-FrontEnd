@@ -20,7 +20,15 @@ import AdminSessions from "../pages/dashboard/admin/sessions/AdminSessions";
 import PrivateRoutes from "../privateRoutes/PrivateRoutes";
 import Error from "../shared/Error";
 import AdminRoutes from "../privateRoutes/AdminRoutes";
+import ManageUser from "../pages/dashboard/admin/user/ManageUser";
+import TeacherBlogs from "../pages/dashboard/teacher/blogs/TeacherBlogs";
 import TeacherRoutes from "../privateRoutes/TeacherRoutes";
+import TeacherCourses from "../pages/dashboard/teacher/courses/TeacherCourses";
+import TeacherSessions from "../pages/dashboard/teacher/sessions/TeacherSessions";
+import StudentRoutes from "../privateRoutes/StudentRoutes";
+import SelectedCourse from "../pages/dashboard/student/selectedCourse/SelectedCourse";
+import EnrolledCourses from "../pages/dashboard/student/enrolledCourse/EnrolledCourses";
+import PaymentHistory from "../pages/dashboard/student/paymentHistory/PaymentHistory";
 
 const router = createBrowserRouter([
     {
@@ -75,17 +83,48 @@ const router = createBrowserRouter([
             path: "home",
             element: <DashboardHome/>
         },
+        // -----admin routes-----
         {
-            path: "courses",
+            path: "adminCourses",
             element: <AdminRoutes><AdminCourse/></AdminRoutes>
         },
         {
-            path: "blogs",
-            element: <TeacherRoutes><AdminBlogs/></TeacherRoutes>
+            path: "adminBlogs",
+            element: <AdminRoutes><AdminBlogs/></AdminRoutes>
         },
         {
-            path: "sessions",
-            element: <AdminSessions/>
+            path: "adminSessions",
+            element: <AdminRoutes><AdminSessions/></AdminRoutes>
+        },
+        {
+            path: "manageUsers",
+            element: <AdminRoutes><ManageUser/></AdminRoutes>
+        },
+        // -----Teacher routes-----
+        {
+            path: "teacherCourses",
+            element: <TeacherRoutes><TeacherCourses/></TeacherRoutes>
+        },
+        {
+            path: "teacherBlogs",
+            element: <TeacherRoutes><TeacherBlogs/></TeacherRoutes>
+        },
+        {
+            path: "teacherSessions",
+            element: <TeacherRoutes><TeacherSessions/></TeacherRoutes>
+        },
+        // -----selected routes-----
+        {
+            path: "selectedCourses",
+            element: <StudentRoutes><SelectedCourse/></StudentRoutes>
+        },
+        {
+            path: "enrolledCourses",
+            element: <StudentRoutes><EnrolledCourses/></StudentRoutes>
+        },
+        {
+            path: "paymentHistory",
+            element: <StudentRoutes><PaymentHistory/></StudentRoutes>
         },
       ]
     },

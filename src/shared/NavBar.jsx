@@ -31,7 +31,7 @@ const Navbar = () => {
                 ?
                 <>
                     <p className="items-center">
-                        <ActiveLink className="text-secondary hover:text-white" to="/dashboard">
+                        <ActiveLink className="text-secondary hover:text-white" to="/dashboard/home">
                             Dashboard
                         </ActiveLink>
                     </p>
