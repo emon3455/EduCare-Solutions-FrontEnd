@@ -37,7 +37,7 @@ const Dashboard = () => {
                 </div>
                 <div className="drawer-side">
                     <label htmlFor="my-drawer-2" aria-label="close sidebar" className="drawer-overlay"></label>
-                    <ul className="menu p-4 w-4/5 sm:w-1/2 md:w-1/3 lg:w-80 min-h-full bg-primary text-white space-y-2  flex flex-col">
+                    <ul className="menu p-4 w-4/5 sm:w-1/2 md:w-1/3 lg:w-72 min-h-full bg-primary text-white space-y-2  flex flex-col">
                         {/* Sidebar content here */}
                         <Link to={'/'} style={{ marginBottom: "2rem" }}>
                             <h2 className="text-xl font-bold text-white">

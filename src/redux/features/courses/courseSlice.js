@@ -21,10 +21,21 @@ export const courseSlice = apiSlice.injectEndpoints({
             },
         }),
 
+        addCourse: builder.mutation({
+            query: (data) => {
+                return {
+                    url: '/classes',
+                    method: 'POST',
+                    body: data,
+                };
+            },
+        }),
+
     }),
 });
 
 export const {
     useGetAllCourseQuery,
     useGetCourseByIdQuery,
+    useAddCourseMutation
 } = courseSlice;
