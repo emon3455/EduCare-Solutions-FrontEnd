@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 
-import { CButton } from "@/Utils";
+
 import { useRef } from "react";
+import CButton from "../CButton/CButton";
 
 const CModal = ({
     open,

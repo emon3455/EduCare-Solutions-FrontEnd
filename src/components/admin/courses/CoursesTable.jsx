@@ -17,7 +17,7 @@ const CoursesTable = ({ data }) => {
                             <th>Category</th>
                             <th>Price</th>
                             <th>Rating</th>
-                            <th>Action</th>
+                            <th className="text-center">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,7 +35,7 @@ const CoursesTable = ({ data }) => {
                                 <td>{course?.categoryName}</td>
                                 <td>{course?.price} BDT</td>
                                 <td>{course?.rating}</td>
-                                <td className="space-x-2">
+                                <td className="flex flex-col md:flex-row gap-2 justify-center items-center">
                                     <button className={'bg-orange-400 text-white rounded-full p-2'} >
                                         <FaPenToSquare className="text-lg p-0"/>
                                     </button>
