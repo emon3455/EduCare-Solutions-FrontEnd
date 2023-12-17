@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import CButton from "../../utils/CButton/CButton";
-import { useGetAllBlogQuery } from "../../redux/features/blogs/blogSlice";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
+import { useGetAllBlogQuery } from "../../redux/features/blogs/blog-api-slice";
 
 const Blogs = () => {
 

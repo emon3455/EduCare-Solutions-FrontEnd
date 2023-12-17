@@ -2,8 +2,8 @@ import { useParams } from "react-router-dom";
 import CContainer from "../../../utils/CContainer/CContainer";
 import { BiSolidLike } from "react-icons/bi";
 import { useState } from "react";
-import { useGetBlogByIdQuery } from "../../../redux/features/blogs/blogSlice";
 import Loading from "../../../utils/CLoading/Loading";
+import { useGetBlogByIdQuery } from "../../../redux/features/blogs/blog-api-slice";
 
 const SingleBlog = () => {
 

@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import CoursesTable from "../../../../components/admin/courses/CoursesTable";
-import { useGetAllCourseQuery } from "../../../../redux/features/courses/courseSlice";
 import ErrorAllert from "../../../../shared/ErrorAllert";
 import WarningAllert from "../../../../shared/WarningAllert";
 import CButton from "../../../../utils/CButton/CButton";
@@ -9,6 +8,7 @@ import CCard from "../../../../utils/CCard/CCard";
 import Loading from "../../../../utils/CLoading/Loading";
 import CModal from "../../../../utils/CModal/CModal";
 import AddCourses from "../../../../components/admin/courses/addCourse/AddCourses";
+import { useGetAllCourseQuery } from "../../../../redux/features/courses/courses-api-slice";
 
 const AdminCourse = () => {
 

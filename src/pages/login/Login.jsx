@@ -6,7 +6,7 @@ import CInput from "../../utils/CInput/CInput";
 import { AuthContext } from "../../providers/AuthProvider";
 import Swal from "sweetalert2";
 import CButton from "../../utils/CButton/CButton";
-import { useAddJWTMutation } from "../../redux/features/auth/authSlice";
+import { useAddJWTMutation } from "../../redux/features/auth/auth-api-slice";
 
 const Login = () => {
 

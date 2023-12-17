@@ -1,5 +1,6 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import CInput from "../../../../utils/CInput/CInput";
 import { AuthContext } from "../../../../providers/AuthProvider";
 import useRole from "../../../../hooks/useRole";
@@ -11,36 +12,76 @@ import { skills } from "../../../../constant/skills";
 import CSelect from "../../../../utils/CSelect/CSelect";
 import CTextArea from "../../../../utils/CTextArea/CTextArea";
 import CButton from "../../../../utils/CButton/CButton";
+import { useAddCourseMutation } from "../../../../redux/features/courses/courses-api-slice";
 const imageHostingToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
 const AddCourses = ({ setOpen, refetch }) => {
 
     const [roleIsLoading, role] = useRole()
     const { user } = useContext(AuthContext);
+    const formRef = useRef(null);
     const [previewImage, setPreviewImage] = useState(null);
+    const [imageUploadLoading, setImageUploadLoading] = useState(false);
     const [data, setData] = useState({
         title: "",
         teacherName: user?.displayName || "",
         teacherEmail: user?.email || "",
         image: "",
+        bannerURL: "",
         videoURL: "",
         categoryName: skills[1],
         categoryId: "",
+        price: 0,
         descreption: ""
     })
     const [error, setError] = useState("")
     const imageHostingURL = `https://api.imgbb.com/1/upload?key=${imageHostingToken}`;
 
+    const [
+        addCourse,
+        { isLoading: addCourseIsLoading, isSuccess: addCourseIsSuccess, data: addCourseData, isError: addCourseIsError, error: addCourseError },
+    ] = useAddCourseMutation();
+
+    //showing success message
+    useEffect(() => {
+        if (addCourseIsSuccess) {
+            setOpen(false);
+            Swal.fire(
+                'Course Added Successfully!',
+                'Success!',
+                'success'
+            )
+            if (formRef.current) {
+                formRef.current.reset();
+            }
+            refetch();
+        }
+    }, [addCourseIsSuccess, refetch, setOpen]);
+
+    //showing error message
+    useEffect(() => {
+        if (addCourseIsError) {
+            setOpen(false);
+            addCourseError?.status === 400 &&
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Course Not Added, Please try again...!',
+                })
+        }
+    }, [setOpen, addCourseIsError, addCourseError]);
+
 
     if (roleIsLoading) return <Loading />
 
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData();
         formData.append('image', data.image);
 
+        setImageUploadLoading(true);
         fetch(imageHostingURL, {
             method: "POST",
             body: formData
@@ -50,10 +91,11 @@ const AddCourses = ({ setOpen, refetch }) => {
                 if (imgResponse.success) {
 
                     const imgURL = imgResponse.data.display_url;
-                    console.log(imgURL);
-
+                    setData({ ...data, bannerURL: imgURL });
+                    setImageUploadLoading(false);
                 }
                 else {
+                    setImageUploadLoading(false);
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -64,9 +106,26 @@ const AddCourses = ({ setOpen, refetch }) => {
             })
             .catch(er => { console.log(er.message) })
 
+        const savedCourse = {
+            title: data.title,
+            bannerURL: data.bannerURL,
+            videoURL: data.videoURL,
+            description: data.descreption,
+            categoryId: data.categoryId,
+            categoryName: data.categoryName,
+            teacherName: data.teacherName,
+            teacherEmail: data.teacherEmail,
+            price: data.price,
+            rating: 0.0,
+            totalstu: 0,
+            completedstu: 0
+        }
 
-        setOpen(false); //it will close the modal
-        refetch(); //it will refetch the classes data
+        try {
+            await addCourse(savedCourse)?.unwrap();
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     const handleImageChange = (e) => {
@@ -117,8 +176,8 @@ const AddCourses = ({ setOpen, refetch }) => {
             <p className="text-xs text-red-600 text-center">
                 {error}
             </p>
-            
-            <form onSubmit={handleSubmit}>
+
+            <form onSubmit={handleSubmit} ref={formRef}>
 
                 <div className="">
                     <CInput
@@ -189,6 +248,21 @@ const AddCourses = ({ setOpen, refetch }) => {
                     />
                 </div>
 
+                <div className="">
+                    <CInput
+                        onChange={(e) => {
+                            if (e.target.value) {
+                                setError("")
+                            }
+                            setData({ ...data, price: e.target.value });
+                        }}
+                        id="price"
+                        type="number"
+                        label="price*"
+                        placeholder="price"
+                    />
+                </div>
+
                 <div className="lg:col-span-2">
                     <CFileInput
                         label="Course Banner*"
@@ -224,9 +298,7 @@ const AddCourses = ({ setOpen, refetch }) => {
                 </div>
 
                 <div className="">
-                    <CButton variant={"solid"} type={"submit"} 
-                    // loading={isLoading}
-                    >
+                    <CButton variant={"solid"} type={"submit"} isLoading={imageUploadLoading || addCourseIsLoading}>
                         Add Course
                     </CButton>
                 </div>

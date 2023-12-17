@@ -13,7 +13,7 @@ import CInput from "../../utils/CInput/CInput";
 import CFileInput from "../../utils/CFileInput/CFileInput";
 import CTextArea from "../../utils/CTextArea/CTextArea";
 import CButton from "../../utils/CButton/CButton";
-import { useAddUserMutation } from "../../redux/features/user/userSlice";
+import { useAddUserMutation } from "../../redux/features/user/user-api-slice";
 const imageHostingToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
 const Register = () => {

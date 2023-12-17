@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
 import CContainer from "../../../utils/CContainer/CContainer";
 import CButton from "../../../utils/CButton/CButton";
-import { useGetCourseByIdQuery } from "../../../redux/features/courses/courseSlice";
 import Loading from "../../../utils/CLoading/Loading";
+import { useGetCourseByIdQuery } from "../../../redux/features/courses/courses-api-slice";
 
 const SingleCourse = () => {
 

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import CButton from "../../utils/CButton/CButton";
-import { useGetAllCourseQuery } from "../../redux/features/courses/courseSlice";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
+import { useGetAllCourseQuery } from "../../redux/features/courses/courses-api-slice";
 
 const Courses = () => {
 

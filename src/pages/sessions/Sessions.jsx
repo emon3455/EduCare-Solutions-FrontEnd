@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { sessionsData } from "../../content/data";
-import { useGetAllSessionQuery } from "../../redux/features/sessions/sessionSlice";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
+import { useGetAllSessionQuery } from "../../redux/features/sessions/session-api-slice";
 
 const Sessions = () => {
 

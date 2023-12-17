@@ -3,8 +3,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { BsArrowLeft } from "react-icons/Bs";
 import CButton from "../../../utils/CButton/CButton";
 import CContainer from "../../../utils/CContainer/CContainer";
-import { useGetUserByIdQuery } from "../../../redux/features/user/userSlice";
 import Loading from "../../../utils/CLoading/Loading";
+import { useGetUserByIdQuery } from "../../../redux/features/user/user-api-slice";
 
 const SingleTeacher = () => {
     const params = useParams();

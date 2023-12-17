@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
-import { useGetUserRoleByEmailQuery } from "../redux/features/user/userSlice";
+import { useGetUserRoleByEmailQuery } from "../redux/features/user/user-api-slice";
 
 const useRole = () => {
 
