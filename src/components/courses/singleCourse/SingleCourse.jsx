@@ -22,7 +22,7 @@ const SingleCourse = () => {
                     <img className="mx-auto mt-5" src={course?.bannerURL} alt="" />
                     <div className="p-5">
                         <h3 className="mt-3 font-bold text-xl">{course?.title}</h3>
-                        <p className="text-[#6C6B6B]">Instructor: {course?.TName}</p>
+                        <p className="text-[#6C6B6B]">Instructor: {course?.teacherName}</p>
                         <div className="flex items-center gap-2 mb-4">
                             <img className="mt-2" src="https://i.ibb.co/NYdVqZt/Group-24.png" alt="" />
                             <p className="mt-2">{course?.rating}</p>

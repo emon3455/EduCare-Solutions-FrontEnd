@@ -42,11 +42,10 @@ export const courseSlice = apiSlice.injectEndpoints({
 
         updateCourse: builder.mutation({
             query: (data) => {
-                const { id, info } = data;
                 return {
-                    url: `/classes/${id}`,
+                    url: `/classes/${data?.id}`,
                     method: "PATCH",
-                    body: info,
+                    body: data,
                 };
             },
         }),

@@ -67,7 +67,7 @@ const CSelect = ({
           singleValue: (defaultStyles) => ({
             ...defaultStyles,
             color: '#0C5164',
-            zIndex: 9999,
+            zIndex: 999,
           }),
           control: (provided, state) => ({
             ...provided,

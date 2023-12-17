@@ -1,9 +1,7 @@
 /* eslint-disable react/prop-types */
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import CInput from "../../../../utils/CInput/CInput";
 import { AuthContext } from "../../../../providers/AuthProvider";
-import useRole from "../../../../hooks/useRole";
-import Loading from "../../../../utils/CLoading/Loading";
 import Swal from "sweetalert2";
 import { FaTimes } from "react-icons/fa";
 import CFileInput from "../../../../utils/CFileInput/CFileInput";
@@ -11,15 +9,12 @@ import CSelect from "../../../../utils/CSelect/CSelect";
 import CTextArea from "../../../../utils/CTextArea/CTextArea";
 import CButton from "../../../../utils/CButton/CButton";
 import { useAddCourseMutation } from "../../../../redux/features/courses/courses-api-slice";
-import useCategory from "../../../../hooks/useCategory";
 const imageHostingToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
-const AddCourses = ({ setOpen, refetch }) => {
+const AddCourses = ({ setOpen, refetch, categorys, role }) => {
 
-    const [categoryIsLoading, categorys] = useCategory();
-    const [roleIsLoading, role] = useRole()
+
     const { user } = useContext(AuthContext);
-    const formRef = useRef(null);
     const [previewImage, setPreviewImage] = useState(null);
     const [imageUploadLoading, setImageUploadLoading] = useState(false);
     const [data, setData] = useState({
@@ -28,8 +23,8 @@ const AddCourses = ({ setOpen, refetch }) => {
         teacherEmail: user?.email || "",
         image: "",
         videoURL: "",
-        categoryName: categorys[0],
-        categoryId: "",
+        categoryName: categorys[0].categoryName,
+        categoryId: categorys[0].categoryId,
         price: 0,
         descreption: ""
     })
@@ -50,8 +45,9 @@ const AddCourses = ({ setOpen, refetch }) => {
                 'success'
             )
             refetch();
+            setOpen(false);
         }
-    }, [user, data, categorys, addCourseIsSuccess, refetch]);
+    }, [addCourseIsSuccess, refetch, setOpen]);
 
     //showing error message
     useEffect(() => {
@@ -63,10 +59,6 @@ const AddCourses = ({ setOpen, refetch }) => {
             })
         }
     }, [addCourseIsError]);
-
-
-    if (roleIsLoading) return <Loading />
-    if (categoryIsLoading) return <Loading />
 
 
     const handleSubmit = (e) => {
@@ -133,7 +125,7 @@ const AddCourses = ({ setOpen, refetch }) => {
                         categoryName: data.categoryName,
                         teacherName: data.teacherName,
                         teacherEmail: data.teacherEmail,
-                        price: data.price,
+                        price: parseFloat(data.price),
                         rating: 0.0,
                         totalstu: 0,
                         completedstu: 0
@@ -153,7 +145,6 @@ const AddCourses = ({ setOpen, refetch }) => {
                             price: null,
                             descreption: ""
                         });
-                        setOpen(false);
                         e.target.reset();
                     } catch (err) {
                         console.log(err);
@@ -172,7 +163,6 @@ const AddCourses = ({ setOpen, refetch }) => {
             .catch(er => { console.log(er.message) })
 
         setPreviewImage(null);
-        setOpen(false);
     }
 
     const handleImageChange = (e) => {
@@ -224,7 +214,7 @@ const AddCourses = ({ setOpen, refetch }) => {
                 {error}
             </p>
 
-            <form onSubmit={handleSubmit} ref={formRef}>
+            <form onSubmit={handleSubmit}>
 
                 <div className="">
                     <CInput

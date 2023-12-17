@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import { useEffect, useState } from "react";
 import CButton from "../../../utils/CButton/CButton";
 import { useDeleteCourseMutation } from "../../../redux/features/courses/courses-api-slice";
+import { Link } from "react-router-dom";
 
 const CoursesTable = ({ data, refetch }) => {
 
@@ -91,9 +92,13 @@ const CoursesTable = ({ data, refetch }) => {
                                 <td>{course?.rating}</td>
                                 <td className="flex flex-col md:flex-row gap-2 justify-center items-center">
 
-                                    <CButton className={'bg-orange-400 text-white rounded-full p-2'} >
-                                        <FaPenToSquare className="text-lg" />
-                                    </CButton>
+                                    <Link to={`/dashboard/updateCourse/${course?._id}`}>
+                                        <CButton
+                                            className={'bg-orange-400 text-white rounded-full p-2'}
+                                        >
+                                            <FaPenToSquare className="text-lg" />
+                                        </CButton>
+                                    </Link>
 
                                     <CButton
                                         onClick={() => {
@@ -111,6 +116,20 @@ const CoursesTable = ({ data, refetch }) => {
                     </tbody>
                 </table>
             </div>
+
+            {/* <CModal
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                title="Update Course"
+                width={"w-full md:w-4/5 lg:w-1/2"}
+            >
+                <UpdateCourse
+                    setOpenModal={setOpenModal}
+                    dataForUpdate={dataForUpdate || {}}
+                    refetch={refetch}
+                    categorys={categorys || []}
+                />
+            </CModal> */}
 
         </section>
     );

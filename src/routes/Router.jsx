@@ -29,6 +29,8 @@ import StudentRoutes from "../privateRoutes/StudentRoutes";
 import SelectedCourse from "../pages/dashboard/student/selectedCourse/SelectedCourse";
 import EnrolledCourses from "../pages/dashboard/student/enrolledCourse/EnrolledCourses";
 import PaymentHistory from "../pages/dashboard/student/paymentHistory/PaymentHistory";
+import UpdateCourse from "../components/courses/updateCourse/UpdateCourse";
+import AdminTeacherRoutes from "../privateRoutes/AdminTeacherRoutes";
 
 const router = createBrowserRouter([
     {
@@ -125,6 +127,12 @@ const router = createBrowserRouter([
         {
             path: "paymentHistory",
             element: <StudentRoutes><PaymentHistory/></StudentRoutes>
+        },
+        //-----------admin & teacher routes------------
+        {
+            path: "updateCourse/:id",
+            element: <AdminTeacherRoutes> <UpdateCourse/> </AdminTeacherRoutes>,
+            loader: ({params})=> fetch(`http://localhost:5000/classes/${params.id}`)
         },
       ]
     },
