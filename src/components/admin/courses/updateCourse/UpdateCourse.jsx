@@ -4,15 +4,15 @@ import { useEffect, useState } from "react";
 import { FaTimes } from "react-icons/fa";
 import Swal from "sweetalert2";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import { useUpdateCourseMutation } from "../../../redux/features/courses/courses-api-slice";
-import CInput from "../../../utils/CInput/CInput";
-import CSelect from "../../../utils/CSelect/CSelect";
-import CFileInput from "../../../utils/CFileInput/CFileInput";
-import CTextArea from "../../../utils/CTextArea/CTextArea";
-import CButton from "../../../utils/CButton/CButton";
-import useCategory from "../../../hooks/useCategory";
-import Loading from "../../../utils/CLoading/Loading";
-import CCard from "../../../utils/CCard/CCard";
+import { useUpdateCourseMutation } from "../../../../redux/features/courses/courses-api-slice";
+import CInput from "../../../../utils/CInput/CInput";
+import CSelect from "../../../../utils/CSelect/CSelect";
+import CFileInput from "../../../../utils/CFileInput/CFileInput";
+import CTextArea from "../../../../utils/CTextArea/CTextArea";
+import CButton from "../../../../utils/CButton/CButton";
+import useCategory from "../../../../hooks/useCategory";
+import Loading from "../../../../utils/CLoading/Loading";
+import CCard from "../../../../utils/CCard/CCard";
 
 const imageHostingToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 

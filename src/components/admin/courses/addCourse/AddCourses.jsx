@@ -23,8 +23,8 @@ const AddCourses = ({ setOpen, refetch, categorys, role }) => {
         teacherEmail: user?.email || "",
         image: "",
         videoURL: "",
-        categoryName: categorys[0].categoryName,
-        categoryId: categorys[0].categoryId,
+        categoryName: "",
+        categoryId: "",
         price: 0,
         descreption: ""
     })
@@ -294,7 +294,7 @@ const AddCourses = ({ setOpen, refetch, categorys, role }) => {
                             setData({ ...data, price: e.target.value });
                         }}
                         id="price"
-                        type="number"
+                        type="text"
                         label="price*"
                         placeholder="price"
                     />
@@ -335,7 +335,11 @@ const AddCourses = ({ setOpen, refetch, categorys, role }) => {
                 </div>
 
                 <div className="">
-                    <CButton variant={"solid"} type={"submit"} isLoading={imageUploadLoading || addCourseIsLoading}>
+                    <CButton 
+                    variant={"solid"} 
+                    type={"submit"} 
+                    isLoading={(imageUploadLoading || addCourseIsLoading) ? true : false}
+                    >
                         Add Course
                     </CButton>
                 </div>

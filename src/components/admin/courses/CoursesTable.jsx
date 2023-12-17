@@ -75,6 +75,7 @@ const CoursesTable = ({ data, refetch }) => {
                             <th className="text-center">Action</th>
                         </tr>
                     </thead>
+
                     <tbody>
                         {
                             data.map((course, indx) => <tr key={indx}>

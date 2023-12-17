@@ -57,7 +57,7 @@ const Dashboard = () => {
                                         {
                                             role === "Admin" &&
                                             <>
-                                                <NavBarItem title={<> <LuVideotape /> Manage Courses </>} path={'/dashboard/adminCourses'} />
+                                                <NavBarItem title={<> <LuVideotape />Manage Courses </>} path={'/dashboard/adminCourses'} />
                                                 <NavBarItem title={<> <MdLibraryBooks />Manage Blogs </>} path={'/dashboard/adminBlogs'} />
                                                 <NavBarItem title={<> <SiSessionize />Manage Sessions </>} path={'/dashboard/adminSessions'} />
                                                 <NavBarItem title={<> <FaUsersCog />Manage User </>} path={'/dashboard/manageUsers'} />
@@ -67,16 +67,16 @@ const Dashboard = () => {
                                         {
                                             role === "Teacher" &&
                                             <>
-                                                <NavBarItem title={<> <LuVideotape /> Courses </>} path={'/dashboard/teacherCourses'} />
-                                                <NavBarItem title={<> <MdLibraryBooks />Blogs </>} path={'/dashboard/teacherBlogs'} />
-                                                <NavBarItem title={<> <SiSessionize />Sessions </>} path={'/dashboard/teacherSessions'} />
+                                                <NavBarItem title={<> <LuVideotape />My Courses </>} path={'/dashboard/teacherCourses'} />
+                                                <NavBarItem title={<> <MdLibraryBooks />My Blogs </>} path={'/dashboard/teacherBlogs'} />
+                                                <NavBarItem title={<> <SiSessionize />My Sessions </>} path={'/dashboard/teacherSessions'} />
                                             </>
                                         }
 
                                         {
                                             role === "Student" &&
                                             <>
-                                                <NavBarItem title={<> <MdVideoSettings /> Selected Courses </>} path={'/dashboard/selectedCourses'} />
+                                                <NavBarItem title={<> <MdVideoSettings />Selected Courses </>} path={'/dashboard/selectedCourses'} />
                                                 <NavBarItem title={<> <MdOutlineVideoLibrary />Enrolled Courses </>} path={'/dashboard/enrolledCourses'} />
                                                 <NavBarItem title={<> <FaMoneyCheckDollar />Payment History </>} path={'/dashboard/paymentHistory'} />
                                             </>

@@ -29,8 +29,8 @@ import StudentRoutes from "../privateRoutes/StudentRoutes";
 import SelectedCourse from "../pages/dashboard/student/selectedCourse/SelectedCourse";
 import EnrolledCourses from "../pages/dashboard/student/enrolledCourse/EnrolledCourses";
 import PaymentHistory from "../pages/dashboard/student/paymentHistory/PaymentHistory";
-import UpdateCourse from "../components/courses/updateCourse/UpdateCourse";
 import AdminTeacherRoutes from "../privateRoutes/AdminTeacherRoutes";
+import UpdateCourse from "../components/admin/courses/updateCourse/UpdateCourse";
 
 const router = createBrowserRouter([
     {

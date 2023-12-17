@@ -12,6 +12,16 @@ export const courseSlice = apiSlice.injectEndpoints({
             },
         }),
 
+        getAllMyCourse: builder.query({
+            query: (data) => {
+                const {email} = data;
+                return {
+                    url: `/classes/myClass?teacherEmail=${email}`,
+                    method: 'GET',
+                };
+            },
+        }),
+
         getCourseById: builder.query({
             query: (id) => {
                 return {
@@ -55,6 +65,7 @@ export const courseSlice = apiSlice.injectEndpoints({
 
 export const {
     useGetAllCourseQuery,
+    useGetAllMyCourseQuery,
     useGetCourseByIdQuery,
     useAddCourseMutation,
     useDeleteCourseMutation,

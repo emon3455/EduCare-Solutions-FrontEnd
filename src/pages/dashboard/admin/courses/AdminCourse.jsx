@@ -36,12 +36,13 @@ const AdminCourse = () => {
                     coursesIsLoading && <Loading />
                 }
                 {
-                    allCourses
+                    allCourses.length == 0
                         ?
-                        <CoursesTable data={allCourses || []} refetch={refetch} categorys={categorys || []} />
-                        :
                         <WarningAllert message={'No Course Data Found...!!!'} />
+                        :
+                        <CoursesTable data={allCourses || []} refetch={refetch} categorys={categorys || []} />
                 }
+                
             </CCard>
 
             <CModal
