@@ -27,7 +27,7 @@ const CModal = ({
         <main
             className={`${open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[100rem]"
                 }
-        inset-0 fixed flex items-center justify-center bg-black/30 z-[9999] transition-all duration-300 ease-in-out
+        inset-0 fixed flex items-center justify-center bg-black/30 z-[90] transition-all duration-300 ease-in-out
       `}
             onClick={handleOutsideClick}
             id={title || "modal"}

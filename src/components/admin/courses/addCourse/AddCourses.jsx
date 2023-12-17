@@ -13,10 +13,12 @@ import CSelect from "../../../../utils/CSelect/CSelect";
 import CTextArea from "../../../../utils/CTextArea/CTextArea";
 import CButton from "../../../../utils/CButton/CButton";
 import { useAddCourseMutation } from "../../../../redux/features/courses/courses-api-slice";
+import useCategory from "../../../../hooks/useCategory";
 const imageHostingToken = import.meta.env.VITE_IMAGE_UPLOAD_TOKEN;
 
 const AddCourses = ({ setOpen, refetch }) => {
 
+    const [categoryIsLoading, categorys] = useCategory();
     const [roleIsLoading, role] = useRole()
     const { user } = useContext(AuthContext);
     const formRef = useRef(null);
@@ -27,7 +29,6 @@ const AddCourses = ({ setOpen, refetch }) => {
         teacherName: user?.displayName || "",
         teacherEmail: user?.email || "",
         image: "",
-        bannerURL: "",
         videoURL: "",
         categoryName: skills[1],
         categoryId: "",
@@ -73,9 +74,10 @@ const AddCourses = ({ setOpen, refetch }) => {
 
 
     if (roleIsLoading) return <Loading />
+    if (categoryIsLoading) return <Loading />
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
 
         const formData = new FormData();
@@ -87,12 +89,32 @@ const AddCourses = ({ setOpen, refetch }) => {
             body: formData
         })
             .then(res => res.json())
-            .then(imgResponse => {
+            .then(async (imgResponse) => {
                 if (imgResponse.success) {
 
                     const imgURL = imgResponse.data.display_url;
-                    setData({ ...data, bannerURL: imgURL });
                     setImageUploadLoading(false);
+
+                    const savedCourse = {
+                        title: data.title,
+                        bannerURL: imgURL,
+                        videoURL: data.videoURL,
+                        description: data.descreption,
+                        categoryId: data.categoryId,
+                        categoryName: data.categoryName,
+                        teacherName: data.teacherName,
+                        teacherEmail: data.teacherEmail,
+                        price: data.price,
+                        rating: 0.0,
+                        totalstu: 0,
+                        completedstu: 0
+                    }
+
+                    try {
+                        await addCourse(savedCourse)?.unwrap();
+                    } catch (err) {
+                        console.log(err);
+                    }
                 }
                 else {
                     setImageUploadLoading(false);
@@ -105,32 +127,10 @@ const AddCourses = ({ setOpen, refetch }) => {
                 }
             })
             .catch(er => { console.log(er.message) })
-
-        const savedCourse = {
-            title: data.title,
-            bannerURL: data.bannerURL,
-            videoURL: data.videoURL,
-            description: data.descreption,
-            categoryId: data.categoryId,
-            categoryName: data.categoryName,
-            teacherName: data.teacherName,
-            teacherEmail: data.teacherEmail,
-            price: data.price,
-            rating: 0.0,
-            totalstu: 0,
-            completedstu: 0
-        }
-
-        try {
-            await addCourse(savedCourse)?.unwrap();
-        } catch (err) {
-            console.log(err);
-        }
     }
 
     const handleImageChange = (e) => {
         const selectedImageFile = e.target.files[0];
-        e.target.value = null;
 
         if (selectedImageFile) {
             const maxSize = 2 * 1024 * 1024; // 2MB in bytes
@@ -145,6 +145,7 @@ const AddCourses = ({ setOpen, refetch }) => {
                 setData({ ...data, image: e.target.files[0] });
             }
         }
+        e.target.value = null; 
     };
 
     return (
@@ -231,9 +232,9 @@ const AddCourses = ({ setOpen, refetch }) => {
                 <div className="mt-2">
                     <CSelect
                         defaultValue={{ value: data.categoryId, label: data.categoryName }}
-                        options={skills?.map((subject) => ({
-                            value: subject,
-                            label: subject,
+                        options={categorys?.map((subject) => ({
+                            value: subject._id,
+                            label: subject.categoryName,
                         }))}
                         title={"Category"}
                         className="basic-single"
