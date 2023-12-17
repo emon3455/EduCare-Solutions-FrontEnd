@@ -338,7 +338,7 @@ const AddCourses = ({ setOpen, refetch, categorys, role }) => {
                     <CButton 
                     variant={"solid"} 
                     type={"submit"} 
-                    isLoading={(imageUploadLoading || addCourseIsLoading) ? true : false}
+                    loading={(imageUploadLoading || addCourseIsLoading) ? true : false}
                     >
                         Add Course
                     </CButton>

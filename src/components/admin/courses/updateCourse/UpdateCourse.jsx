@@ -379,7 +379,7 @@ const UpdateCourse = () => {
                             <CButton
                                 variant={"solid"}
                                 type={"submit"}
-                                isLoading={(imageUploadLoading || updateCourseIsLoading) ? true : false}
+                                loading={(imageUploadLoading || updateCourseIsLoading) ? true : false}
                             >
                                 Update Course
                             </CButton>
