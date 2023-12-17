@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useContext, useEffect, useRef, useState } from "react";
 import CInput from "../../../../utils/CInput/CInput";
@@ -8,7 +7,6 @@ import Loading from "../../../../utils/CLoading/Loading";
 import Swal from "sweetalert2";
 import { FaTimes } from "react-icons/fa";
 import CFileInput from "../../../../utils/CFileInput/CFileInput";
-import { skills } from "../../../../constant/skills";
 import CSelect from "../../../../utils/CSelect/CSelect";
 import CTextArea from "../../../../utils/CTextArea/CTextArea";
 import CButton from "../../../../utils/CButton/CButton";
@@ -30,7 +28,7 @@ const AddCourses = ({ setOpen, refetch }) => {
         teacherEmail: user?.email || "",
         image: "",
         videoURL: "",
-        categoryName: skills[1],
+        categoryName: categorys[0],
         categoryId: "",
         price: 0,
         descreption: ""
@@ -40,37 +38,31 @@ const AddCourses = ({ setOpen, refetch }) => {
 
     const [
         addCourse,
-        { isLoading: addCourseIsLoading, isSuccess: addCourseIsSuccess, data: addCourseData, isError: addCourseIsError, error: addCourseError },
+        { isLoading: addCourseIsLoading, isSuccess: addCourseIsSuccess, isError: addCourseIsError, },
     ] = useAddCourseMutation();
 
     //showing success message
     useEffect(() => {
         if (addCourseIsSuccess) {
-            setOpen(false);
             Swal.fire(
                 'Course Added Successfully!',
                 'Success!',
                 'success'
             )
-            if (formRef.current) {
-                formRef.current.reset();
-            }
             refetch();
         }
-    }, [addCourseIsSuccess, refetch, setOpen]);
+    }, [user, data, categorys, addCourseIsSuccess, refetch]);
 
     //showing error message
     useEffect(() => {
         if (addCourseIsError) {
-            setOpen(false);
-            addCourseError?.status === 400 &&
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Course Not Added, Please try again...!',
-                })
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Course Not Added, Please try again...!',
+            })
         }
-    }, [setOpen, addCourseIsError, addCourseError]);
+    }, [addCourseIsError]);
 
 
     if (roleIsLoading) return <Loading />
@@ -79,6 +71,43 @@ const AddCourses = ({ setOpen, refetch }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        if (!data.title) {
+            setError("Title is required");
+            return;
+        }
+        if (!data.teacherName) {
+            setError("Teacher Name is required");
+            return;
+        }
+        if (!data.teacherEmail) {
+            setError("Teacher Email is required");
+            return;
+        }
+        if (!data.categoryId) {
+            setError("Category Id is required");
+            return;
+        }
+        if (!data.categoryName) {
+            setError("Category Name is required");
+            return;
+        }
+        if (!data.price) {
+            setError("Price is required");
+            return;
+        }
+        if (!data.image) {
+            setError("Course Image is required");
+            return;
+        }
+        if (!data.videoURL) {
+            setError("Video URL is required");
+            return;
+        }
+        if (!data.descreption) {
+            setError("Descreption is required");
+            return;
+        }
 
         const formData = new FormData();
         formData.append('image', data.image);
@@ -112,6 +141,20 @@ const AddCourses = ({ setOpen, refetch }) => {
 
                     try {
                         await addCourse(savedCourse)?.unwrap();
+                        setData({
+                            ...data,
+                            title: "",
+                            teacherName: user?.displayName || "",
+                            teacherEmail: user?.email || "",
+                            image: "",
+                            videoURL: "",
+                            categoryName: categorys[0],
+                            categoryId: "",
+                            price: null,
+                            descreption: ""
+                        });
+                        setOpen(false);
+                        e.target.reset();
                     } catch (err) {
                         console.log(err);
                     }
@@ -127,6 +170,9 @@ const AddCourses = ({ setOpen, refetch }) => {
                 }
             })
             .catch(er => { console.log(er.message) })
+
+        setPreviewImage(null);
+        setOpen(false);
     }
 
     const handleImageChange = (e) => {
@@ -145,7 +191,7 @@ const AddCourses = ({ setOpen, refetch }) => {
                 setData({ ...data, image: e.target.files[0] });
             }
         }
-        e.target.value = null; 
+        e.target.value = null;
     };
 
     return (

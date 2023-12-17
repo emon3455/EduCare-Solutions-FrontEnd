@@ -245,7 +245,7 @@ const Register = () => {
 
                 <div className="bg-white min-h-screen w-full lg:w-3/5 mx-auto grid grid-cols-1 items-center p-2">
                     <div className="border rounded">
-                        <form onSubmit={handleSubmit} className="card-body ">
+                        <form onSubmit={handleSubmit} className="card-body">
                             <h2 className="text-xl lg:text-xl font-bold text-center">Join With <span className="text-secondary">Edu-Care</span> Solution</h2>
 
                             {previewImage && (

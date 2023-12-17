@@ -2,8 +2,62 @@
 
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FaPenToSquare } from "react-icons/fa6";
+import Swal from "sweetalert2";
+import { useEffect, useState } from "react";
+import CButton from "../../../utils/CButton/CButton";
+import { useDeleteCourseMutation } from "../../../redux/features/courses/courses-api-slice";
 
-const CoursesTable = ({ data }) => {
+const CoursesTable = ({ data, refetch }) => {
+
+    const [index, setIndex] = useState(null);
+
+    const [
+        deleteCourse,
+        { isLoading: deleteCourseIsLoading, isSuccess: deleteCourseIsSuccess, isError: deleteCourseIsError },
+    ] = useDeleteCourseMutation();
+
+    //showing success message
+    useEffect(() => {
+        if (deleteCourseIsSuccess) {
+            Swal.fire(
+                'Course Deleted Successfully!',
+                'Success!',
+                'success'
+            )
+            refetch();
+        }
+    }, [deleteCourseIsSuccess, refetch]);
+
+    //showing error message
+    useEffect(() => {
+        if (deleteCourseIsError) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Course Not Deleted, Please try again...!',
+            })
+        }
+    }, [deleteCourseIsError]);
+
+    const handleDelete = (id) => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "Once Deleted, you will not be able to revert this!",
+            confirmButtonText: "Delete",
+            showCancelButton: true,
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    await deleteCourse(id)
+                }
+                catch (er) {
+                    console.log(er);
+                }
+            }
+        });
+
+    }
+
     return (
         <section className="mx-auto">
 
@@ -22,8 +76,8 @@ const CoursesTable = ({ data }) => {
                     </thead>
                     <tbody>
                         {
-                            data.map((course, index) => <tr key={index}>
-                                <td>{index + 1}</td>
+                            data.map((course, indx) => <tr key={indx}>
+                                <td>{indx + 1}</td>
                                 <td>
                                     <div className="avatar">
                                         <div className="w-12 h-10 rounded">
@@ -36,12 +90,21 @@ const CoursesTable = ({ data }) => {
                                 <td>{course?.price} BDT</td>
                                 <td>{course?.rating}</td>
                                 <td className="flex flex-col md:flex-row gap-2 justify-center items-center">
-                                    <button className={'bg-orange-400 text-white rounded-full p-2'} >
-                                        <FaPenToSquare className="text-lg p-0"/>
-                                    </button>
-                                    <button className={'bg-red-500 text-white rounded-full p-2'} >
-                                        <RiDeleteBin2Fill className="text-lg p-0"/>
-                                    </button>
+
+                                    <CButton className={'bg-orange-400 text-white rounded-full p-2'} >
+                                        <FaPenToSquare className="text-lg" />
+                                    </CButton>
+
+                                    <CButton
+                                        onClick={() => {
+                                            setIndex(indx);
+                                            handleDelete(`${course?._id}`);
+                                        }}
+                                        className={'bg-red-500 text-white rounded-full p-2'}
+                                        loading={index === indx && deleteCourseIsLoading}
+                                    >
+                                        <RiDeleteBin2Fill className="text-lg" />
+                                    </CButton>
                                 </td>
                             </tr>)
                         }

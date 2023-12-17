@@ -3,8 +3,12 @@ import { useGetAllCategoryQuery } from "../redux/features/category/category-api-
 const useCategory = () => {
 
     const { isLoading, data } = useGetAllCategoryQuery();
-
-    return [isLoading, data]
+    if (!isLoading) {
+        return [isLoading, data]
+    }
+    else{
+        return  [isLoading, data || []]
+    }
 
 }
 

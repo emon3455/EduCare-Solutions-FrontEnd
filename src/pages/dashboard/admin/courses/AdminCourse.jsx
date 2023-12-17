@@ -26,7 +26,7 @@ const AdminCourse = () => {
                 {
                     allCourses
                         ?
-                        <CoursesTable data={allCourses || []} />
+                        <CoursesTable data={allCourses || []} refetch={refetch} />
                         :
                         <WarningAllert message={'No Course Data Found...!!!'} />
                 }
