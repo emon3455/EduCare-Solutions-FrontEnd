@@ -21,10 +21,21 @@ export const blogSlice = apiSlice.injectEndpoints({
             },
         }),
 
+        likeBlog: builder.mutation({
+            query: (data) => {
+                return {
+                    url: `/blogsLike/${data.id}?NoOfLike=${data.noOfLike}&email=${data.email}`,
+                    method: "PATCH",
+                    body: data,
+                };
+            },
+        }),
+
     }),
 });
 
 export const {
     useGetAllBlogQuery,
     useGetBlogByIdQuery,
+    useLikeBlogMutation
 } = blogSlice;
