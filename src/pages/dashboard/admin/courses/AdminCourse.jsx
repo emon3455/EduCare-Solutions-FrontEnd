@@ -36,7 +36,7 @@ const AdminCourse = () => {
                     coursesIsLoading && <Loading />
                 }
                 {
-                    allCourses.length == 0
+                    allCourses?.length == 0
                         ?
                         <WarningAllert message={'No Course Data Found...!!!'} />
                         :
