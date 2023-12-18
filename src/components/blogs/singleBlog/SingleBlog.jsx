@@ -1,17 +1,21 @@
 import { useParams } from "react-router-dom";
 import CContainer from "../../../utils/CContainer/CContainer";
 import { BiSolidLike } from "react-icons/bi";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import Loading from "../../../utils/CLoading/Loading";
 import { useGetBlogByIdQuery, useLikeBlogMutation } from "../../../redux/features/blogs/blog-api-slice";
 import ErrorAllert from "../../../shared/ErrorAllert";
 import { AuthContext } from "../../../providers/AuthProvider";
 import Swal from "sweetalert2";
+import CModal from "../../../utils/CModal/CModal";
+import WarningAllert from "../../../shared/WarningAllert";
 
 const SingleBlog = () => {
 
-    const { user } = useContext(AuthContext)
     const params = useParams();
+    const { user } = useContext(AuthContext)
+    const [openModal, setOpenModal] = useState(false)
+    const [isLike, setIsLike] = useState(false);
     const { isLoading, isError, data: blog, refetch } = useGetBlogByIdQuery(params?.id)
 
     const [
@@ -19,12 +23,17 @@ const SingleBlog = () => {
         { isLoading: likeBlogIsLoading, isSuccess: likeBlogIsSuccess, isError: likeBlogIsError, },
     ] = useLikeBlogMutation();
 
+    useEffect(() => {
+        const likedUserEmails = blog?.likedUsers.map(user => user.email) || [];
+        setIsLike(likedUserEmails.includes(user.email) ? true : false)
+    }, [blog, setIsLike, user])
+
     //showing success message
     useEffect(() => {
         if (likeBlogIsSuccess) {
             refetch()
         }
-    }, [ refetch, likeBlogIsSuccess]);
+    }, [refetch, likeBlogIsSuccess]);
 
     //showing error message
     useEffect(() => {
@@ -37,6 +46,7 @@ const SingleBlog = () => {
         }
     }, [likeBlogIsError]);
 
+    if (isLoading) return <Loading />
     if (likeBlogIsLoading) return <Loading />
 
 
@@ -97,7 +107,7 @@ const SingleBlog = () => {
 
                                     <span>Like:</span>
                                     {
-                                        blog?.likedUsers.includes(user?.email)
+                                        isLike
                                             ?
                                             <span onClick={() => handleRemoveLike(blog.NoOfLike, blog._id)}>
                                                 <BiSolidLike className="text-2xl cursor-pointer text-sky-600" />
@@ -107,7 +117,8 @@ const SingleBlog = () => {
                                                 <BiSolidLike className="text-2xl cursor-pointer text-gray-500 " />
                                             </span>
                                     }
-                                    <span>{blog?.NoOfLike}</span>
+
+                                    <span onClick={() => setOpenModal(true)} className="cursor-pointer">{blog?.NoOfLike}</span>
 
                                 </div>
                                 <p className="text-[#6C6B6B]"><span className="font-semibold">Author:</span> {blog?.teacherName}</p>
@@ -116,6 +127,32 @@ const SingleBlog = () => {
                         </div>
                     </div>
             }
+            <CModal
+                open={openModal}
+                onClose={() => setOpenModal(false)}
+                title="Liked User"
+                width={"w-full sm:w-1/2 md:w-2/5 lg:w-1/3"}
+                height={"h-2/3 sm:h-1/2 md:h-3/5 lg:h-2/5"}
+            >
+                {
+                    blog?.likedUsers?.length == 0
+                        ?
+                        <WarningAllert message={'This Blog has no like yet..!!!'} />
+                        :
+                        blog?.likedUsers.map((user, index) => <div key={index} className="mb-1">
+                            <div className="flex gap-2 items-center mb-1">
+                                <div className="avatar">
+                                    <div className="w-10 h-10 rounded-full">
+                                        <img src={user?.image} className="w-10 h-10 rounded-full" />
+                                    </div>
+                                </div>
+                                <h2>{user?.name}</h2>
+                            </div>
+                            <hr />
+                        </div>)
+                }
+
+            </CModal>
         </CContainer>
     );
 };
