@@ -46,7 +46,7 @@ const SingleBlog = () => {
                                 <span>{blog?.NoOfLike}</span>
 
                             </div>
-                            <p className="text-[#6C6B6B]"><span className="font-semibold">Author:</span> {blog?.TName}</p>
+                            <p className="text-[#6C6B6B]"><span className="font-semibold">Author:</span> {blog?.teacherName}</p>
                         </div>
                         <hr />
                     </div>
