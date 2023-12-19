@@ -20,6 +20,26 @@ export const blogSlice = apiSlice.injectEndpoints({
       },
     }),
 
+    addBlog: builder.mutation({
+      query: (data) => {
+        return {
+          url: "/blogs",
+          method: "POST",
+          body: data,
+        };
+      },
+    }),
+
+    likeBlog: builder.mutation({
+      query: (data) => {
+        return {
+          url: `/blogsLike/${data.id}?NoOfLike=${data.noOfLike}&email=${data.email}`,
+          method: "PATCH",
+          body: data,
+        };
+      },
+    }),
+
     deleteBlog: builder.mutation({
       query: (id) => {
         return {
@@ -34,5 +54,7 @@ export const blogSlice = apiSlice.injectEndpoints({
 export const {
   useGetAllBlogQuery,
   useGetBlogByIdQuery,
+  useAddBlogMutation,
   useDeleteBlogMutation,
+  useLikeBlogMutation,
 } = blogSlice;

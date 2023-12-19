@@ -48,11 +48,11 @@ const router = createBrowserRouter([
         },
         {
             path: "/courses/:id",
-            element: <SingleCourse/>
+            element: <PrivateRoutes><SingleCourse/></PrivateRoutes>
         },
         {
             path: "/teacher/:id",
-            element: <SingleTeacher/>
+            element: <PrivateRoutes><SingleTeacher/></PrivateRoutes>
         },
         {
             path: "/blogs",
@@ -60,7 +60,7 @@ const router = createBrowserRouter([
         },
         {
             path: "/blogs/:id",
-            element: <SingleBlog/>
+            element: <PrivateRoutes><SingleBlog/></PrivateRoutes>
         },
         {
             path: "/sessions",

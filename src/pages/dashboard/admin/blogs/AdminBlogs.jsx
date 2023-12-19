@@ -9,6 +9,7 @@ import CButton from "../../../../utils/CButton/CButton";
 import WarningAllert from "../../../../shared/WarningAllert";
 import CModal from "../../../../utils/CModal/CModal";
 import BlogsTable from "../../../../components/admin/blogs/BlogsTable";
+import AddBlog from "../../../../components/admin/blogs/addBlog/AddBlog";
 
 const AdminBlogs = () => {
     const [categoryIsLoading, categorys] = useCategory();
@@ -27,7 +28,7 @@ const AdminBlogs = () => {
 
     return (
         <main className="p-2 lg:p-4">
-            <CCard title={'Manage Blogs'} secondary={<CButton onClick={() => setOpen(true)} variant={'contained'}>Add Blog </CButton>}>
+            <CCard title={'Manage Blogs'} secondary={<CButton onClick={() => setOpen(true)} variant={'contained'}>Add Blog</CButton>}>
                 {
                     blogsIsLoading && <Loading />
                 }
@@ -36,19 +37,17 @@ const AdminBlogs = () => {
                         ?
                         <WarningAllert message={'No Blog Data Found...!!!'} />
                         :
-                        // <CoursesTable data={allCourses || []} refetch={refetch} categorys={categorys || []} />
                         <BlogsTable data={allBlogs || []} refetch={refetch} categorys={categorys || []} />
                 }
-
             </CCard>
 
             <CModal
                 open={open}
                 onClose={() => setOpen(false)}
-                title="Add Course"
+                title="Add Blog"
                 width={"w-full md:w-4/5 lg:w-1/2"}
             >
-                {/* <AddCourses setOpen={setOpen} refetch={refetch} categorys={categorys || []} role={role} /> */}
+                <AddBlog setOpen={setOpen} refetch={refetch} categorys={categorys || []} role={role} />
             </CModal>
         </main>
     );

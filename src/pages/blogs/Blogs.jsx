@@ -31,7 +31,8 @@ const Blogs = () => {
                         <div className="p-5">
                             <h3 className="font-bold text-lg h-20">{blog?.title}</h3>
                             {/* <p className="text-[#6C6B6B]">Writer: {blog.TName}</p> */}
-                            <p className="text-[#6C6B6B]">{blog.description.slice(0, 120) + "..."}</p>
+                            <p className="text-[#6C6B6B]">{blog?.description.slice(0, 120) + "..."}</p>
+
                             <Link to={`${blog?._id}`}>
                                 <CButton className="mt-5 bottom-0" variant={"outline"} fullWidth={true}>Read More</CButton>
                             </Link>

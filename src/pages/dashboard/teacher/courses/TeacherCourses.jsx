@@ -34,6 +34,7 @@ const TeacherCourses = () => {
 
     if (roleIsLoading) return <Loading />
     if (categoryIsLoading) return <Loading />
+    if (coursesIsLoading) return <Loading />
     if (coursesIsError) return <ErrorAllert message={'Error! Something Went Wrong...!!!'} />
 
 
