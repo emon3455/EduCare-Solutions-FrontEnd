@@ -48,6 +48,27 @@ export const blogSlice = apiSlice.injectEndpoints({
         };
       },
     }),
+
+    getAllMyBlog: builder.query({
+      query: (data) => {
+          const {email} = data;
+          return {
+              url: `/blogs/myBlogs?teacherEmail=${email}`,
+              method: 'GET',
+          };
+      },
+  }),
+
+    updateBlog: builder.mutation({
+      query: (data) => {
+          return {
+              url: `/blogs/${data?.id}`,
+              method: "PATCH",
+              body: data,
+          };
+      },
+  }),
+
   }),
 });
 
@@ -57,4 +78,6 @@ export const {
   useAddBlogMutation,
   useDeleteBlogMutation,
   useLikeBlogMutation,
+  useUpdateBlogMutation,
+  useGetAllMyBlogQuery
 } = blogSlice;

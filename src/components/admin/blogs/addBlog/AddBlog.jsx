@@ -112,7 +112,10 @@ const AddBlog = ({ setOpen, refetch, categorys, role }) => {
                         description: data.description,
                         teacherName: data.teacherName,
                         teacherEmail: data.teacherEmail,
+                        categoryId: data.categoryId,
+                        categoryName: data.categoryName,
                     }
+                    console.log(savedBlog)
 
                     try {
                         await addBlog(savedBlog)?.unwrap();
@@ -174,7 +177,7 @@ const AddBlog = ({ setOpen, refetch, categorys, role }) => {
                     <div className="">
                         <img
                             src={previewImage}
-                            alt="user image"
+                            alt="blog image"
                             className="w-16 h-16 rounded-full mx-auto object-cover border-2 border-cyan-950 shadow-lg"
                         />
                     </div>
