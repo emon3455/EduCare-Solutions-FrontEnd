@@ -78,7 +78,7 @@ const Login = () => {
                         localStorage.setItem('edu-care-access-token', res?.token);
                         setIsLoading(false);
                         Swal.fire(
-                            'Successfully Loged In!',
+                            'Successfully Logged In!',
                             'Success!',
                             'success'
                         )
