@@ -32,6 +32,8 @@ import PaymentHistory from "../pages/dashboard/student/paymentHistory/PaymentHis
 import AdminTeacherRoutes from "../privateRoutes/AdminTeacherRoutes";
 import UpdateCourse from "../components/admin/courses/updateCourse/UpdateCourse";
 import Profile from "../pages/dashboard/Profile";
+import UpdateBlog from "../components/admin/blogs/updateBlog/UpdateBlog";
+import UpdateSession from "../components/admin/sessions/updateSession/UpdateSession";
 
 const router = createBrowserRouter([
     {
@@ -137,7 +139,17 @@ const router = createBrowserRouter([
         {
             path: "updateCourse/:id",
             element: <AdminTeacherRoutes> <UpdateCourse/> </AdminTeacherRoutes>,
-            loader: ({params})=> fetch(`http://localhost:5000/classes/${params.id}`)
+            loader: ({params})=> fetch(`https://edu-care-backend.vercel.app/classes/${params.id}`)
+        },
+        {
+            path: "updateBlog/:id",
+            element: <AdminTeacherRoutes> <UpdateBlog/> </AdminTeacherRoutes>,
+            loader: ({params})=> fetch(`https://edu-care-backend.vercel.app/blogs/${params.id}`)
+        },
+        {
+            path: "updateSession/:id",
+            element: <AdminTeacherRoutes> <UpdateSession/> </AdminTeacherRoutes>,
+            loader: ({params})=> fetch(`https://edu-care-backend.vercel.app/sessions/${params.id}`)
         },
       ]
     },

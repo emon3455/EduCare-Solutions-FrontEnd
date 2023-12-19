@@ -14,7 +14,7 @@ const Navbar = () => {
             .then(() => {
                 localStorage.removeItem('edu-care-access-token');
                 Swal.fire(
-                    'Successfully Loged out!',
+                    'Successfully Logged out!',
                     'Success!',
                     'success'
                 )
