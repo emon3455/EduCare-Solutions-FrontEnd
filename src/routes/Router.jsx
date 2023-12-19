@@ -33,6 +33,7 @@ import AdminTeacherRoutes from "../privateRoutes/AdminTeacherRoutes";
 import UpdateCourse from "../components/admin/courses/updateCourse/UpdateCourse";
 import UpdateBlog from "../components/admin/blogs/updateBlog/UpdateBlog";
 import UpdateSession from "../components/admin/sessions/updateSession/UpdateSession";
+import Profile from "../pages/dashboard/Profile";
 
 const router = createBrowserRouter([
     {
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
         {
             path: "home",
             element: <PrivateRoutes><DashboardHome/></PrivateRoutes>
+        },
+        {
+            path: "profile",
+            element: <PrivateRoutes><Profile/></PrivateRoutes>
         },
         // -----admin routes-----
         {

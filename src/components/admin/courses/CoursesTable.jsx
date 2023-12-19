@@ -118,20 +118,6 @@ const CoursesTable = ({ data, refetch }) => {
                 </table>
             </div>
 
-            {/* <CModal
-                open={openModal}
-                onClose={() => setOpenModal(false)}
-                title="Update Course"
-                width={"w-full md:w-4/5 lg:w-1/2"}
-            >
-                <UpdateCourse
-                    setOpenModal={setOpenModal}
-                    dataForUpdate={dataForUpdate || {}}
-                    refetch={refetch}
-                    categorys={categorys || []}
-                />
-            </CModal> */}
-
         </section>
     );
 };

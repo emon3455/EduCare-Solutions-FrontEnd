@@ -12,6 +12,7 @@ import { FaUsersCog } from "react-icons/fa";
 import { MdOutlineVideoLibrary } from "react-icons/md";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { MdVideoSettings } from "react-icons/md";
+import { FaUser } from "react-icons/fa";
 
 const Dashboard = () => {
 
@@ -54,6 +55,7 @@ const Dashboard = () => {
                                 (
                                     <>
                                         <NavBarItem title={<> <FaHome /> Home </>} path={'/dashboard/home'} />
+                                        <NavBarItem title={<> <FaUser /> Profile </>} path={'/dashboard/profile'} />
                                         {
                                             role === "Admin" &&
                                             <>
