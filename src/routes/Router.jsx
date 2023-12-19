@@ -31,6 +31,7 @@ import EnrolledCourses from "../pages/dashboard/student/enrolledCourse/EnrolledC
 import PaymentHistory from "../pages/dashboard/student/paymentHistory/PaymentHistory";
 import AdminTeacherRoutes from "../privateRoutes/AdminTeacherRoutes";
 import UpdateCourse from "../components/admin/courses/updateCourse/UpdateCourse";
+import Profile from "../pages/dashboard/Profile";
 
 const router = createBrowserRouter([
     {
@@ -84,6 +85,10 @@ const router = createBrowserRouter([
         {
             path: "home",
             element: <PrivateRoutes><DashboardHome/></PrivateRoutes>
+        },
+        {
+            path: "profile",
+            element: <PrivateRoutes><Profile/></PrivateRoutes>
         },
         // -----admin routes-----
         {

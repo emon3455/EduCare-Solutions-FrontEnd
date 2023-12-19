@@ -3,6 +3,7 @@ import { useContext } from "react";
 import Swal from "sweetalert2";
 import ActiveLink from "../components/ActiveLink";
 import CContainer from "../utils/CContainer/CContainer";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
@@ -66,11 +67,13 @@ const Navbar = () => {
                 {
                     user
                     &&
-                    <label className="btn btn-ghost btn-circle avatar btn-sm md:btn-md ms-auto">
-                        <div className=" w-6 md:w-10 rounded-full">
-                            <img src={user && user?.photoURL} />
-                        </div>
-                    </label>
+                    <Link to={'/dashboard/profile'}>
+                        <label className="btn btn-ghost btn-circle avatar btn-sm md:btn-md ms-auto">
+                            <div className=" w-6 md:w-10 rounded-full">
+                                <img src={user && user?.photoURL} />
+                            </div>
+                        </label>
+                    </Link>
                 }
             </CContainer>
         </header>

@@ -11,62 +11,6 @@ import { AuthContext } from "../../../providers/AuthProvider";
 
 const UsersTable = ({ data, refetch }) => {
 
-
-    // //showing success message
-    // useEffect(() => {
-    //     if (deleteUsersIsSuccess) {
-    //         Swal.fire(
-    //             'User Deleted Successfully!',
-    //             'Success!',
-    //             'success'
-    //         )
-    //         refetch();
-    //     }
-    // }, [deleteUsersIsSuccess, refetch]);
-
-    // //showing error message
-    // useEffect(() => {
-    //     if (deleteUsersIsError) {
-    //         Swal.fire({
-    //             icon: 'error',
-    //             title: 'Oops...',
-    //             text: 'User Not Deleted, Please try again...!',
-    //         })
-    //     }
-    // }, [deleteUsersIsError]);
-
-    // const handleDelete = (id) => {
-    //     Swal.fire({
-    //         title: "Are you sure?",
-    //         text: "Once Deleted, you will not be able to revert this!",
-    //         confirmButtonText: "Delete",
-    //         showCancelButton: true,
-    //     }).then( (result) => {
-    //         if (result.isConfirmed) {
-    //             deleteAuthUser()
-    //             .then(async () => {
-    //                 try {
-    //                     await deleteUser(id)
-    //                 }
-    //                 catch (er) {
-    //                     console.log(er);
-    //                     return;
-    //                 }
-    //             }).catch((error) => {
-    //                 Swal.fire({
-    //                     icon: 'error',
-    //                     title: 'Oops...',
-    //                     text: 'User Not Deleted, Please try again...!',
-    //                 })
-    //                 console.log(error);
-    //                 return;
-    //             });
-
-    //         }
-    //     });
-
-    // }
-
     const { user } = useContext(AuthContext)
     const [
         updateRole,
@@ -146,25 +90,6 @@ const UsersTable = ({ data, refetch }) => {
                                 <td>{singleUser?.email}</td>
                                 <td>{singleUser?.roles}</td>
                                 <td className="flex flex-col md:flex-row gap-2 justify-center items-center">
-
-                                    {/* <Link to={`/dashboard/updateUser/${user?._id}`}>
-                                        <CButton
-                                            className={'bg-orange-400 text-white rounded-full p-2'}
-                                        >
-                                            <FaPenToSquare className="text-lg" />
-                                        </CButton>
-                                    </Link> */}
-
-                                    {/* <CButton
-                                        onClick={() => {
-                                            setIndex(indx);
-                                            handleDelete(`${user?._id}`);
-                                        }}
-                                        className={'bg-red-500 text-white rounded-full p-2'}
-                                        loading={index === indx && deleteUsersIsLoading}
-                                    >
-                                        <RiDeleteBin2Fill className="text-lg" />
-                                    </CButton> */}
 
                                     <CButton
                                         onClick={() => handleRoleChange(singleUser._id, "Admin")}
