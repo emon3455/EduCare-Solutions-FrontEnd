@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { sessionsData } from "../../content/data";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 import { useGetAllSessionQuery } from "../../redux/features/sessions/session-api-slice";
 
@@ -23,7 +22,7 @@ const Sessions = () => {
                             <CSkeleton />
                         </>
                         :
-                        sessionsData.map(session => <div
+                        data?.map(session => <div
                             key={session._id}
                             className="border border-[#E6E6E6] rounded-lg hover:shadow-xl transition-all duration-500">
                             <img className="w-full md:w-4/5 mx-auto md:h-56 p-4" src={session?.sessionBanner} alt="" />
