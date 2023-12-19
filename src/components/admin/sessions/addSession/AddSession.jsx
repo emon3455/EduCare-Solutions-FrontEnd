@@ -27,7 +27,6 @@ const AddSession = ({ setOpen, refetch, categorys, role }) => {
         sessionPlatform: "",
         sessionLink: "",
         sessionTime: "",
-        
     })
 
     const [error, setError] = useState("")
