@@ -21,6 +21,10 @@ const Profile = () => {
         { isLoading: deleteUserIsLoading, isSuccess: deleteUserIsSuccess, isError: deleteUserIsError },
     ] = useDeleteUserMutation();
 
+    useEffect(()=>{
+        refetch();
+    },[refetch])
+
     //showing success message
     useEffect(() => {
         if (deleteUserIsSuccess) {
@@ -87,8 +91,9 @@ const Profile = () => {
                         <Link to={`/dashboard/updateUser/${data?._id}`}>
                             <CButton
                                 className={'bg-orange-400 text-white rounded-full p-2'}
+                                style={{padding:"2px 4px"}}
                             >
-                                <FaPenToSquare className="text-lg" /> Update Info
+                                <FaPenToSquare className="text-sm" /> Update Info
                             </CButton>
                         </Link>
 
@@ -96,8 +101,9 @@ const Profile = () => {
                             onClick={() => handleDelete(`${data?._id}`)}
                             className={'bg-red-500 text-white rounded-full p-2'}
                             loading={deleteUserIsLoading}
+                            style={{padding:"2px 4px"}}
                         >
-                            <RiDeleteBin2Fill className="text-lg" /> Delete Account
+                            <RiDeleteBin2Fill className="text-sm" /> Delete Account
                         </CButton>
                     </div>
                 }

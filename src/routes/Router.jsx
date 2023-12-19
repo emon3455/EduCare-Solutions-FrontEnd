@@ -34,6 +34,7 @@ import UpdateCourse from "../components/admin/courses/updateCourse/UpdateCourse"
 import Profile from "../pages/dashboard/Profile";
 import UpdateBlog from "../components/admin/blogs/updateBlog/UpdateBlog";
 import UpdateSession from "../components/admin/sessions/updateSession/UpdateSession";
+import UpdateUsers from "../components/admin/users/updateUsers/UpdateUsers";
 
 const router = createBrowserRouter([
     {
@@ -91,6 +92,10 @@ const router = createBrowserRouter([
         {
             path: "profile",
             element: <PrivateRoutes><Profile/></PrivateRoutes>
+        },
+        {
+            path: "updateUser/:id",
+            element: <PrivateRoutes><UpdateUsers/></PrivateRoutes>
         },
         // -----admin routes-----
         {

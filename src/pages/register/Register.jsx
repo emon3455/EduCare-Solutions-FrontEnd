@@ -50,6 +50,8 @@ const Register = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        setError("");
+
         setIsLoading(true);
         if (!data.name) {
             setError("Name is required");

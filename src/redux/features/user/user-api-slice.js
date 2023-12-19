@@ -60,6 +60,16 @@ export const userSlice = apiSlice.injectEndpoints({
             },
         }),
 
+        updateUserInfo: builder.mutation({
+            query: (data) => {
+                return {
+                    url: `/users/${data?.id}`,
+                    method: "PATCH",
+                    body: data,
+                };
+            },
+        }),
+
     }),
 });
 
@@ -70,4 +80,5 @@ export const {
     useGetUserRoleByEmailQuery,
     useDeleteUserMutation,
     useUpdateRoleMutation,
+    useUpdateUserInfoMutation
 } = userSlice;

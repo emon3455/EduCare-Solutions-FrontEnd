@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CContainer from "../utils/CContainer/CContainer";
 import CButton from "../utils/CButton/CButton";
 import { BsArrowLeft } from "react-icons/Bs";
+import { useMemo } from "react";
 
 const UserDetails = ({ user }) => {
 
@@ -14,6 +15,28 @@ const UserDetails = ({ user }) => {
     const handleBack = () => {
         navigator(-1);
     }
+
+    const calculateAge = useMemo(() => {
+        const birthdateString = user?.dateOfBirth || "";
+        if (!birthdateString) {
+            return "N/A"; // or any default value you prefer
+        }
+
+        const birthdate = new Date(birthdateString);
+        const currentDate = new Date();
+        const age = currentDate.getFullYear() - birthdate.getFullYear();
+
+        // Adjust age if birthday hasn't occurred yet this year
+        if (
+            currentDate.getMonth() < birthdate.getMonth() ||
+            (currentDate.getMonth() === birthdate.getMonth() &&
+                currentDate.getDate() < birthdate.getDate())
+        ) {
+            return age - 1;
+        }
+
+        return age;
+    }, [user?.dateOfBirth]);
 
     return (
         <div>
@@ -59,7 +82,7 @@ const UserDetails = ({ user }) => {
 
                                 <SingleInfo data={`${user?.gender}`} title={"GENDER"} />
 
-                                <SingleInfo data={`${user?.age}`} title={"AGE"} />
+                                <SingleInfo data={`${calculateAge}`} title={"AGE"} />
 
                                 <SingleInfo data={`${user?.nid}`} title={"NID NUMBER"} />
 
