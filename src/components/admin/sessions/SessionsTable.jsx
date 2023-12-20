@@ -6,6 +6,7 @@ import { RiDeleteBin2Fill } from "react-icons/ri";
 import { FaPenToSquare } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import CButton from "../../../utils/CButton/CButton";
+import { convertTo12HourFormat } from "../../../constant/timeFormater";
 
 
 const SessionsTable = ({ data, refetch }) => {
@@ -69,8 +70,7 @@ const SessionsTable = ({ data, refetch }) => {
                             <th>No.</th>
                             <th>Banner</th>
                             <th>Title</th>
-                            <th>Teacher Name</th>
-                            <th>Teacher Email</th>
+                            <th>Teacher</th>
                             <th>Session Date</th>
                             <th>Session Platform</th>
                             <th>Session Link</th>
@@ -92,11 +92,12 @@ const SessionsTable = ({ data, refetch }) => {
                                 </td>
                                 <td>{session?.title}</td>
                                 <td>{session?.teacherName}</td>
-                                <td>{session?.teacherEmail}</td>
                                 <td>{session?.sessionDate}</td>
                                 <td>{session?.sessionPlatform}</td>
-                                <td>{session?.sessionLink}</td>
-                                <td>{session?.sessionTime}</td>
+                                <td>
+                                    <Link to={`${session?.sessionLink}`} style={{color:"blue"}} target="_blank">Link</Link>
+                                </td>
+                                <td>{convertTo12HourFormat(session?.sessionTime)}</td>
                                 <td className="flex flex-col md:flex-row gap-2 justify-center items-center">
 
                                     <Link to={`/dashboard/updateSession/${session?._id}`}>
@@ -123,20 +124,6 @@ const SessionsTable = ({ data, refetch }) => {
                     </tbody>
                 </table>
             </div>
-
-            {/* <CModal
-        open={openModal}
-        onClose={() => setOpenModal(false)}
-        title="Update Course"
-        width={"w-full md:w-4/5 lg:w-1/2"}
-    >
-        <UpdateCourse
-            setOpenModal={setOpenModal}
-            dataForUpdate={dataForUpdate || {}}
-            refetch={refetch}
-            categorys={categorys || []}
-        />
-    </CModal> */}
 
         </section>
     );

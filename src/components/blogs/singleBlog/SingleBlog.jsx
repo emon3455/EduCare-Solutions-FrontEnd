@@ -135,7 +135,7 @@ const SingleBlog = () => {
                 height={"h-2/3 sm:h-1/2 md:h-3/5 lg:h-2/5"}
             >
                 {
-                    blog?.likedUsers?.length == 0
+                    !blog?.likedUsers
                         ?
                         <WarningAllert message={'This Blog has no like yet..!!!'} />
                         :

@@ -1,14 +1,11 @@
 import { Link } from "react-router-dom";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 import { useGetAllSessionQuery } from "../../redux/features/sessions/session-api-slice";
+import { convertTo12HourFormat } from "../../constant/timeFormater";
 
 const Sessions = () => {
 
-    const { isLoading, isError, data, refetch } = useGetAllSessionQuery();
-    console.log(isLoading);
-    console.log(data);
-    console.log(refetch);
-    console.log(isError);
+    const { isLoading, data, } = useGetAllSessionQuery();
 
     return (
         <div>
@@ -30,7 +27,7 @@ const Sessions = () => {
                                 <h3 className="font-bold text-lg h-20">{session?.title}</h3>
                                 <div className="flex items-center justify-between  mb-4 text-[#6C6B6B]">
                                     <p className="mt-2">Date : {session?.sessionDate}</p>
-                                    <p className="mt-2">Time : {session?.sessionTime}</p>
+                                    <p className="mt-2">Time : {convertTo12HourFormat(session?.sessionTime)}</p>
                                 </div>
                                 <div className="flex items-center justify-between  mb-4 text-[#6C6B6B]">
                                     <p className="mt-2">Platform : {session?.sessionPlatform}</p>

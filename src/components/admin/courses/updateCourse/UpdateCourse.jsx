@@ -73,6 +73,7 @@ const UpdateCourse = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setError("");
 
         if (!data.title) {
             setError("Title is required");

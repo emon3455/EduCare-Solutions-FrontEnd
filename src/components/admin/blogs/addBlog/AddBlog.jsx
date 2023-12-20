@@ -62,6 +62,8 @@ const AddBlog = ({ setOpen, refetch, categorys, role }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
 
+        setError("");
+
         if (!data.title) {
             setError("Title is required");
             return;
@@ -114,6 +116,8 @@ const AddBlog = ({ setOpen, refetch, categorys, role }) => {
                         teacherEmail: data.teacherEmail,
                         categoryId: data.categoryId,
                         categoryName: data.categoryName,
+                        likedUsers:[],
+                        NoOfLike:0,
                     }
                     console.log(savedBlog)
 

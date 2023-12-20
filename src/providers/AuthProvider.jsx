@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { createContext, useEffect, useState } from "react";
-import { GoogleAuthProvider, createUserWithEmailAndPassword, deleteUser, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, deleteUser, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../firebase/firebase.config";
 
 
@@ -23,6 +23,12 @@ const AuthProvider = ({ children }) => {
     const deleteAuthUser = () => {
         setLoading(true);
         return deleteUser(auth.currentUser)
+    }
+
+    const updateAuthUser = (name, photo) => {
+        return updateProfile(auth.currentUser, {
+            displayName: name, photoURL: photo
+        })
     }
 
     const signInUser = (email, password) => {
@@ -60,6 +66,7 @@ const AuthProvider = ({ children }) => {
         logOut,
         loading,
         deleteAuthUser,
+        updateAuthUser
     }
 
 
