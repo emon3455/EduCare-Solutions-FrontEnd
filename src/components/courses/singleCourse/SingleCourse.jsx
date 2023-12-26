@@ -7,13 +7,29 @@ import useRole from "../../../hooks/useRole";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/features/cart/cartSlice";
 import Swal from "sweetalert2";
+import { useContext } from "react";
+import { AuthContext } from "../../../providers/AuthProvider";
 
 const SingleCourse = () => {
 
+    const {user} = useContext(AuthContext);
     const params = useParams();
     const { isLoading, data: course, } = useGetCourseByIdQuery(params?.id)
     const [isRoleLoading, role] = useRole();
     const dispatch = useDispatch();
+
+    const handleAddToCart=(courses)=>{
+        const selectedCourse={
+            ...courses,
+            selectedUserEmail: user?.email
+        }
+        dispatch(addToCart(selectedCourse));
+        Swal.fire(
+            'Course Selected Successfully!',
+            'Success!',
+            'success'
+        )
+    }
 
     return (
         <CContainer>
@@ -44,16 +60,8 @@ const SingleCourse = () => {
                             {
                                 (!isRoleLoading && role == "Student")
                                 &&
-                                <CButton variant={"contained"} onClick={() => {
-                                    dispatch(addToCart(course));
-                                    Swal.fire(
-                                        'Course Selected Successfully!',
-                                        'Success!',
-                                        'success'
-                                    )
-                                }}
-                                >
-                                    Enroll Now
+                                <CButton variant={"contained"} onClick={() => handleAddToCart(course)}>
+                                    Add To Cart
                                 </CButton>
                             }
                         </div>

@@ -4,9 +4,14 @@ import { removeFromCart } from "../../../../redux/features/cart/cartSlice";
 import CButton from "../../../../utils/CButton/CButton";
 import CCard from "../../../../utils/CCard/CCard";
 import WarningAllert from "../../../../shared/WarningAllert";
+import { useContext } from "react";
+import { AuthContext } from "../../../../providers/AuthProvider";
 
 const SelectedCourse = () => {
+
+    const { user } = useContext(AuthContext);
     const cart = useSelector(state => state.cart);
+    const selectedCourse = cart.filter( classes => classes.selectedUserEmail == user?.email) || []
     const dispatch = useDispatch();
 
     return (
@@ -26,12 +31,12 @@ const SelectedCourse = () => {
                             </thead>
                             <tbody>
                                 {
-                                    cart.length == 0
+                                    selectedCourse.length == 0
                                     &&
                                     <WarningAllert message={'Nothing To show! Please Add some Item First'} />
                                 }
                                 {
-                                    cart && cart.map((item) => <tr key={item._id}>
+                                    selectedCourse && selectedCourse.map((item) => <tr key={item._id}>
 
                                         <td>{item?.title}</td>
                                         <td>
