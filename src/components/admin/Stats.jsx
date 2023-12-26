@@ -6,7 +6,7 @@ import { FaVideo } from "react-icons/fa6";
 const Stats = ({ data }) => {
     return (
         <section className="mt-12 px-7">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-16">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-10">
                 <div className=" bg-red-200 px-8 py-12 flex flex-col justify-center items-center rounded-xl">
                     <span className="text-3xl"><FaUser /></span>
                     <p className="text-2xl font-bold">User : {data.noOfUsers}</p>
