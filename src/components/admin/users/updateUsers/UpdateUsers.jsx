@@ -1,5 +1,5 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useGetUserByIdQuery, useUpdateUserInfoMutation } from "../../../../redux/features/user/user-api-slice";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { useUpdateUserInfoMutation } from "../../../../redux/features/user/user-api-slice";
 import Loading from "../../../../utils/CLoading/Loading";
 import { useContext, useEffect, useState } from "react";
 import CButton from "../../../../utils/CButton/CButton";
@@ -18,8 +18,7 @@ const UpdateUsers = () => {
 
     const { updateAuthUser } = useContext(AuthContext)
     const [CategoryisLoading, categoryData] = useCategory()
-    const params = useParams();
-    const { isLoading: useInfoIsLoading, data: userInfo, } = useGetUserByIdQuery(params?.id)
+    const userInfo = useLoaderData();
 
     const [data, setData] = useState({
         id: userInfo?._id || "",
@@ -48,9 +47,9 @@ const UpdateUsers = () => {
         { isLoading: updateUserIsLoading, isSuccess: updateUserIsSuccess, isError: updateUserIsError, },
     ] = useUpdateUserInfoMutation();
 
+
     useEffect(() => {
         setData({
-            ...data,
             id: userInfo?._id,
             name: userInfo?.name,
             email: userInfo?.email,
@@ -66,8 +65,9 @@ const UpdateUsers = () => {
             nid: userInfo?.nid
         })
         setPreviewImage(userInfo?.image);
-    }, [data, userInfo, setPreviewImage])
-
+    }, [userInfo])
+    console.log("data", data);
+    console.log("data1", userInfo);
 
     //showing success message
     useEffect(() => {
@@ -78,22 +78,6 @@ const UpdateUsers = () => {
                 'success'
             )
             navigate(-1);
-            setData({
-                id: "",
-                name: "",
-                email: "",
-                number: "",
-                gender: "",
-                image: "",
-                userImage: "",
-                interst: [],
-                skills: [],
-                educationalQualifications: "",
-                address: "",
-                dateOfBirth: "",
-                nid: ""
-            })
-            setPreviewImage(null);
         }
     }, [navigate, updateUserIsSuccess]);
 
@@ -235,241 +219,242 @@ const UpdateUsers = () => {
         }
     };
 
-    if (useInfoIsLoading) return <Loading />
     if (CategoryisLoading) return <Loading />
     if (updateUserIsLoading) return <Loading />
 
     return (
         <div>
-            <div className="bg-white min-h-screen w-full lg:w-3/4 mx-auto grid grid-cols-1 items-center p-2">
-                <div className="border rounded">
-                    <form onSubmit={handleSubmit} className="card-body">
-                        <h2 className="text-xl lg:text-xl font-bold text-center">Update Your Information</h2>
+            {
+                data?.name && <div className="bg-white min-h-screen w-full lg:w-3/4 mx-auto grid grid-cols-1 items-center p-2">
+                    <div className="border rounded">
+                        <form onSubmit={handleSubmit} className="card-body">
+                            <h2 className="text-xl lg:text-xl font-bold text-center">Update Your Information</h2>
 
-                        {previewImage && (
-                            <div className="relative z-40">
+                            {previewImage && (
+                                <div className="relative z-40">
+                                    <div className="">
+                                        <img
+                                            src={previewImage}
+                                            alt="user image"
+                                            className="w-16 h-16 rounded-full mx-auto object-cover border-2 border-cyan-950 shadow-lg"
+                                        />
+                                    </div>
+                                    <div className="text-center -mt-3">
+                                        <button
+                                            onClick={() => {
+                                                setPreviewImage(null);
+                                                setData({ ...data, image: "" });
+                                            }}
+                                            className="btn btn-circle btn-xs bg-red-500 text-white hover:text-black"
+
+                                        >
+                                            <FaTimes />
+                                        </button>
+                                    </div>
+                                </div>
+                            )}
+
+                            <p className="text-xs text-red-600 text-center">
+                                {error}
+                            </p>
+
+                            <section className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-2">
+
                                 <div className="">
-                                    <img
-                                        src={previewImage}
-                                        alt="user image"
-                                        className="w-16 h-16 rounded-full mx-auto object-cover border-2 border-cyan-950 shadow-lg"
+                                    <CInput
+                                        onChange={(e) => {
+                                            if (e.target.value) {
+                                                setError("")
+                                            }
+                                            setData({ ...data, name: e.target.value });
+                                        }}
+                                        id="name"
+                                        type="text"
+                                        label="Name*"
+                                        placeholder="Name"
+                                        defaultValue={data?.name}
                                     />
                                 </div>
-                                <div className="text-center -mt-3">
-                                    <button
-                                        onClick={() => {
-                                            setPreviewImage(null);
-                                            setData({ ...data, image: "" });
+
+                                <div className="">
+                                    <CInput
+                                        onChange={(e) => {
+                                            if (e.target.value) {
+                                                setError("")
+                                            }
+                                            setData({ ...data, email: e.target.value });
                                         }}
-                                        className="btn btn-circle btn-xs bg-red-500 text-white hover:text-black"
-
-                                    >
-                                        <FaTimes />
-                                    </button>
+                                        id="email"
+                                        type="email"
+                                        label="Email*"
+                                        placeholder="Email"
+                                        defaultValue={data?.email}
+                                        disabled={true}
+                                    />
                                 </div>
-                            </div>
-                        )}
 
-                        <p className="text-xs text-red-600 text-center">
-                            {error}
-                        </p>
+                                <div className="">
+                                    <CInput
+                                        onChange={(e) => {
+                                            if (e.target.value) {
+                                                setError("")
+                                            }
+                                            setData({ ...data, number: e.target.value });
+                                        }}
+                                        id="number"
+                                        type="number"
+                                        label="Number*"
+                                        placeholder="Number"
+                                        defaultValue={data?.number}
+                                    />
+                                </div>
 
-                        <section className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-2">
+                                <div className="">
+                                    <CInput
+                                        onChange={(e) => {
+                                            if (e.target.value) {
+                                                setError("")
+                                            }
+                                            setData({ ...data, nid: e.target.value });
+                                        }}
+                                        id="nid"
+                                        type="number"
+                                        label="NID*"
+                                        placeholder="NID"
+                                        defaultValue={data?.nid}
+                                    />
+                                </div>
 
-                            <div className="">
-                                <CInput
-                                    onChange={(e) => {
-                                        if (e.target.value) {
-                                            setError("")
-                                        }
-                                        setData({ ...data, name: e.target.value });
-                                    }}
-                                    id="name"
-                                    type="text"
-                                    label="Name*"
-                                    placeholder="Name"
-                                    defaultValue={data?.name}
-                                />
-                            </div>
-
-                            <div className="">
-                                <CInput
-                                    onChange={(e) => {
-                                        if (e.target.value) {
-                                            setError("")
-                                        }
-                                        setData({ ...data, email: e.target.value });
-                                    }}
-                                    id="email"
-                                    type="email"
-                                    label="Email*"
-                                    placeholder="Email"
-                                    defaultValue={data?.email}
-                                    disabled={true}
-                                />
-                            </div>
-
-                            <div className="">
-                                <CInput
-                                    onChange={(e) => {
-                                        if (e.target.value) {
-                                            setError("")
-                                        }
-                                        setData({ ...data, number: e.target.value });
-                                    }}
-                                    id="number"
-                                    type="number"
-                                    label="Number*"
-                                    placeholder="Number"
-                                    defaultValue={data?.number}
-                                />
-                            </div>
-
-                            <div className="">
-                                <CInput
-                                    onChange={(e) => {
-                                        if (e.target.value) {
-                                            setError("")
-                                        }
-                                        setData({ ...data, nid: e.target.value });
-                                    }}
-                                    id="nid"
-                                    type="number"
-                                    label="NID*"
-                                    placeholder="NID"
-                                    defaultValue={data?.nid}
-                                />
-                            </div>
-
-                            <div className="lg:col-span-2">
-                                <CFileInput
-                                    label="Profile Photo*"
-                                    onChange={handleImageChange}
-                                    accept="image/*"
-                                    files={data?.image}
-                                />
-                            </div>
+                                <div className="lg:col-span-2">
+                                    <CFileInput
+                                        label="Profile Photo*"
+                                        onChange={handleImageChange}
+                                        accept="image/*"
+                                        files={data?.image}
+                                    />
+                                </div>
 
 
-                            <div className="">
-                                <CSelect
-                                    defaultValue={{ value: data.gender, label: data.gender }}
-                                    options={genders.map((gender) => ({
-                                        value: gender,
-                                        label: gender,
-                                    }))}
-                                    title={"Gender"}
-                                    className="basic-single"
-                                    classNamePrefix="select"
-                                    label="Gender*"
-                                    placeholder="Gender"
-                                    onChange={(selectedOptions) => {
-                                        setData({ ...data, gender: selectedOptions.value });
-                                    }}
-                                />
-                            </div>
+                                <div className="">
+                                    <CSelect
+                                        defaultValue={{ value: data.gender, label: data.gender }}
+                                        options={genders.map((gender) => ({
+                                            value: gender,
+                                            label: gender,
+                                        }))}
+                                        title={"Gender"}
+                                        className="basic-single"
+                                        classNamePrefix="select"
+                                        label="Gender*"
+                                        placeholder="Gender"
+                                        onChange={(selectedOptions) => {
+                                            setData({ ...data, gender: selectedOptions.value });
+                                        }}
+                                    />
+                                </div>
 
-                            <div className="">
-                                <CInput
-                                    onChange={(e) => {
-                                        if (e.target.value) {
-                                            setError("")
-                                        }
-                                        setData({ ...data, dateOfBirth: e.target.value });
-                                    }}
-                                    id="dateOfBirth"
-                                    type="date"
-                                    label="Date Of Birth"
-                                    placeholder="Date Of Birth"
-                                    defaultValue={data?.dateOfBirth}
-                                />
-                            </div>
+                                <div className="">
+                                    <CInput
+                                        onChange={(e) => {
+                                            if (e.target.value) {
+                                                setError("")
+                                            }
+                                            setData({ ...data, dateOfBirth: e.target.value });
+                                        }}
+                                        id="dateOfBirth"
+                                        type="date"
+                                        label="Date Of Birth"
+                                        placeholder="Date Of Birth"
+                                        defaultValue={data?.dateOfBirth}
+                                    />
+                                </div>
 
-                            <div className="">
-                                <CSelect
-                                    label="Area Of Interest"
-                                    defaultValue={data?.interst?.map((subject) => ({
-                                        value: subject,
-                                        label: subject,
-                                    }))}
-                                    isMulti
-                                    name="Interests"
-                                    options={categoryData?.map((subject) => ({
-                                        value: subject.categoryName,
-                                        label: subject.categoryName,
-                                    }))}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
-                                    onChange={(selectedOptions) => {
-                                        setData({
-                                            ...data,
-                                            interst: selectedOptions.map((option) => option.value),
-                                        });
-                                    }}
-                                />
-                            </div>
+                                <div className="">
+                                    <CSelect
+                                        label="Area Of Interest"
+                                        defaultValue={data?.interst?.map((subject) => ({
+                                            value: subject,
+                                            label: subject,
+                                        }))}
+                                        isMulti
+                                        name="Interests"
+                                        options={categoryData?.map((subject) => ({
+                                            value: subject.categoryName,
+                                            label: subject.categoryName,
+                                        }))}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={(selectedOptions) => {
+                                            setData({
+                                                ...data,
+                                                interst: selectedOptions.map((option) => option.value),
+                                            });
+                                        }}
+                                    />
+                                </div>
 
-                            <div className="">
-                                <CSelect
-                                    label="Skills"
-                                    defaultValue={data?.skills?.map((subject) => ({
-                                        value: subject,
-                                        label: subject,
-                                    }))}
-                                    isMulti
-                                    name="Skills"
-                                    options={categoryData?.map((subject) => ({
-                                        value: subject.categoryName,
-                                        label: subject.categoryName,
-                                    }))}
-                                    className="basic-multi-select"
-                                    classNamePrefix="select"
-                                    onChange={(selectedOptions) => {
-                                        setData({
-                                            ...data,
-                                            skills: selectedOptions.map((option) => option.value),
-                                        });
-                                    }}
-                                />
-                            </div>
+                                <div className="">
+                                    <CSelect
+                                        label="Skills"
+                                        defaultValue={data?.skills?.map((subject) => ({
+                                            value: subject,
+                                            label: subject,
+                                        }))}
+                                        isMulti
+                                        name="Skills"
+                                        options={categoryData?.map((subject) => ({
+                                            value: subject.categoryName,
+                                            label: subject.categoryName,
+                                        }))}
+                                        className="basic-multi-select"
+                                        classNamePrefix="select"
+                                        onChange={(selectedOptions) => {
+                                            setData({
+                                                ...data,
+                                                skills: selectedOptions.map((option) => option.value),
+                                            });
+                                        }}
+                                    />
+                                </div>
+
+                                <div className="">
+                                    <CTextArea
+                                        onChange={(e) => {
+                                            setData({ ...data, educationalQualifications: e.target.value });
+                                        }}
+                                        id="Educational_qualifications"
+                                        placeholder="Educational Qualifications"
+                                        defaultValue={data.educationalQualifications}
+                                    />
+                                </div>
+
+                                <div className="">
+                                    <CTextArea
+                                        onChange={(e) => {
+                                            setData({ ...data, address: e.target.value });
+                                        }}
+                                        id="address"
+                                        placeholder="Address"
+                                        defaultValue={data.address}
+                                    />
+                                </div>
+
+                            </section>
 
                             <div className="">
-                                <CTextArea
-                                    onChange={(e) => {
-                                        setData({ ...data, educationalQualifications: e.target.value });
-                                    }}
-                                    id="Educational_qualifications"
-                                    placeholder="Educational Qualifications"
-                                    defaultValue={data.educationalQualifications}
-                                />
+                                <CButton
+                                    variant={"solid"}
+                                    type={"submit"}
+                                // loading={isLoading}
+                                >
+                                    Update Info
+                                </CButton>
                             </div>
 
-                            <div className="">
-                                <CTextArea
-                                    onChange={(e) => {
-                                        setData({ ...data, address: e.target.value });
-                                    }}
-                                    id="address"
-                                    placeholder="Address"
-                                    defaultValue={data.address}
-                                />
-                            </div>
-
-                        </section>
-
-                        <div className="">
-                            <CButton
-                                variant={"solid"}
-                                type={"submit"}
-                            // loading={isLoading}
-                            >
-                                Update Info
-                            </CButton>
-                        </div>
-
-                    </form>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            }
         </div>
     );
 };

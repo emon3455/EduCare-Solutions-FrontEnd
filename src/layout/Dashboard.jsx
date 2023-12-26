@@ -12,11 +12,16 @@ import { FaUsersCog } from "react-icons/fa";
 import { MdOutlineVideoLibrary } from "react-icons/md";
 import { FaMoneyCheckDollar } from "react-icons/fa6";
 import { MdVideoSettings } from "react-icons/md";
-import { FaUser } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";  
+import { useSelector } from "react-redux";
+import { AuthContext } from "../providers/AuthProvider";
+import { useContext } from "react";
 
 const Dashboard = () => {
-
+    const { user } = useContext(AuthContext);
     const [isLoading, role] = useRole();
+    const cart = useSelector(state => state.cart);
+    const selectedCourse = cart.filter( classes => classes.selectedUserEmail == user?.email) || []
 
     return (
         <main>
@@ -78,7 +83,9 @@ const Dashboard = () => {
                                         {
                                             role === "Student" &&
                                             <>
-                                                <NavBarItem title={<> <MdVideoSettings />Selected Courses </>} path={'/dashboard/selectedCourses'} />
+                                                <NavBarItem title={<> 
+                                                <MdVideoSettings />Selected Courses {<span className="w-5 h-5 rounded-full bg-red-500 text-white text-sm text-center items-center">{selectedCourse.length}</span>} </>} 
+                                                path={'/dashboard/selectedCourses'} />
                                                 <NavBarItem title={<> <MdOutlineVideoLibrary />Enrolled Courses </>} path={'/dashboard/enrolledCourses'} />
                                                 <NavBarItem title={<> <FaMoneyCheckDollar />Payment History </>} path={'/dashboard/paymentHistory'} />
                                             </>
@@ -87,7 +94,6 @@ const Dashboard = () => {
                                     </>
                                 )
                         }
-
                     </ul>
                 </div>
             </div>
