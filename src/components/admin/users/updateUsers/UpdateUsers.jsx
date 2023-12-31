@@ -28,7 +28,7 @@ const UpdateUsers = () => {
         gender: userInfo?.gender || "",
         image: "",
         userImage: userInfo?.image || "",
-        interst: userInfo?.interst || [],
+        interest: userInfo?.interest || [],
         skills: userInfo?.skills || [],
         educationalQualifications: userInfo?.educationalQualifications || "",
         address: userInfo?.address || "",
@@ -57,7 +57,7 @@ const UpdateUsers = () => {
             gender: userInfo?.gender,
             image: "",
             userImage: userInfo?.image,
-            interst: userInfo?.interst,
+            interest: userInfo?.interest,
             skills: userInfo?.skills,
             educationalQualifications: userInfo?.educationalQualifications,
             address: userInfo?.address,
@@ -143,13 +143,13 @@ const UpdateUsers = () => {
                             gender: data.gender,
                             dateOfBirth: data.dateOfBirth,
                             nid: data.nid,
-                            interest: data.interst,
+                            interest: data.interest,
                             skills: data.skills,
                             educationalQualifications: data.educationalQualifications,
                             address: data.address,
                         }
 
-                        updateAuthUser(data?.email, imgURL)
+                        updateAuthUser(data.name, data?.email, imgURL)
                             .then(async () => {
                                 try {
                                     await updateUserInfo(updatedCourse)?.unwrap();
@@ -182,13 +182,13 @@ const UpdateUsers = () => {
                 gender: data.gender,
                 dateOfBirth: data.dateOfBirth,
                 nid: data.nid,
-                interest: data.interst,
+                interest: data.interest,
                 skills: data.skills,
                 educationalQualifications: data.educationalQualifications,
                 address: data.address,
             }
 
-            updateAuthUser(data.email, data.userImage)
+            updateAuthUser(data.name, data?.email, data.userImage)
                 .then(async () => {
                     try {
                         await updateUserInfo(updatedCourse)?.unwrap();
@@ -372,7 +372,7 @@ const UpdateUsers = () => {
                                 <div className="">
                                     <CSelect
                                         label="Area Of Interest"
-                                        defaultValue={data?.interst?.map((subject) => ({
+                                        defaultValue={data?.interest?.map((subject) => ({
                                             value: subject,
                                             label: subject,
                                         }))}

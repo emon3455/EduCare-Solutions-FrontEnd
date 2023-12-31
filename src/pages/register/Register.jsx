@@ -136,7 +136,7 @@ const Register = () => {
                                         password: data.password,
                                         gender: data.gender,
                                         roles: data.role,
-                                        interst: data.interst,
+                                        interest: data.interst,
                                         skills: data.skills,
                                         educationalQualifications: data.educationalQualifications,
                                         address: data.address,

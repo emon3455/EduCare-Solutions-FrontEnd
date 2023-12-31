@@ -15,6 +15,7 @@ const AddCourses = ({ setOpen, refetch, categorys, role }) => {
 
 
     const { user } = useContext(AuthContext);
+    console.log(user);
     const [previewImage, setPreviewImage] = useState(null);
     const [imageUploadLoading, setImageUploadLoading] = useState(false);
     const [data, setData] = useState({

@@ -25,9 +25,9 @@ const AuthProvider = ({ children }) => {
         return deleteUser(auth.currentUser)
     }
 
-    const updateAuthUser = (name, photo) => {
+    const updateAuthUser = (name, email, photo) => {
         return updateProfile(auth.currentUser, {
-            displayName: name, photoURL: photo
+            displayName: name, email:email,  photoURL: photo
         })
     }
 
