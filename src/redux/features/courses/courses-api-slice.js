@@ -22,6 +22,15 @@ export const courseSlice = apiSlice.injectEndpoints({
             },
         }),
 
+        getAllSuggestedCourse: builder.query({
+            query: (email) => {
+                return {
+                    url: `/getSuggestedCourses/${email}`,
+                    method: 'GET',
+                };
+            },
+        }),
+
         getCourseById: builder.query({
             query: (id) => {
                 return {
@@ -69,5 +78,6 @@ export const {
     useGetCourseByIdQuery,
     useAddCourseMutation,
     useDeleteCourseMutation,
-    useUpdateCourseMutation
+    useUpdateCourseMutation,
+    useGetAllSuggestedCourseQuery
 } = courseSlice;

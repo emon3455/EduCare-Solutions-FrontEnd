@@ -107,6 +107,18 @@ const UserDetails = ({ user }) => {
                         </div>
 
                         <div className={`${customStyle}`}>
+                            <p className="text-base font-medium">
+                                {user?.interest ? user?.interest?.map((skill, indx) => (
+                                    <span key={indx}> {skill}, </span>
+                                ))
+                                    :
+                                    "N/A"
+                                }
+                            </p>
+                            <h2 className="text-gray-500 text-xs">Interest: </h2>
+                        </div>
+
+                        <div className={`${customStyle}`}>
                             <span className="text-base font-medium">
                                 {user?.address ? user?.address : "N/A"}
                             </span>{" "}

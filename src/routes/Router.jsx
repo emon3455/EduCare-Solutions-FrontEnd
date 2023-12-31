@@ -35,6 +35,7 @@ import Profile from "../pages/dashboard/Profile";
 import UpdateBlog from "../components/admin/blogs/updateBlog/UpdateBlog";
 import UpdateSession from "../components/admin/sessions/updateSession/UpdateSession";
 import UpdateUsers from "../components/admin/users/updateUsers/UpdateUsers";
+import SuggestedCourse from "../pages/suggestedCourse/SuggestedCourse";
 
 const router = createBrowserRouter([
     {
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
         {
             path: "/courses/:id",
             element: <PrivateRoutes><SingleCourse/></PrivateRoutes>
+        },
+        {
+            path: "/suggestedCourses",
+            element: <PrivateRoutes><SuggestedCourse/></PrivateRoutes>
         },
         {
             path: "/teacher/:id",

@@ -387,7 +387,7 @@ const UpdateUsers = () => {
                                         onChange={(selectedOptions) => {
                                             setData({
                                                 ...data,
-                                                interst: selectedOptions.map((option) => option.value),
+                                                interest: selectedOptions.map((option) => option.value),
                                             });
                                         }}
                                     />

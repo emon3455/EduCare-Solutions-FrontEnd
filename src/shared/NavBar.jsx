@@ -36,6 +36,7 @@ const Navbar = () => {
             user
                 ?
                 <>
+                    <p className=""><ActiveLink className=" text-white" to="/suggestedCourses">Suggested Courses</ActiveLink></p>
                     <p className="items-center">
                         <ActiveLink className="text-secondary hover:text-white" to="/dashboard/home">
                             Dashboard
