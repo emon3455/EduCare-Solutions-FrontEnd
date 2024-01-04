@@ -145,7 +145,7 @@ const CheckoutForm = ({ cls, price }) => {
     return (
         <div className="p-2">
             <h2 className="text-4xl font-bold text-center my-5">Please <span className="text-violet-500">Pay</span></h2>
-            <form className="card my-10 shadow-lg shadow-sky-400/50 w-full lg:w-2/3 mx-auto p-8" onSubmit={handleSubmit}>
+            <form className="card my-10 shadow-lg shadow-gray-400/50 w-full lg:w-2/3 mx-auto p-8" onSubmit={handleSubmit}>
                 <CardElement
                     className="input"
                     options={{
@@ -165,7 +165,7 @@ const CheckoutForm = ({ cls, price }) => {
                     }}
                 />
                 <div className="text-center">
-                    <CButton className="btn btn-primary mt-10" type="submit" disabled={!stripe || !clientSecret || processing}>
+                    <CButton fullWidth={true} variant={'contained'} style={{marginTop:"15px"}} type="submit" disabled={!stripe || !clientSecret || processing}>
                         Pay
                     </CButton>
                 </div>
