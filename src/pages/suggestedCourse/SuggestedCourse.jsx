@@ -19,7 +19,7 @@ const SuggestedCourse = () => {
 
     return (
         <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7 p-2 mx-5">
+            <div >
                 {
                     isLoading
                         ?
@@ -29,7 +29,7 @@ const SuggestedCourse = () => {
                             <CSkeleton />
                         </>
                         :
-                        <div className="">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mt-7 p-2 mx-5">
                             {
                                 courses?.length !== 0
                                     ?

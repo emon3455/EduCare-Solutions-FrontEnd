@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../../providers/AuthProvider";
 import { useAddPaymentIntentMutation, useAddPaymentsMutation } from "../../../../redux/features/payments/payments-api-slice";
 import Swal from "sweetalert2";
+import CButton from "../../../../utils/CButton/CButton";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../../../../redux/features/cart/cartSlice";
 
 const CheckoutForm = ({ cls, price }) => {
 
@@ -15,6 +18,7 @@ const CheckoutForm = ({ cls, price }) => {
     const [cardError, setCardError] = useState('');
     const [clientSecret, setClientSecret] = useState('');
     const [processing, setProcessing] = useState(false);
+    const dispatch = useDispatch();
 
     const [
         addPaymentIntent,
@@ -45,9 +49,10 @@ const CheckoutForm = ({ cls, price }) => {
                 'Success!',
                 'success'
             )
+            dispatch(removeFromCart(cls._id));
             naviagte("/dashboard/enrolledCourses")
         }
-    }, [paymentIsSuccess,naviagte]);
+    }, [paymentIsSuccess, naviagte, dispatch, cls]);
 
     //showing error message
     useEffect(() => {
@@ -138,7 +143,7 @@ const CheckoutForm = ({ cls, price }) => {
 
 
     return (
-        <div>
+        <div className="p-2">
             <h2 className="text-4xl font-bold text-center my-5">Please <span className="text-violet-500">Pay</span></h2>
             <form className="card my-10 shadow-lg shadow-sky-400/50 w-full lg:w-2/3 mx-auto p-8" onSubmit={handleSubmit}>
                 <CardElement
@@ -160,9 +165,9 @@ const CheckoutForm = ({ cls, price }) => {
                     }}
                 />
                 <div className="text-center">
-                    <button className="btn btn-primary mt-10" type="submit" disabled={!stripe || !clientSecret || processing}>
+                    <CButton className="btn btn-primary mt-10" type="submit" disabled={!stripe || !clientSecret || processing}>
                         Pay
-                    </button>
+                    </CButton>
                 </div>
             </form>
 

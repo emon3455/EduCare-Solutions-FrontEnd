@@ -32,10 +32,10 @@ export const paymentSlice = apiSlice.injectEndpoints({
         }),
 
         getEnrolledCourse: builder.query({
-            query: () => {
+            query: (email) => {
                 const storedToken = localStorage.getItem('edu-care-access-token');
                 return {
-                    url: `/enrolledClasses`,
+                    url: `/enrolledClasses?email=${email}`,
                     method: 'GET',
                     headers: {
                         Authorization: `Bearer ${storedToken}`,
