@@ -36,6 +36,7 @@ import UpdateBlog from "../components/admin/blogs/updateBlog/UpdateBlog";
 import UpdateSession from "../components/admin/sessions/updateSession/UpdateSession";
 import UpdateUsers from "../components/admin/users/updateUsers/UpdateUsers";
 import SuggestedCourse from "../pages/suggestedCourse/SuggestedCourse";
+import Payment from "../pages/dashboard/student/payment/Payment";
 
 const router = createBrowserRouter([
     {
@@ -137,6 +138,11 @@ const router = createBrowserRouter([
         {
             path: "selectedCourses",
             element: <StudentRoutes><SelectedCourse/></StudentRoutes>
+        },
+        {
+            path: "selectedCourses/:id",
+            element: <StudentRoutes><Payment/></StudentRoutes>,
+            loader: ({params})=> fetch(`https://edu-care-backend.vercel.app/classes/${params.id}`)
         },
         {
             path: "enrolledCourses",

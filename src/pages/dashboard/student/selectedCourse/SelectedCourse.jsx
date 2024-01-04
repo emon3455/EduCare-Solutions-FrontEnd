@@ -6,12 +6,13 @@ import CCard from "../../../../utils/CCard/CCard";
 import WarningAllert from "../../../../shared/WarningAllert";
 import { useContext } from "react";
 import { AuthContext } from "../../../../providers/AuthProvider";
+import { Link } from "react-router-dom";
 
 const SelectedCourse = () => {
 
     const { user } = useContext(AuthContext);
     const cart = useSelector(state => state.cart);
-    const selectedCourse = cart.filter( classes => classes.selectedUserEmail == user?.email) || []
+    const selectedCourse = cart.filter(classes => classes.selectedUserEmail == user?.email) || []
     const dispatch = useDispatch();
 
     return (
@@ -60,11 +61,14 @@ const SelectedCourse = () => {
                                                 >
                                                     <FaTrash className="text-lg" />
                                                 </CButton>
-                                                <CButton
-                                                    variant={'contained'}
-                                                >
-                                                    Pay
-                                                </CButton>
+                                                <Link to={`${item._id}`}>
+                                                    <CButton
+                                                        variant={'contained'}
+                                                    >
+                                                        Pay
+                                                    </CButton>
+                                                </Link>
+
                                             </div>
                                         </td>
                                     </tr>)
