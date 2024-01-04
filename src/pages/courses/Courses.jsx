@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import CButton from "../../utils/CButton/CButton";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 import { useGetAllCourseQuery } from "../../redux/features/courses/courses-api-slice";
+import WarningAllert from "../../shared/WarningAllert";
 
 const Courses = () => {
 
-    const { isLoading, data:courses, } = useGetAllCourseQuery();
+    const { isLoading, data:courses, isError} = useGetAllCourseQuery();
+
+    if(isError) return <WarningAllert message={'Courses Not Found..!, Something went Wrong Try Again.'}/>
 
     return (
         <div>

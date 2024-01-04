@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import CButton from "../../utils/CButton/CButton";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 import { useGetAllBlogQuery } from "../../redux/features/blogs/blog-api-slice";
+import WarningAllert from "../../shared/WarningAllert";
 
 const Blogs = () => {
 
@@ -10,6 +11,8 @@ const Blogs = () => {
     console.log(blogs);
     console.log(refetch);
     console.log(isError);
+
+    if(isError) return <WarningAllert message={'Blogs Not Found..!, Something went Wrong Try Again.'}/>
 
     return (
         <div>
@@ -33,7 +36,7 @@ const Blogs = () => {
                             {/* <p className="text-[#6C6B6B]">Writer: {blog.TName}</p> */}
                             <p className="text-[#6C6B6B]">{blog?.description.slice(0, 120) + "..."}</p>
 
-                            <p className="mt-2">Likes: {blog.NoOfLike}</p>
+                            <p className="mt-2">Likes: {blog?.NoOfLike}</p>
 
                             <Link to={`${blog?._id}`}>
                                 <CButton className="mt-5 bottom-0" variant={"outline"} fullWidth={true}>Read More</CButton>

@@ -9,11 +9,13 @@ import WarningAllert from "../../shared/WarningAllert";
 const SuggestedCourse = () => {
 
     const { user } = useContext(AuthContext)
-    const { isLoading, data: courses, refetch } = useGetAllSuggestedCourseQuery(user?.email);
+    const { isLoading, data: courses, refetch, isError } = useGetAllSuggestedCourseQuery(user?.email);
 
     useEffect(() => {
         refetch();
     }, [refetch])
+
+    if(isError) return <WarningAllert message={'Suggested Courses Not Found..!, Something went Wrong Try Again.'}/>
 
     return (
         <div>

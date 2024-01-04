@@ -2,10 +2,13 @@ import { Link } from "react-router-dom";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 import { useGetAllSessionQuery } from "../../redux/features/sessions/session-api-slice";
 import { convertTo12HourFormat } from "../../constant/timeFormater";
+import WarningAllert from "../../shared/WarningAllert";
 
 const Sessions = () => {
 
-    const { isLoading, data, } = useGetAllSessionQuery();
+    const { isLoading, data,isError } = useGetAllSessionQuery();
+
+    if(isError) return <WarningAllert message={'Sessions Not Found..!, Something went Wrong Try Again.'}/>
 
     return (
         <div>
@@ -20,7 +23,7 @@ const Sessions = () => {
                         </>
                         :
                         data?.map(session => <div
-                            key={session._id}
+                            key={session?._id}
                             className="border border-[#E6E6E6] rounded-lg hover:shadow-xl transition-all duration-500">
                             <img className="w-full md:w-4/5 mx-auto md:h-56 p-4" src={session?.sessionBanner} alt="" />
                             <div className="p-5">
