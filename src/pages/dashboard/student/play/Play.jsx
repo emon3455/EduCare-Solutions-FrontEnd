@@ -6,12 +6,21 @@ import CContainer from "../../../../utils/CContainer/CContainer";
 import { useGetEnrolledCourseByIdQuery } from "../../../../redux/features/payments/payments-api-slice";
 import Loading from "../../../../utils/CLoading/Loading";
 import ErrorAllert from "../../../../shared/ErrorAllert";
-import { useEffect } from "react";
-import { useCompleteCourseMutation } from "../../../../redux/features/courses/courses-api-slice";
+import { useEffect, useState } from "react";
+import {
+  useCompleteCourseMutation,
+  useRateCourseMutation,
+} from "../../../../redux/features/courses/courses-api-slice";
 import Swal from "sweetalert2";
+import CModal from "../../../../utils/CModal/CModal";
+import CInput from "../../../../utils/CInput/CInput";
 
 const Play = () => {
   const params = useParams();
+  const [open, setOpen] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [error, setError] = useState("");
+
   const {
     isLoading,
     data: classes,
@@ -28,11 +37,20 @@ const Play = () => {
     },
   ] = useCompleteCourseMutation();
 
+  const [
+    rateCourse,
+    {
+      isLoading: rateCourseIsLoading,
+      isSuccess: rateCourseIsSuccess,
+      isError: rateCourseIsError,
+    },
+  ] = useRateCourseMutation();
+
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-  //showing success message
+  //showing complete success message
   useEffect(() => {
     if (completeIsSuccess) {
       Swal.fire("Course Completed Successfully!", "Success!", "success");
@@ -40,7 +58,7 @@ const Play = () => {
     }
   }, [completeIsSuccess, refetch]);
 
-  //showing error message
+  //showing complete error message
   useEffect(() => {
     if (completeIsError) {
       Swal.fire({
@@ -51,9 +69,29 @@ const Play = () => {
     }
   }, [completeIsError]);
 
+  //showing rate success message
+  useEffect(() => {
+    if (rateCourseIsSuccess) {
+      Swal.fire("Course Rated Successfully!", "Success!", "success");
+      refetch();
+      setOpen(false);
+      setRating("");
+    }
+  }, [rateCourseIsSuccess, refetch]);
+
+  //showing complete error message
+  useEffect(() => {
+    if (rateCourseIsError) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Course Not Rated, Please try again...!",
+      });
+    }
+  }, [rateCourseIsError]);
+
   const handleComplete = async (classes) => {
-    console.log(classes);
-    const data = { id: classes?._id, classId: classes?.classId};
+    const data = { id: classes?._id, classId: classes?.classId };
     try {
       await completeCourse(data)?.unwrap();
     } catch (err) {
@@ -61,7 +99,22 @@ const Play = () => {
     }
   };
 
-  const handleRate = () => {};
+  const handleRate = async() => {
+    if (!rating) {
+        setError("Rating is required");
+        return;
+    }
+    const data = {
+        id: classes?._id, 
+        classId: classes?.classId,
+        rating: rating
+    }
+    try {
+        await rateCourse(data)?.unwrap();
+      } catch (err) {
+        console.log(err);
+      }
+  };
 
   if (isLoading) return <Loading />;
 
@@ -104,28 +157,22 @@ const Play = () => {
                   {classes?.teacherName}
                 </span>
               </p>
-              <div className="flex items-center gap-2 mb-4">
-                <img
-                  className="mt-2"
-                  src="https://i.ibb.co/NYdVqZt/Group-24.png"
-                  alt=""
-                />
-                <p className="mt-2">{classes?.rating}</p>
-              </div>
             </div>
             <div className="">
               {classes?.isCompleted ? (
                 <CButton
                   variant={"contained"}
-                  onClick={handleRate}
+                  onClick={() => setOpen(true)}
                   disabled={classes?.isRated}
+                  loading={rateCourseIsLoading}
                 >
-                  Rate Us
+                  Rate Course
                 </CButton>
               ) : (
                 <CButton
                   variant={"contained"}
                   onClick={() => handleComplete(classes)}
+                  disabled={classes?.isCompleted}
                   loading={completeIsLoading ? true : false}
                 >
                   Complete
@@ -136,6 +183,40 @@ const Play = () => {
           <hr />
         </CCard>
       </CContainer>
+
+      <CModal
+        open={open}
+        onClose={() => setOpen(false)}
+        title="Rate the Course you have completed."
+      >
+        <h2 className="text-2xl font-bold text-center">Rate Now...!!!</h2>
+        <div className="">
+          <img
+            className="mx-auto my-2"
+            src="https://i.ibb.co/NYdVqZt/Group-24.png"
+            alt=""
+          />
+        </div>
+        <div className="my-5">
+          <div className="mb-3">
+            <CInput
+              onChange={(e) => {
+                if (e.target.value) {
+                  setError("");
+                }
+                setRating(e.target.value);
+              }}
+              id="rating"
+              type="number"
+              label="Rating*"
+            />
+          </div>
+          <p className="text-xs text-red-600 text-center mb-3">{error}</p>
+          <CButton onClick={handleRate} variant={'contained'} loading={rateCourseIsLoading}>
+            Submit
+          </CButton>
+        </div>
+      </CModal>
     </main>
   );
 };
