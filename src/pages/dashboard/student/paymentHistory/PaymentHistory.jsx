@@ -4,6 +4,7 @@ import WarningAllert from "../../../../shared/WarningAllert";
 import CCard from "../../../../utils/CCard/CCard";
 import CSkeleton from "../../../../utils/CSkeleton/CSkeleton";
 import { AuthContext } from "../../../../providers/AuthProvider";
+import moment from "moment";
 
 const PaymentHistory = () => {
 
@@ -40,7 +41,7 @@ const PaymentHistory = () => {
                                             <td>{cls.title}</td>
                                             <td>{cls.transactionId}</td>
                                             <td>${cls.price}</td>
-                                            <td>{cls.date.slice(0,10)}</td>
+                                            <td>{moment(cls.date).format('MMMM Do YYYY, h:mm:ss a')}</td>
                                         </tr>)
                                     }
 

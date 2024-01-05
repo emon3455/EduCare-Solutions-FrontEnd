@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../../../providers/AuthProvider";
 import { useGetEnrolledCourseQuery } from "../../../../redux/features/payments/payments-api-slice";
 import WarningAllert from "../../../../shared/WarningAllert";
@@ -10,7 +10,11 @@ import { Link } from "react-router-dom";
 const EnrolledCourses = () => {
 
     const { user } = useContext(AuthContext);
-    const { isLoading, data: courses, isError } = useGetEnrolledCourseQuery(user?.email);
+    const { isLoading, data: courses, isError, refetch } = useGetEnrolledCourseQuery(user?.email);
+
+    useEffect(()=>{
+        refetch();
+    },[refetch])
 
     if (isError) return <WarningAllert message={'Payment History Not Available..!, Something went Wrong Try Again.'} />
 
@@ -28,7 +32,7 @@ const EnrolledCourses = () => {
                             </>
                             :
                             courses.map(course =>
-                                <Link key={course?._id} to={''}>
+                                <Link key={course?._id} to={`/play/${course?._id}`}>
                                     <div
                                         className="border border-[#E6E6E6] rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500 h-[400px]"
                                     >

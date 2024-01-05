@@ -44,6 +44,19 @@ export const paymentSlice = apiSlice.injectEndpoints({
             },
         }),
 
+        getEnrolledCourseById: builder.query({
+            query: (id) => {
+                const storedToken = localStorage.getItem('edu-care-access-token');
+                return {
+                    url: `/enrolledClasses/${id}`,
+                    method: 'GET',
+                    headers: {
+                        Authorization: `Bearer ${storedToken}`,
+                    },
+                };
+            },
+        }),
+
     }),
 });
 
@@ -51,4 +64,5 @@ export const {
     useAddPaymentIntentMutation,
     useAddPaymentsMutation,
     useGetEnrolledCourseQuery,
+    useGetEnrolledCourseByIdQuery,
 } = paymentSlice;

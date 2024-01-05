@@ -128,7 +128,12 @@ const CheckoutForm = ({ cls, price }) => {
                 transactionId: paymentIntent?.id,
                 date: new Date(),
                 categoryName: cls?.categoryName,
-                categoryId: cls?.categoryId
+                categoryId: cls?.categoryId,
+                videoURL: cls?.videoURL,
+                isCompleted: false,
+                yourRatting: 0.0,
+                rating: cls?.rating,
+                isRated: false
             }
 
             const handleSavePaymentToDB= async(paymentInfo)=>{
