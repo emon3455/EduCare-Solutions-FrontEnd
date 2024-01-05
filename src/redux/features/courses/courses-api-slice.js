@@ -69,7 +69,25 @@ export const courseSlice = apiSlice.injectEndpoints({
             },
         }),
 
-        
+        completeCourse: builder.mutation({
+            query: (data) => {
+                return {
+                    url: '/complete',
+                    method: "PUT",
+                    body: data,
+                };
+            },
+        }),
+
+        rateCourse: builder.mutation({
+            query: (data) => {
+                return {
+                    url: '/rate',
+                    method: "PUT",
+                    body: data,
+                };
+            },
+        }),
 
     }),
 });
@@ -81,5 +99,7 @@ export const {
     useAddCourseMutation,
     useDeleteCourseMutation,
     useUpdateCourseMutation,
-    useGetAllSuggestedCourseQuery
+    useGetAllSuggestedCourseQuery,
+    useCompleteCourseMutation,
+    useRateCourseMutation
 } = courseSlice;

@@ -7,6 +7,8 @@ import { useGetEnrolledCourseByIdQuery } from "../../../../redux/features/paymen
 import Loading from "../../../../utils/CLoading/Loading";
 import ErrorAllert from "../../../../shared/ErrorAllert";
 import { useEffect } from "react";
+import { useCompleteCourseMutation } from "../../../../redux/features/courses/courses-api-slice";
+import Swal from "sweetalert2";
 
 const Play = () => {
   const params = useParams();
@@ -17,11 +19,48 @@ const Play = () => {
     refetch,
   } = useGetEnrolledCourseByIdQuery(params?.id);
 
+  const [
+    completeCourse,
+    {
+      isLoading: completeIsLoading,
+      isSuccess: completeIsSuccess,
+      isError: completeIsError,
+    },
+  ] = useCompleteCourseMutation();
+
   useEffect(() => {
     refetch();
   }, [refetch]);
 
-  const handleComplete = () => {};
+  //showing success message
+  useEffect(() => {
+    if (completeIsSuccess) {
+      Swal.fire("Course Completed Successfully!", "Success!", "success");
+      refetch();
+    }
+  }, [completeIsSuccess, refetch]);
+
+  //showing error message
+  useEffect(() => {
+    if (completeIsError) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Course Not Completed, Please try again...!",
+      });
+    }
+  }, [completeIsError]);
+
+  const handleComplete = async (classes) => {
+    console.log(classes);
+    const data = { id: classes?._id, classId: classes?.classId};
+    try {
+      await completeCourse(data)?.unwrap();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const handleRate = () => {};
 
   if (isLoading) return <Loading />;
@@ -74,17 +113,25 @@ const Play = () => {
                 <p className="mt-2">{classes?.rating}</p>
               </div>
             </div>
-            {
-                classes?.isCompleted
-                ?
-                <CButton variant={"contained"} onClick={handleRate} disabled={classes?.isRated}>
-                    Rate Us
+            <div className="">
+              {classes?.isCompleted ? (
+                <CButton
+                  variant={"contained"}
+                  onClick={handleRate}
+                  disabled={classes?.isRated}
+                >
+                  Rate Us
                 </CButton>
-                :
-                <CButton variant={"contained"} onClick={handleComplete}>
-                    Complete
+              ) : (
+                <CButton
+                  variant={"contained"}
+                  onClick={() => handleComplete(classes)}
+                  loading={completeIsLoading ? true : false}
+                >
+                  Complete
                 </CButton>
-            }
+              )}
+            </div>
           </div>
           <hr />
         </CCard>
