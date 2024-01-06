@@ -107,7 +107,7 @@ const router = createBrowserRouter([
         {
             path: "updateUser/:id",
             element: <PrivateRoutes><UpdateUsers/></PrivateRoutes>,
-            loader: ({params})=> fetch(`https://edu-care-backend.vercel.app/classes/${params.id}`)
+            loader: ({params})=> fetch(`https://edu-care-backend.vercel.app/users/${params.id}`)
         },
         // -----admin routes-----
         {

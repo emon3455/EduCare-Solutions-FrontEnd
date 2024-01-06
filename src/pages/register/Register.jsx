@@ -130,7 +130,6 @@ const Register = () => {
                                     const savedUser = {
                                         name: data.name,
                                         email: data.email,
-                                        role: data.role,
                                         image: imgURL,
                                         number: data.number,
                                         password: data.password,

@@ -53,7 +53,7 @@ const Play = () => {
   //showing complete success message
   useEffect(() => {
     if (completeIsSuccess) {
-      Swal.fire("Course Completed Successfully!", "Success!", "success");
+      Swal.fire("Course Mark As Watched Successfull!", "Success!", "success");
       refetch();
     }
   }, [completeIsSuccess, refetch]);
@@ -175,7 +175,7 @@ const Play = () => {
                   disabled={classes?.isCompleted}
                   loading={completeIsLoading ? true : false}
                 >
-                  Complete
+                  Mark As Wached
                 </CButton>
               )}
             </div>
