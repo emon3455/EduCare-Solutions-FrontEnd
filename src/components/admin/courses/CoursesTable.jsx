@@ -90,7 +90,7 @@ const CoursesTable = ({ data, refetch }) => {
                                 <td>{course?.title}</td>
                                 <td>{course?.categoryName}</td>
                                 <td>{course?.price} BDT</td>
-                                <td>{course?.rating}</td>
+                                <td>{course?.rating.toFixed(2)}</td>
                                 <td className="flex flex-col md:flex-row gap-2 justify-center items-center">
 
                                     <Link to={`/dashboard/updateCourse/${course?._id}`}>

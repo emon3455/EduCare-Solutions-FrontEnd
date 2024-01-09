@@ -3,10 +3,15 @@ import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 import { useGetAllSessionQuery } from "../../redux/features/sessions/session-api-slice";
 import { convertTo12HourFormat } from "../../constant/timeFormater";
 import WarningAllert from "../../shared/WarningAllert";
+import { useEffect } from "react";
 
 const Sessions = () => {
 
-    const { isLoading, data,isError } = useGetAllSessionQuery();
+    const { isLoading, data,isError, refetch } = useGetAllSessionQuery();
+
+    useEffect(()=>{
+        refetch();
+    },[refetch])
 
     if(isError) return <WarningAllert message={'Sessions Not Found..!, Something went Wrong Try Again.'}/>
 

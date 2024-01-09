@@ -25,9 +25,9 @@ const Register = () => {
         number: "",
         password: "",
         gender: genders[0],
-        role: roles[0],
+        roles: roles[0],
         image: "",
-        interst: [skills[1]],
+        interest: [skills[1]],
         skills: [skills[0]],
         educationalQualifications: "",
         address: "",
@@ -103,6 +103,7 @@ const Register = () => {
             setIsLoading(false);
             return;
         }
+        console.log(data);
 
         const formData = new FormData();
         formData.append('image', data.image);
@@ -134,8 +135,8 @@ const Register = () => {
                                         number: data.number,
                                         password: data.password,
                                         gender: data.gender,
-                                        roles: data.role,
-                                        interest: data.interst,
+                                        roles: data.roles,
+                                        interest: data.interest,
                                         skills: data.skills,
                                         educationalQualifications: data.educationalQualifications,
                                         address: data.address,
@@ -371,7 +372,7 @@ const Register = () => {
 
                                 <div className="">
                                     <CSelect
-                                        defaultValue={{ value: data.role, label: data.role }}
+                                        defaultValue={{ value: data.roles, label: data.roles }}
                                         options={roles.map((role) => ({
                                             value: role,
                                             label: role,
@@ -380,7 +381,7 @@ const Register = () => {
                                         className="basic-single"
                                         classNamePrefix="select"
                                         onChange={(selectedOptions) => {
-                                            setData({ ...data, role: selectedOptions.value });
+                                            setData({ ...data, roles: selectedOptions.value });
                                         }}
                                     />
                                 </div>
@@ -388,7 +389,7 @@ const Register = () => {
                                 <div className="">
                                     <CSelect
                                         label="Area Of Interest"
-                                        defaultValue={data?.interst?.map((subject) => ({
+                                        defaultValue={data?.interest?.map((subject) => ({
                                             value: subject,
                                             label: subject,
                                         }))}

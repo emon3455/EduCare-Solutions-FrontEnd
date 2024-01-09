@@ -3,6 +3,7 @@ import CButton from "../../utils/CButton/CButton";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 import { useGetAllBlogQuery } from "../../redux/features/blogs/blog-api-slice";
 import WarningAllert from "../../shared/WarningAllert";
+import { useEffect } from "react";
 
 const Blogs = () => {
 
@@ -11,6 +12,10 @@ const Blogs = () => {
     console.log(blogs);
     console.log(refetch);
     console.log(isError);
+
+    useEffect(()=>{
+        refetch();
+    },[refetch])
 
     if(isError) return <WarningAllert message={'Blogs Not Found..!, Something went Wrong Try Again.'}/>
 

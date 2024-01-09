@@ -3,10 +3,15 @@ import CButton from "../../utils/CButton/CButton";
 import CSkeleton from "../../utils/CSkeleton/CSkeleton";
 import { useGetAllCourseQuery } from "../../redux/features/courses/courses-api-slice";
 import WarningAllert from "../../shared/WarningAllert";
+import { useEffect } from "react";
 
 const Courses = () => {
 
-    const { isLoading, data:courses, isError} = useGetAllCourseQuery();
+    const { isLoading, data:courses, isError, refetch} = useGetAllCourseQuery();
+
+    useEffect(()=>{
+        refetch();
+    },[refetch])
 
     if(isError) return <WarningAllert message={'Courses Not Found..!, Something went Wrong Try Again.'}/>
 
@@ -31,7 +36,7 @@ const Courses = () => {
                             <p className="text-[#6C6B6B]">Instructor: {course?.teacherName}</p>
                             <div className="flex items-center gap-2 mb-4">
                                 <img className="mt-2" src="https://i.ibb.co/NYdVqZt/Group-24.png" alt="" />
-                                <p className="mt-2">{course?.rating}</p>
+                                <p className="mt-2">{course?.rating.toFixed(2)}</p>
                             </div>
                             <Link to={`${course?._id}`}>
                                 <CButton variant={"outline"} fullWidth={true}>View Details</CButton>

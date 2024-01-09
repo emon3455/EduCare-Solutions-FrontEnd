@@ -104,6 +104,10 @@ const Play = () => {
         setError("Rating is required");
         return;
     }
+    if (rating < 0 || rating > 5) {
+        setError("Rating Must Be Within (0-5)");
+        return;
+    }
     const data = {
         id: classes?._id, 
         classId: classes?.classId,
