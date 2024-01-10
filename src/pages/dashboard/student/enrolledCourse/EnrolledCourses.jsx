@@ -41,19 +41,14 @@ const EnrolledCourses = () => {
           ) : courses.length > 0 ? (
             courses.map((course) => (
               <Link key={course?._id} to={`/play/${course?._id}`}>
-                <div className="border border-[#E6E6E6] rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500 h-[400px]">
+                <div className="border border-[#E6E6E6] rounded-lg shadow-lg hover:shadow-2xl transition-all duration-500 h-[300px]">
                   <img
-                    className="w-full md:h-1/2"
+                    className="w-full md:h-2/3"
                     src={course?.bannerURL}
                     alt=""
                   />
-                  <div className="p-5 mt-auto md:h-1/2">
-                    <h3 className="mt-3 font-bold text-xl h-2/3">
-                      {course?.title}
-                    </h3>
-                    <p className="text-[#6C6B6B] h-1/3">
-                      Instructor: {course?.teacherName}
-                    </p>
+                  <div className="p-2">
+                    <h3 className="mt-3 font-bold text-xl">{course?.title}</h3>
                   </div>
                 </div>
               </Link>

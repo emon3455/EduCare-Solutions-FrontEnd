@@ -36,7 +36,7 @@ const Courses = () => {
                             <p className="text-[#6C6B6B]">Instructor: {course?.teacherName}</p>
                             <div className="flex items-center gap-2 mb-4">
                                 <img className="mt-2" src="https://i.ibb.co/NYdVqZt/Group-24.png" alt="" />
-                                <p className="mt-2">{course?.rating.toFixed(2)}</p>
+                                <p className="mt-2">{course?.rating.toFixed(1)}</p>
                             </div>
                             <Link to={`${course?._id}`}>
                                 <CButton variant={"outline"} fullWidth={true}>View Details</CButton>
